@@ -2,9 +2,9 @@ import Link from "next/link";
 import { Scheme } from "@/lib/types";
 
 function readinessMeta(readiness: Scheme["application_readiness"]) {
-  if (readiness === "YES") return { label: "Ready to explore", className: "status-ready" };
-  if (readiness === "CONDITIONAL") return { label: "Check one caution", className: "status-caution" };
-  if (readiness === "NO") return { label: "Research incomplete", className: "status-incomplete" };
+  if (readiness === "YES") return { label: "Reviewed route", className: "status-ready" };
+  if (readiness === "CONDITIONAL") return { label: "Confirmation required", className: "status-caution" };
+  if (readiness === "NO") return { label: "Research in progress", className: "status-incomplete" };
   return { label: "Route to confirm", className: "status-unknown" };
 }
 
@@ -24,7 +24,7 @@ export function SchemeCard({ scheme }: { scheme: Scheme }) {
       <p className="scheme-summary">{scheme.summary || scheme.benefit}</p>
       <div className="scheme-card-bottom">
         <span className="scheme-location"><span aria-hidden="true">⌖</span> {scheme.jurisdiction}</span>
-        <Link className="btn btn-secondary btn-small" href={`/schemes/${encodeURIComponent(scheme.scheme_id)}`}>View details <span aria-hidden="true">→</span></Link>
+        <Link className="btn btn-secondary btn-small" href={`/schemes/${encodeURIComponent(scheme.scheme_id)}`}>View scheme details <span aria-hidden="true">→</span></Link>
       </div>
     </article>
   );

@@ -3,8 +3,8 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Nagrik Path — Government scheme finder",
-  description: "Browse government schemes and understand which conditions to check before applying.",
+  title: "Nagrik Path — Citizen Scheme Information Portal",
+  description: "A structured information and pre-screening portal for government schemes.",
 };
 
 function Mark() {
@@ -19,20 +19,20 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <header className="site-header">
             <Link className="brand" href="/">
               <Mark />
-              <span>Nagrik Path<small>scheme finder</small></span>
+              <span>Nagrik Path<small>citizen scheme information portal</small></span>
             </Link>
             <nav className="nav desktop-nav" aria-label="Primary navigation">
-              <Link className="nav-link" href="/schemes">Browse schemes</Link>
-              <Link className="nav-link" href="/profile">My profile</Link>
-              <Link className="nav-link nav-cta" href="/results">See my matches <span aria-hidden="true">↗</span></Link>
+              <Link className="nav-link" href="/schemes">Scheme catalogue</Link>
+              <Link className="nav-link" href="/profile">Eligibility profile</Link>
+              <Link className="nav-link nav-cta" href="/results">View assessment <span aria-hidden="true">↗</span></Link>
             </nav>
             <Link className="mobile-nav" href="/profile" aria-label="Open profile">Profile <span aria-hidden="true">→</span></Link>
           </header>
           {children}
           <footer className="footer">
             <div className="page-wrap footer-inner">
-              <p>© 2026 Nagrik Path · A pre-screening guide, not an approval decision.</p>
-              <p>Profile answers stay in this browser until you choose to run a check.</p>
+              <p>© 2026 Nagrik Path · Citizen Scheme Information Portal</p>
+              <p>Information support only. Final eligibility is decided by the implementing department.</p>
             </div>
           </footer>
         </div>
