@@ -17,6 +17,8 @@ export default function SchemeDetail({ id }: { id: string }) {
       <div className="page-wrap page-intro"><Link href="/schemes" className="eyebrow">← Back to catalogue</Link><h1>{scheme.name}</h1><p>{scheme.summary || scheme.benefit}</p><div className="detail-meta"><SchemeStatus readiness={scheme.application_readiness} /><span className="meta-pill">{scheme.jurisdiction}</span><span className="meta-pill">{scheme.category}</span>{scheme.last_checked && <span className="meta-pill">Checked {formatDate(scheme.last_checked)}</span>}</div></div>
       <div className="page-wrap detail-layout">
         <div className="detail-main">
+          <SourceCard scheme={scheme} />
+
           <DetailCard title="What you could receive"><p>{scheme.benefit || "Benefit details are being confirmed with the administering department."}</p></DetailCard>
           <DetailCard title="Who should look at this"><p>{scheme.eligibility_text || "Eligibility information has not yet been structured for this record."}</p>{scheme.exclusions_text && <><h3 style={{ marginTop: 22 }}>Common exclusions</h3><p>{scheme.exclusions_text}</p></>}</DetailCard>
           <DetailCard title="What to keep ready"><p>{scheme.documents_text || "Check the official route for the current document list."}</p></DetailCard>
@@ -32,6 +34,11 @@ export default function SchemeDetail({ id }: { id: string }) {
       </div>
     </main>
   );
+}
+
+function SourceCard({ scheme }: { scheme: Scheme }) {
+  const primaryUrl = scheme.source_urls[0];
+  return <section className="detail-card source-card" aria-label="Source and verification"><div className="source-card-head"><div><span className="eyebrow">Source and verification</span><h2>Official reference</h2></div><span className="source-badge">{scheme.source_authority || "Government source"}</span></div><p>This record is based on the official reference below. Confirm the latest notification, document requirements and application status before submitting.</p>{primaryUrl ? <a className="source-primary-link" href={primaryUrl} target="_blank" rel="noreferrer">Open official source <span aria-hidden="true">↗</span></a> : <p className="source-missing">Official source link is still being verified.</p>}{scheme.last_checked && <p className="source-checked">Last checked: {formatDate(scheme.last_checked)}</p>}</section>;
 }
 
 function DetailCard({ title, children }: { title: string; children: React.ReactNode }) { return <section className="detail-card"><h2>{title}</h2>{children}</section>; }

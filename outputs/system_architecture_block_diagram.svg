@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nagrik Path government scheme eligibility prototype architecture</title>
+  <desc id="desc">Block diagram showing the user browser, Next.js frontend, FastAPI backend, deterministic eligibility engine, scheme catalogue, and workbook import pipeline.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7faf8"/>
+      <stop offset="1" stop-color="#edf5f1"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#17372f" flood-opacity=".10"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#1d6b58"/>
+    </marker>
+    <marker id="arrowMuted" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#6d8279"/>
+    </marker>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #17372f; }
+      .subtitle { font: 400 16px Arial, sans-serif; fill: #60746b; }
+      .section { font: 700 12px Arial, sans-serif; letter-spacing: 2px; fill: #1d6b58; }
+      .box-title { font: 700 21px Arial, sans-serif; fill: #17372f; }
+      .box-body { font: 400 15px Arial, sans-serif; fill: #546a61; }
+      .box-note { font: 700 13px Arial, sans-serif; fill: #1d6b58; }
+      .small { font: 400 13px Arial, sans-serif; fill: #60746b; }
+      .white { fill: #ffffff; stroke: #d4e3dc; stroke-width: 2; }
+      .green { fill: #e2f2ea; stroke: #9ecdb8; stroke-width: 2; }
+      .blue { fill: #edf4fb; stroke: #b9d0e8; stroke-width: 2; }
+      .gold { fill: #fff5e2; stroke: #e9cb8e; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <text x="80" y="72" class="title">Basic System Architecture</text>
+  <text x="80" y="105" class="subtitle">Government scheme information and preliminary eligibility prototype</text>
+
+  <text x="80" y="160" class="section">USER INTERACTION</text>
+  <rect x="80" y="180" width="1440" height="115" rx="18" class="white" filter="url(#shadow)"/>
+  <rect x="110" y="207" width="300" height="62" rx="12" class="green"/>
+  <text x="135" y="235" class="box-title">Citizen browser</text>
+  <text x="135" y="258" class="box-body">Browse · profile · assessment</text>
+  <path d="M430 238 H510" stroke="#1d6b58" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <text x="444" y="224" class="small">HTTPS / JSON</text>
+  <rect x="535" y="207" width="930" height="62" rx="12" class="white"/>
+  <text x="565" y="235" class="box-title">Next.js presentation layer</text>
+  <text x="565" y="258" class="box-body">Catalogue search and filters · scheme details · local profile storage · results view</text>
+
+  <text x="80" y="350" class="section">APPLICATION SERVICES</text>
+  <rect x="80" y="370" width="1440" height="150" rx="18" class="white" filter="url(#shadow)"/>
+  <rect x="110" y="402" width="340" height="86" rx="12" class="blue"/>
+  <text x="135" y="435" class="box-title">FastAPI backend</text>
+  <text x="135" y="460" class="box-body">Versioned REST endpoints</text>
+  <text x="135" y="480" class="box-note">/schemes · /profile/schema · /eligibility/check</text>
+  <path d="M470 445 H550" stroke="#1d6b58" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <rect x="575" y="402" width="405" height="86" rx="12" class="green"/>
+  <text x="600" y="435" class="box-title">Profile validation</text>
+  <text x="600" y="460" class="box-body">Pydantic schema checks</text>
+  <text x="600" y="480" class="box-note">Normalised applicant profile</text>
+  <path d="M1000 445 H1080" stroke="#1d6b58" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <rect x="1105" y="402" width="385" height="86" rx="12" class="green"/>
+  <text x="1130" y="435" class="box-title">Eligibility API</text>
+  <text x="1130" y="460" class="box-body">Pre-screening response</text>
+  <text x="1130" y="480" class="box-note">Pass · fail · unknown · explanation</text>
+
+  <text x="80" y="575" class="section">DECISION AND DATA LAYER</text>
+  <rect x="80" y="595" width="680" height="170" rx="18" class="green" filter="url(#shadow)"/>
+  <text x="115" y="635" class="box-title">Deterministic eligibility engine</text>
+  <text x="115" y="665" class="box-body">Evaluates reviewed machine-readable rules</text>
+  <text x="115" y="694" class="box-body">against the applicant profile.</text>
+  <rect x="115" y="715" width="155" height="28" rx="6" fill="#cbe9d9"/>
+  <text x="137" y="735" class="small">PASS</text>
+  <rect x="285" y="715" width="155" height="28" rx="6" fill="#f7d7d1"/>
+  <text x="307" y="735" class="small">FAIL</text>
+  <rect x="455" y="715" width="155" height="28" rx="6" fill="#fff0cf"/>
+  <text x="477" y="735" class="small">UNKNOWN</text>
+  <path d="M780 680 H850" stroke="#1d6b58" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <rect x="875" y="595" width="645" height="170" rx="18" class="white" filter="url(#shadow)"/>
+  <text x="910" y="635" class="box-title">Reviewed scheme catalogue</text>
+  <text x="910" y="665" class="box-body">75 researched records with benefits, eligibility,</text>
+  <text x="910" y="690" class="box-body">documents, sources and application routes.</text>
+  <text x="910" y="728" class="box-note">28 reviewed routes · remaining records marked for confirmation</text>
+
+  <text x="80" y="820" class="section">RESEARCH / IMPORT PIPELINE</text>
+  <rect x="80" y="835" width="1440" height="45" rx="12" class="gold"/>
+  <text x="110" y="864" class="box-body">Research workbook / source register</text>
+  <path d="M440 858 H535" stroke="#6d8279" stroke-width="2.5" fill="none" marker-end="url(#arrowMuted)"/>
+  <text x="465" y="848" class="small">validate</text>
+  <text x="565" y="864" class="box-body">normalised JSON seed</text>
+  <path d="M800 858 H895" stroke="#6d8279" stroke-width="2.5" fill="none" marker-end="url(#arrowMuted)"/>
+  <text x="818" y="848" class="small">import</text>
+  <text x="930" y="864" class="box-body">catalogue and rule updates</text>
+
+  <path d="M1270 520 V580" stroke="#1d6b58" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <text x="1290" y="557" class="small">evaluate</text>
+</svg>

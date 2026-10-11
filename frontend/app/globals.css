@@ -128,6 +128,14 @@ button { cursor: pointer; }
 .source-list li + li { margin-top: 8px; }
 .source-list a { color: var(--blue); font-size: 12px; line-height: 1.45; overflow-wrap: anywhere; }
 .source-list a:hover { text-decoration: underline; }
+.source-card { border-color: #c5ddd2; background: #fbfefc; }
+.source-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.source-card-head h2 { margin-top: 5px; margin-bottom: 0; }
+.source-badge { max-width: 230px; padding: 7px 10px; border: 1px solid #c5ddd2; border-radius: 6px; color: var(--brand-dark); background: var(--mint); font-size: 11px; font-weight: 700; line-height: 1.35; text-align: right; }
+.source-primary-link { display: inline-flex; align-items: center; gap: 7px; color: var(--blue); font-size: 13px; font-weight: 700; }
+.source-primary-link:hover { text-decoration: underline; }
+.source-missing, .source-checked { color: var(--muted); font-size: 11px !important; }
+.source-checked { margin-top: 12px !important; }
 .caution { border-color: #f0d29b; background: var(--sun-soft); }
 .caution p { color: #755621; }
 
