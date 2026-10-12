@@ -3,7 +3,7 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Nagrik Path — Citizen Scheme Information Portal",
+  title: "Yojna Connect — Citizen Scheme Information Portal",
   description: "A structured information and pre-screening portal for government schemes.",
 };
 
@@ -19,7 +19,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <header className="site-header">
             <Link className="brand" href="/">
               <Mark />
-              <span>Nagrik Path<small>citizen scheme information portal</small></span>
+              <span>Yojna Connect<small>citizen scheme information portal</small></span>
             </Link>
             <nav className="nav desktop-nav" aria-label="Primary navigation">
               <Link className="nav-link" href="/schemes">Scheme catalogue</Link>
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
           <footer className="footer">
             <div className="page-wrap footer-inner">
-              <p>© 2026 Nagrik Path · Citizen Scheme Information Portal</p>
+              <p>© 2026 Yojna Connect · Citizen Scheme Information Portal</p>
               <p>Information support only. Final eligibility is decided by the implementing department.</p>
             </div>
           </footer>

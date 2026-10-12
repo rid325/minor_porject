@@ -14,7 +14,7 @@ from .api.routes import router
 
 
 app = FastAPI(
-    title="Scheme Seva Prototype API",
+    title="Yojna Connect API",
     version="0.1.0",
     description=(
         "Browse the researched government scheme catalogue and run a deterministic "
