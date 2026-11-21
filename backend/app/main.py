@@ -10,6 +10,8 @@ or from ``backend/`` with ``uvicorn app.main:app --reload``.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from . import config as _config
+from .api.auth_routes import router as auth_router
 from .api.routes import router
 
 
@@ -35,3 +37,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(router, prefix="/api/v1")
+app.include_router(auth_router, prefix="/api/v1")

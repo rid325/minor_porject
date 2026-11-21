@@ -28,7 +28,7 @@ from typing import Any, Iterable
 from xml.etree import ElementTree as ET
 
 
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "1.1"
 SHEET_NAME = "Scheme Data"
 EXPECTED_HEADERS = (
     "scheme_id",
@@ -60,6 +60,24 @@ EXPECTED_HEADERS = (
 )
 
 EXPECTED_READINESS_COUNTS = {"YES": 28, "CONDITIONAL": 24, "NO": 23}
+SUPPORTING_HEADERS = {
+    "Application Guide": (
+        "scheme_name", "who_should_try", "benefit", "documents_to_prepare",
+        "where_to_apply", "application_walkthrough", "timing_and_tracking",
+        "important_caution",
+    ),
+    "Ready to Apply": (
+        "scheme_name", "jurisdiction", "category", "benefit", "eligibility",
+        "documents", "where_to_apply", "next_steps_and_tracking", "official_source",
+        "last_checked",
+    ),
+    "Resolution Queue": (
+        "scheme_name", "jurisdiction", "status", "source_risk", "unresolved_issue",
+        "required_resolution", "application_channel", "primary_source", "last_checked",
+    ),
+    "Category Coverage": ("Category", "Scheme count", "What the register covers"),
+    "Field Guide": ("Field", "Purpose", "Completion rule"),
+}
 _MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 _REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 _PACKAGE_REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
@@ -164,9 +182,11 @@ def _cell_value(cell: ET.Element, shared_strings: list[str]) -> str:
     return raw_value
 
 
-def _read_scheme_rows(workbook_path: Path) -> list[dict[str, str]]:
+def _read_sheet_rows(
+    workbook_path: Path, sheet_name: str, expected_headers: tuple[str, ...]
+) -> list[dict[str, str]]:
     with zipfile.ZipFile(workbook_path) as archive:
-        worksheet = _worksheet_path(archive, SHEET_NAME)
+        worksheet = _worksheet_path(archive, sheet_name)
         root = ET.fromstring(archive.read(worksheet))
         shared_strings = _read_shared_strings(archive)
 
@@ -186,14 +206,14 @@ def _read_scheme_rows(workbook_path: Path) -> list[dict[str, str]]:
         rows[row_number] = values
 
     if not rows:
-        raise ValueError(f"Worksheet {SHEET_NAME!r} contains no rows")
+        raise ValueError(f"Worksheet {sheet_name!r} contains no rows")
     header_row_number = min(rows)
     header_values = rows[header_row_number]
     headers = [header_values.get(index, "") for index in range(max(header_values) + 1)]
-    if tuple(headers) != EXPECTED_HEADERS:
+    if tuple(headers) != expected_headers:
         raise ValueError(
-            "Unexpected Scheme Data headers. "
-            f"Expected {list(EXPECTED_HEADERS)!r}, got {headers!r}"
+            f"Unexpected {sheet_name} headers. "
+            f"Expected {list(expected_headers)!r}, got {headers!r}"
         )
 
     parsed: list[dict[str, str]] = []
@@ -205,11 +225,15 @@ def _read_scheme_rows(workbook_path: Path) -> list[dict[str, str]]:
             continue
         record = {
             header: values.get(index, "")
-            for index, header in enumerate(EXPECTED_HEADERS)
+            for index, header in enumerate(expected_headers)
         }
         record["_source_row"] = str(row_number)
         parsed.append(record)
     return parsed
+
+
+def _read_scheme_rows(workbook_path: Path) -> list[dict[str, str]]:
+    return _read_sheet_rows(workbook_path, SHEET_NAME, EXPECTED_HEADERS)
 
 
 def _excel_serial_to_date(value: str) -> str:
@@ -301,12 +325,45 @@ def _normalized_record(raw: dict[str, str]) -> dict[str, Any]:
 
 
 def build_seed(workbook_path: str | Path) -> dict[str, Any]:
-    """Read ``Scheme Data`` and return the normalized, JSON-serializable seed."""
+    """Read the canonical sheet and linked guide/queue data into normalized records."""
 
     source_path = Path(workbook_path)
     raw_records = _read_scheme_rows(source_path)
     records = [_normalized_record(raw) for raw in raw_records]
+
+    supporting_rows = {
+        sheet_name: _read_sheet_rows(source_path, sheet_name, headers)
+        for sheet_name, headers in SUPPORTING_HEADERS.items()
+    }
+    scheme_names = {record["scheme_name"] for record in records}
+    guide_rows = {row["scheme_name"]: row for row in supporting_rows["Application Guide"]}
+    ready_rows = {row["scheme_name"]: row for row in supporting_rows["Ready to Apply"]}
+    resolution_rows = {row["scheme_name"]: row for row in supporting_rows["Resolution Queue"]}
+    if set(guide_rows) != scheme_names:
+        raise ValueError("Application Guide names do not match the canonical Scheme Data sheet")
+    for record in records:
+        name = record["scheme_name"]
+        record["application_guide"] = {
+            key: value
+            for key, value in guide_rows[name].items()
+            if key != "_source_row"
+        }
+        record["ready_to_apply_snapshot"] = ready_rows.get(name)
+        record["resolution_snapshot"] = resolution_rows.get(name)
+        for snapshot_key in ("ready_to_apply_snapshot", "resolution_snapshot"):
+            snapshot = record[snapshot_key]
+            if snapshot and snapshot.get("last_checked"):
+                snapshot["last_checked"] = _excel_serial_to_date(snapshot["last_checked"])
+
     readiness_counts = Counter(record["application_readiness"] for record in records)
+    category_coverage = [
+        {key: value for key, value in row.items() if key != "_source_row"}
+        for row in supporting_rows["Category Coverage"]
+    ]
+    field_guide = [
+        {key: value for key, value in row.items() if key != "_source_row"}
+        for row in supporting_rows["Field Guide"]
+    ]
     return {
         "schema_version": SCHEMA_VERSION,
         "source": {
@@ -319,6 +376,12 @@ def build_seed(workbook_path: str | Path) -> dict[str, Any]:
                 status: readiness_counts.get(status, 0)
                 for status in ("YES", "CONDITIONAL", "NO")
             },
+            "supporting_sheet_counts": {
+                sheet_name: len(rows)
+                for sheet_name, rows in supporting_rows.items()
+            },
+            "category_coverage": category_coverage,
+            "field_guide": field_guide,
         },
         "schemes": records,
     }

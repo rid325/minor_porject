@@ -17,6 +17,8 @@ from pathlib import Path
 from typing import Iterable
 from xml.etree import ElementTree as ET
 
+from pymongo.errors import PyMongoError
+
 from ..models.domain import ApplicationReadiness, SchemeRecord
 
 
@@ -171,6 +173,9 @@ def row_to_scheme(row: dict[str, str]) -> SchemeRecord:
         next_review_action=_clean(row.get("next_review_action")),
         application_ready=_readiness(row.get("application_ready")),
         last_checked=_clean(row.get("last_checked")),
+        application_guide=row.get("application_guide") or None,
+        ready_to_apply_snapshot=row.get("ready_to_apply_snapshot") or None,
+        resolution_snapshot=row.get("resolution_snapshot") or None,
     )
 
 
@@ -197,6 +202,39 @@ class SchemeRepository:
         self.reload()
 
     def reload(self) -> None:
+        try:
+            from .auth_service import AuthNotConfigured, get_database
+
+            database = get_database()
+            mongo_rows = list(database.schemes.find({}, {"_id": 0}))
+        except (AuthNotConfigured, PyMongoError):
+            mongo_rows = []
+            database = None
+        if mongo_rows:
+            def preserve_nested(value):
+                if isinstance(value, dict):
+                    return {key: preserve_nested(item) for key, item in value.items()}
+                if isinstance(value, list):
+                    return [preserve_nested(item) for item in value]
+                if hasattr(value, "isoformat"):
+                    return value.isoformat()
+                return str(value) if value is not None else ""
+
+            rows = [
+                {
+                    key: preserve_nested(value)
+                    for key, value in record.items()
+                }
+                for record in mongo_rows
+            ]
+            self.data_source = f"mongodb:{database.name}.schemes"
+            self._schemes = {
+                scheme.scheme_id: scheme
+                for row in rows
+                if (scheme := row_to_scheme(row)).scheme_id
+            }
+            return
+
         try:
             rows = _read_xlsx_sheet(self.workbook_path, "Scheme Data")
         except (FileNotFoundError, OSError, zipfile.BadZipFile):

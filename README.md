@@ -8,9 +8,10 @@ It includes:
 - A catalogue of all 75 researched schemes.
 - Search and filters by location, category, and application-readiness status.
 - Scheme detail pages with benefits, eligibility text, documents, application routes, sources, and cautions.
-- A multi-section profile form stored locally in the browser.
+- A multi-section profile form saved to a signed-in user's MongoDB account and
+  kept in local browser storage for the offline preview.
 - Deterministic eligibility results grouped into likely eligible, needs more information, likely not eligible, and information only.
-- Reviewed rule coverage for a representative 15-scheme pilot. Other schemes remain visible but are marked information only until their criteria are reviewed and encoded.
+- Reviewed deterministic rule coverage for a limited pilot. Other schemes remain visible but are marked information only until their criteria are reviewed and encoded.
 
 ## Start the backend
 
@@ -41,23 +42,28 @@ The frontend works with the FastAPI API when it is running. If the API is not
 available, it uses the checked-in local catalogue and a clearly simplified
 offline eligibility preview so the UI can still be demonstrated.
 
+Email/password signup and login are available at `/signup` and `/login`. They
+use MongoDB Atlas for account, session and saved profile records. Configure `backend/.env`
+from `backend/.env.example` before using those flows; the public scheme
+catalogue remains available without signing in.
+
 If the backend is running on another port, create `frontend/.env.local`:
 
 ```bash
 NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8002
 ```
 
-## Verify the scheme data
+## Import the scheme register
 
 From the repository root:
 
 ```bash
-backend/.venv/bin/python backend/scripts/import_scheme_workbook.py --check
-backend/.venv/bin/pytest -q
+python backend/scripts/import_scheme_workbook_to_mongo.py --workbook "D:/path/to/scheme_research_register.xlsx"
 ```
 
-The importer validates 75 unique scheme IDs and the expected readiness totals:
-28 `YES`, 24 `CONDITIONAL`, and 23 `NO`.
+The importer upserts 75 unique scheme IDs, preserving the readiness totals of
+28 `YES`, 24 `CONDITIONAL`, and 23 `NO`. Matching records are updated; other
+records are not deleted.
 
 ## Main routes
 

@@ -1,21 +1,51 @@
 # Scheme Seva prototype API
 
-This is the first backend slice for the government scheme eligibility
-prototype. It is intentionally small and uses an in-memory repository loaded
-from the canonical workbook at:
+This is the backend for the government scheme eligibility prototype. When
+MongoDB is configured, `SchemeRepository` loads scheme documents from the
+`schemes` collection. Without MongoDB, it falls back to the canonical workbook
+or checked-in JSON seed.
 
-`outputs/scheme_research_register.xlsx`
+The importer `backend/scripts/import_scheme_workbook.py` generates the local
+normalized seed. `backend/scripts/import_scheme_workbook_to_mongo.py` upserts
+the canonical 75 schemes and their linked application-guide, ready-to-apply,
+resolution, source, document, and application-route data into Atlas. It also
+stores register metrics, category coverage, and the workbook field guide in
+`register_metadata`. The importer updates matching scheme IDs and does not
+delete other records.
 
-The repeatable, dependency-free importer at
-`backend/scripts/import_scheme_workbook.py` generates the normalized seed at
-`backend/data/schemes.seed.json`. Run
-`python3 backend/scripts/import_scheme_workbook.py --check` after changing the
-workbook to verify all 75 IDs and the 28/24/23 readiness split. The current API
-repository remains workbook-backed; the seed is ready for a later database or
-packaged-data loader.
+Profiles and sessions are stored separately from the scheme repository. A later
+phase can replace `SchemeRepository` with PostgreSQL without changing the HTTP
+contract.
 
-No profile data is written to the repository or a database. A later phase can
-replace `SchemeRepository` with PostgreSQL without changing the HTTP contract.
+Email/password accounts and seven-day browser sessions use MongoDB Atlas.
+Applicant questionnaire answers are saved per account in the `profiles`
+collection and can be edited from the profile page. The API only returns a
+profile to the account that owns it. Profiles are separate from scheme records.
+
+### Configure MongoDB Atlas authentication
+
+1. Create an Atlas cluster and a database user with access to the application
+   database. In Network Access, allow the backend host's IP address.
+2. Copy `backend/.env.example` to `backend/.env` and set `MONGODB_URI` to the
+   Atlas connection string. Keep the `.env` file private; it is ignored by Git.
+3. Set `MONGODB_DATABASE` if you want a database name other than
+   `yojna_connect`.
+4. Start the API. `GET /api/v1/health` reports `database_status` as
+   `connected`, `unavailable`, or `not_configured`.
+5. Import or refresh the workbook data with
+   `python backend/scripts/import_scheme_workbook_to_mongo.py`. The default
+   workbook path comes from `SCHEME_WORKBOOK_PATH`; pass `--workbook` to select
+   another file.
+
+Authentication endpoints are `POST /api/v1/auth/signup`,
+`POST /api/v1/auth/login`, `GET /api/v1/auth/me`, and
+`POST /api/v1/auth/logout`. Signed-in profile endpoints are
+`GET /api/v1/auth/profile` and `PUT /api/v1/auth/profile`. Signup collects
+only email and password. Passwords
+are stored as scrypt hashes; random session tokens are stored only as hashes
+and returned to the browser in an HTTP-only cookie. Signed-in users can change
+their password through `POST /api/v1/auth/change-password`. Local development uses
+`AUTH_COOKIE_SECURE=false`; set it to `true` when serving over HTTPS.
 
 ## Run locally
 
@@ -33,11 +63,10 @@ From the repository root, the equivalent command is
 The API is then available at `http://127.0.0.1:8000`; interactive docs are at
 `/docs`.
 
-If the workbook is mounted somewhere else, set `SCHEME_WORKBOOK_PATH` to its
-absolute path before starting the server. Without the workbook the API still
-boots from `backend/data/schemes.seed.json` when that checked-in seed is
-available. If neither catalogue artifact is present, it uses an empty fallback
-so health and deployment diagnostics remain available.
+If MongoDB is unavailable, the API tries the workbook at `SCHEME_WORKBOOK_PATH`
+and then `backend/data/schemes.seed.json`. If neither catalogue source is
+available, it uses an empty fallback so health and deployment diagnostics
+remain available.
 
 ## Endpoints
 
@@ -46,6 +75,10 @@ so health and deployment diagnostics remain available.
 - `GET /api/v1/schemes/{scheme_id}`
 - `GET /api/v1/profile/schema`
 - `POST /api/v1/eligibility/check`
+- `POST /api/v1/auth/signup`
+- `POST /api/v1/auth/login`
+- `GET /api/v1/auth/me`
+- `POST /api/v1/auth/logout`
 
 The eligibility endpoint accepts the preferred body shape
 `{"profile": { ... }}` and also accepts profile sections directly at the top

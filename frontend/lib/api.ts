@@ -60,6 +60,9 @@ export function normalizeScheme(value: unknown): Scheme {
     eligibility_unresolved: text(raw.eligibility_unresolved),
     exclusions_text: text(raw.exclusions_text),
     target_group: text(raw.target_group ?? raw.who_should_try),
+    application_guide: raw.application_guide && typeof raw.application_guide === "object"
+      ? raw.application_guide as Scheme["application_guide"]
+      : undefined,
   };
 }
 
@@ -153,9 +156,20 @@ function normalizeEligibilityResponse(value: unknown): EligibilityResponse {
     results: rows.map((item) => {
       const row = item as Record<string, unknown>;
       const scheme = normalizeScheme(row.scheme ?? row);
-      const result = normalizeResult(row.result ?? row.status ?? row.bucket);
+      const result = normalizeResult(row.result ?? row.category ?? row.display_label ?? row.status ?? row.bucket);
+      const passed = normalizeReasons(row.passed);
+      const failed = normalizeReasons(row.failed);
+      const unknown = normalizeReasons(row.unknown ?? row.missing);
+      const externalChecks = normalizeReasons(row.external_checks);
       const reasons = normalizeReasons(row.reasons ?? row.explanations ?? row.conditions);
-      return { scheme, result, reasons, passed: normalizeReasons(row.passed), failed: normalizeReasons(row.failed), unknown: normalizeReasons(row.unknown), external_checks: normalizeReasons(row.external_checks) };
+      const totalConditions = passed.length + failed.length + unknown.length;
+      return {
+        scheme, result,
+        reasons: reasons.length ? reasons : [...passed, ...failed, ...unknown, ...externalChecks],
+        passed, failed, unknown, external_checks: externalChecks,
+        matched_conditions: passed.length,
+        total_conditions: totalConditions,
+      };
     }),
     profile_version: text(raw.profile_version),
     rule_set_version: text(raw.rule_set_version),
@@ -167,7 +181,8 @@ function normalizeResult(value: unknown): EligibilityResult["result"] {
   const normalized = text(value).toLowerCase().replace(/[ -]/g, "_");
   if (normalized.includes("eligible") && !normalized.includes("not")) return "likely_eligible";
   if (normalized.includes("not_eligible") || normalized.includes("ineligible")) return "likely_not_eligible";
-  if (normalized.includes("information_only") || normalized.includes("information")) return "information_only";
+  if (normalized.includes("needs_more_information") || normalized.includes("needs_information")) return "needs_information";
+  if (normalized.includes("information_only") || normalized === "information") return "information_only";
   return "needs_information";
 }
 
@@ -176,7 +191,7 @@ function normalizeReasons(value: unknown): EligibilityResult["reasons"] {
   return value.map((reason) => {
     if (typeof reason === "string") return { message: reason };
     const row = (reason || {}) as Record<string, unknown>;
-    return { label: text(row.label ?? row.field), message: text(row.message ?? row.reason ?? row.explanation, "Review this condition."), status: text(row.status) as EligibilityResult["reasons"][number]["status"], source_url: text(row.source_url) || undefined };
+    return { label: text(row.label ?? row.field ?? row.rule_id), message: text(row.message ?? row.reason ?? row.explanation ?? row.description ?? row.missing_reason ?? row.failure_reason, "Review this condition."), status: text(row.status).toUpperCase() as EligibilityResult["reasons"][number]["status"], source_url: text(row.source_url) || undefined };
   });
 }
 
@@ -213,7 +228,9 @@ function localEligibility(profile: Profile, schemes: Scheme[]): EligibilityRespo
     if (textCorpus.includes("widow") && profile.personal.marital_status && profile.personal.marital_status !== "widowed") { result = "likely_not_eligible"; allReasons.push({ message: "This scheme is for widows; your marital-status answer does not match.", status: "FAIL" }); }
     if (age !== null && textCorpus.includes("18") && age < 18) { result = "likely_not_eligible"; allReasons.push({ message: "The listed minimum age is 18.", status: "FAIL" }); }
     if (income > 0 && textCorpus.includes("3 lakh") && income > 300000) { result = "likely_not_eligible"; allReasons.push({ message: "The listed family-income ceiling is INR 3 lakh per year.", status: "FAIL" }); }
-    return { scheme, result, reasons: allReasons };
+    const passed = allReasons.filter((reason) => reason.status === "PASS");
+    const checked = allReasons.filter((reason) => reason.status === "PASS" || reason.status === "FAIL" || reason.status === "UNKNOWN");
+    return { scheme, result, reasons: allReasons, passed, matched_conditions: passed.length, total_conditions: checked.length };
   });
   return { results, profile_version: "local-preview", rule_set_version: "mock-v1", generated_at: new Date().toISOString() };
 }

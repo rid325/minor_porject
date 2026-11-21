@@ -51,6 +51,16 @@ class SchemeSummaryResponse(BaseModel):
     research_status: str | None = None
 
 
+class ApplicationGuideResponse(BaseModel):
+    who_should_try: str | None = None
+    benefit: str | None = None
+    documents_to_prepare: str | None = None
+    where_to_apply: str | None = None
+    application_walkthrough: str | None = None
+    timing_and_tracking: str | None = None
+    important_caution: str | None = None
+
+
 class SchemeDetailResponse(SchemeSummaryResponse):
     record_type: str | None = None
     administering_authority: str | None = None
@@ -67,6 +77,7 @@ class SchemeDetailResponse(SchemeSummaryResponse):
     source_risk: str | None = None
     next_review_action: str | None = None
     discovered_on: str | None = None
+    application_guide: ApplicationGuideResponse | None = None
     sources: list[SourceResponse] = Field(default_factory=list)
     rule_coverage: RuleCoverageResponse
 
@@ -141,3 +152,35 @@ class HealthResponse(BaseModel):
     data_source: str
     rules_version: str
     checked_at: datetime
+    database_status: str = "not_configured"
+
+
+class AuthCredentialsRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    email: str = Field(min_length=3, max_length=254)
+    password: str = Field(min_length=8, max_length=128)
+
+
+class AuthUserResponse(BaseModel):
+    email: str
+    created_at: datetime
+
+
+class AuthStatusResponse(BaseModel):
+    authenticated: bool
+    user: AuthUserResponse | None = None
+
+
+class AccountProfileResponse(BaseModel):
+    profile: dict[str, Any] | None = None
+    updated_at: datetime | None = None
+
+
+class AccountProfileSaveRequest(BaseModel):
+    profile: dict[str, Any]
+
+
+class ChangePasswordRequest(BaseModel):
+    current_password: str = Field(min_length=1, max_length=128)
+    new_password: str = Field(min_length=8, max_length=128)

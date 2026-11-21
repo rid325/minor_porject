@@ -2,15 +2,26 @@ import { Profile } from "./types";
 
 export const PROFILE_STORAGE_KEY = "scheme-finder-profile-v1";
 export const RESULTS_STORAGE_KEY = "scheme-finder-results-v1";
+export const PROFILE_OWNER_KEY = "scheme-finder-profile-owner-v1";
+
+export function clearLocalProfileData(onlyIfAccountOwned = false) {
+  try {
+    if (onlyIfAccountOwned && !window.localStorage.getItem(PROFILE_OWNER_KEY)) return;
+    window.localStorage.removeItem(PROFILE_STORAGE_KEY);
+    window.localStorage.removeItem(RESULTS_STORAGE_KEY);
+    window.localStorage.removeItem(PROFILE_OWNER_KEY);
+  } catch { /* Storage can be unavailable in private browser modes. */ }
+}
 
 export const emptyProfile = (): Profile => ({
+  scheme_answers: {},
   location: { state: "", district: "", residence_type: "", domicile: "" },
   personal: { date_of_birth: "", gender: "", marital_status: "", disability_status: "", disability_percentage: "" },
-  household: { size: "", applicant_income: "", family_income: "", income_period: "", bpl_status: "", ration_card: "", ppp_status: "" },
+  household: { size: "", applicant_income: "", family_income: "", income_period: "", bpl_status: "", ration_card: "", ppp_status: "", has_lpg_connection: "" },
   education: { student_status: "", study_level: "", institution_type: "" },
   employment: { employment_status: "", occupation: "", worker_registration: "", enterprise_status: "" },
-  agriculture: { farmer_status: "", landholding_status: "", cultivable_land: "" },
-  social: { social_category: "", existing_benefit: "", required_registration: "" },
+  agriculture: { farmer_status: "", landholding_status: "", cultivable_land: "", insurable_crop_interest: "", crop_notified: "" },
+  social: { social_category: "", existing_benefit: "", required_registration: "", has_savings_bank_account: "", residential_electricity_connection: "", electricity_consumer_type: "" },
 });
 
 export function mergeProfile(value: unknown): Profile {
@@ -20,6 +31,7 @@ export function mergeProfile(value: unknown): Profile {
   return {
     ...blank,
     ...input,
+    scheme_answers: isRecord(input.scheme_answers) ? input.scheme_answers as unknown as Profile["scheme_answers"] : {},
     location: { ...blank.location, ...(isRecord(input.location) ? input.location : {}) },
     personal: { ...blank.personal, ...(isRecord(input.personal) ? input.personal : {}) },
     household: { ...blank.household, ...(isRecord(input.household) ? input.household : {}) },
@@ -50,9 +62,16 @@ export function profileAnswerCount(profile: Profile) {
 export function profileToApiPayload(profile: Profile) {
   const numberOrUndefined = (value: string) => value.trim() === "" ? undefined : Number(value);
   const yesNo = (value: string) => value === "yes" ? true : value === "no" ? false : value || undefined;
+  const maritalStatus = profile.personal.marital_status;
+  const isWidow = maritalStatus === "widowed" ? true : ["single", "married", "divorced"].includes(maritalStatus) ? false : undefined;
   return {
     ...profile,
-    date_of_birth: profile.personal.date_of_birth,
+    date_of_birth: profile.personal.date_of_birth || undefined,
+    personal: {
+      ...profile.personal,
+      date_of_birth: profile.personal.date_of_birth || undefined,
+      is_widow: isWidow,
+    },
     location: {
       ...profile.location,
       domicile_status: profile.location.domicile || undefined,
@@ -64,6 +83,7 @@ export function profileToApiPayload(profile: Profile) {
       size: numberOrUndefined(profile.household.size),
       is_bpl: yesNo(profile.household.bpl_status),
       ration_card_type: profile.household.ration_card || undefined,
+      has_lpg_connection: yesNo(profile.household.has_lpg_connection),
     },
     education: {
       ...profile.education,
@@ -77,11 +97,15 @@ export function profileToApiPayload(profile: Profile) {
     agriculture: {
       ...profile.agriculture,
       farmer_status: yesNo(profile.agriculture.farmer_status),
+      insurable_crop_interest: yesNo(profile.agriculture.insurable_crop_interest),
+      crop_notified: yesNo(profile.agriculture.crop_notified),
     },
     social: {
       ...profile.social,
       existing_benefits: profile.social.existing_benefit || undefined,
       required_registration_status: profile.social.required_registration || undefined,
+      has_savings_bank_account: yesNo(profile.social.has_savings_bank_account),
+      residential_electricity_connection: yesNo(profile.social.residential_electricity_connection),
     },
   };
 }

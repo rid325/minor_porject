@@ -116,6 +116,7 @@ class ApplicantProfile(ProfileSection):
         default_factory=AgricultureAssetsProfile
     )
     social: SocialProfile = Field(default_factory=SocialProfile)
+    scheme_answers: dict[str, dict[str, Any]] = Field(default_factory=dict)
 
     # A few clients naturally submit a derived age.  It is accepted for
     # display/backwards compatibility, but the service derives age from DOB

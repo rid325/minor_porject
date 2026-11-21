@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from copy import deepcopy
 from datetime import date, datetime, timezone
 from typing import Any
 
@@ -32,6 +33,7 @@ from ..services.eligibility_engine import (
     get_rule_set,
 )
 from ..services.profile_schema_service import get_profile_schema
+from ..services.auth_service import database_status
 from ..services.scheme_service import SchemeNotFound, SchemeRepository
 
 
@@ -105,6 +107,7 @@ def _detail(scheme: SchemeRecord) -> SchemeDetailResponse:
         source_risk=scheme.source_risk,
         next_review_action=scheme.next_review_action,
         discovered_on=scheme.discovered_on,
+        application_guide=scheme.application_guide,
         sources=[SourceResponse.model_validate(source) for source in scheme.sources],
         rule_coverage=coverage,
     )
@@ -141,6 +144,7 @@ def health() -> HealthResponse:
         scheme_count=repository.count,
         data_source=repository.data_source,
         rules_version=ENGINE_VERSION,
+        database_status=database_status(),
         checked_at=datetime.now(timezone.utc),
     )
 
@@ -223,9 +227,26 @@ def check_eligibility(request: EligibilityCheckRequest) -> EligibilityCheckRespo
     else:
         records = repository.all()
 
+    profile_values = profile.model_dump(mode="python", exclude_none=False)
+    scheme_answers = profile_values.pop("scheme_answers", {})
     results: list[EligibilityResultResponse] = []
     for scheme in records:
-        category, review_state, rule_set, summary, warnings = evaluate_scheme(scheme, profile)
+        scheme_profile = deepcopy(profile_values)
+        for field_path, answer in scheme_answers.get(scheme.scheme_id, {}).items():
+            parts = field_path.split(".")
+            if not parts or len(parts) > 3 or not all(parts):
+                continue
+            target = scheme_profile
+            valid_path = True
+            for segment in parts[:-1]:
+                next_value = target.setdefault(segment, {})
+                if not isinstance(next_value, dict):
+                    valid_path = False
+                    break
+                target = next_value
+            if valid_path:
+                target[parts[-1]] = answer
+        category, review_state, rule_set, summary, warnings = evaluate_scheme(scheme, scheme_profile)
         if (
             category == EligibilityCategory.INFORMATION_ONLY
             and not request.include_information_only

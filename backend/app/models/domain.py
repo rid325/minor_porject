@@ -79,6 +79,9 @@ class SchemeRecord:
     next_review_action: str | None = None
     application_ready: ApplicationReadiness = ApplicationReadiness.NO
     last_checked: str | None = None
+    application_guide: dict[str, str] | None = None
+    ready_to_apply_snapshot: dict[str, str] | None = None
+    resolution_snapshot: dict[str, str] | None = None
 
     @property
     def sources(self) -> list[SourceRecord]:

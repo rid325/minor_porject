@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import AuthNav from "@/components/AuthNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -23,10 +24,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </Link>
             <nav className="nav desktop-nav" aria-label="Primary navigation">
               <Link className="nav-link" href="/schemes">Scheme catalogue</Link>
-              <Link className="nav-link" href="/profile">Eligibility profile</Link>
-              <Link className="nav-link nav-cta" href="/results">View assessment <span aria-hidden="true">↗</span></Link>
+              <Link className="nav-link nav-cta" href="/results">Personalized schemes <span aria-hidden="true">↗</span></Link>
+              <AuthNav />
             </nav>
-            <Link className="mobile-nav" href="/profile" aria-label="Open profile">Profile <span aria-hidden="true">→</span></Link>
+            <AuthNav compact />
           </header>
           {children}
           <footer className="footer">

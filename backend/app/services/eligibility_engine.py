@@ -88,6 +88,8 @@ SSA = "https://www.indiapost.gov.in/documents/offerings/schemesandservices/posb/
 PMFBY = "https://pmfby.gov.in/"
 PM_SURYA = "https://pmsuryaghar.gov.in/"
 PM_KISAN = "https://pmkisan.gov.in/"
+PM_KISAN_GUIDELINES = "https://fw.pmkisan.gov.in/Documents/RevisedPM-KISANOperationalGuidelines%28English%29.pdf"
+HARYANA_OLD_AGE = "https://sewa.haryana.gov.in/old-age-samman-allowance-scheme/"
 
 
 def _reviewed(
@@ -526,27 +528,90 @@ RULE_SETS: dict[str, RuleSet] = {
         "IN-PMKISAN-UMANG",
         _all(
             _rule(
-                "pm-kisan-farmer",
-                "agriculture.farmer_status",
-                "equals",
-                True,
-                description="Applicant belongs to a farmer family with cultivable land/eligible farmer interest.",
-                missing_reason="Tell us whether the applicant is an eligible farmer.",
-                source_url=PM_KISAN,
+                "pm-kisan-land-record",
+                "agriculture.pm_kisan_land_record_status",
+                "in",
+                ["single_owner", "joint_owner", "inherited_and_updated"],
+                description="Applicant is part of a farmer family (husband, wife and minor children) that owns cultivable land recorded in the State/UT land records. A tenant/cultivator without recorded ownership does not meet this condition.",
+                missing_reason="Select what the current State/UT land record shows for this farmer family.",
+                source_url=PM_KISAN_GUIDELINES,
             ),
             _rule(
-                "pm-kisan-land-record",
-                "agriculture.landholding_status",
-                "in",
-                ["owner", "landholder", "cultivator", "tenant"],
-                description="The applicant has a recognized cultivable-land or farmer record.",
-                missing_reason="Select the applicant's landholding/cultivation status.",
-                source_url=PM_KISAN,
+                "pm-kisan-institutional-landholder",
+                "agriculture.pm_kisan_institutional_landholder",
+                "equals",
+                False,
+                description="The landholder is not an institutional landholder.",
+                missing_reason="Is this farmer-family land held by an institution rather than by the family?",
+                source_url=PM_KISAN_GUIDELINES,
+            ),
+            _rule(
+                "pm-kisan-constitutional-post",
+                "personal.pm_kisan_constitutional_post_family",
+                "equals",
+                False,
+                description="No member of the farmer family is a former or present holder of a constitutional post.",
+                missing_reason="Has any member of this farmer family held a constitutional post?",
+                source_url=PM_KISAN_GUIDELINES,
+            ),
+            _rule(
+                "pm-kisan-elected-official",
+                "personal.pm_kisan_elected_official_family",
+                "equals",
+                False,
+                description="No member of the farmer family is a former or present minister, MP, MLA/MLC, municipal mayor or district panchayat chairperson.",
+                missing_reason="Has any member of this farmer family held one of the elected or public offices listed in the scheme conditions?",
+                source_url=PM_KISAN_GUIDELINES,
+            ),
+            _rule(
+                "pm-kisan-government-employee",
+                "employment.pm_kisan_non_exempt_government_employee_family",
+                "equals",
+                False,
+                description="No member of the farmer family is a serving or retired Central/State Government, PSU, autonomous-institution or regular local-body employee, excluding MTS/Class IV/Group D staff.",
+                missing_reason="Does any family member fall within the scheme’s non-exempt serving/retired government-employee category?",
+                source_url=PM_KISAN_GUIDELINES,
+            ),
+            _rule(
+                "pm-kisan-pension",
+                "household.pm_kisan_pension_10000_family",
+                "equals",
+                False,
+                description="No member of the farmer family receives a monthly pension of INR 10,000 or more from the covered government-employee category (MTS/Class IV/Group D exceptions apply).",
+                missing_reason="Does any family member receive a pension of INR 10,000 or more per month from a covered government service?",
+                source_url=PM_KISAN_GUIDELINES,
+            ),
+            _rule(
+                "pm-kisan-income-tax",
+                "household.pm_kisan_income_tax_payer_family",
+                "equals",
+                False,
+                description="No member of the farmer family paid income tax in the last assessment year.",
+                missing_reason="Did any member of this farmer family pay income tax in the last assessment year?",
+                source_url=PM_KISAN_GUIDELINES,
+            ),
+            _rule(
+                "pm-kisan-practicing-professional",
+                "employment.pm_kisan_practicing_professional_family",
+                "equals",
+                False,
+                description="No member of the farmer family is a registered practicing doctor, engineer, lawyer, chartered accountant or architect.",
+                missing_reason="Does any family member practise a profession listed in the scheme exclusions while registered with its professional body?",
+                source_url=PM_KISAN_GUIDELINES,
+            ),
+            _rule(
+                "pm-kisan-nri-family",
+                "location.pm_kisan_nri_family",
+                "equals",
+                False,
+                description="The new-beneficiary farmer family is not an NRI family under the Income Tax Act.",
+                missing_reason="Is this farmer family classified as non-resident under the Income Tax Act?",
+                source_url=PM_KISAN_GUIDELINES,
             ),
         ),
-        PM_KISAN,
+        PM_KISAN_GUIDELINES,
         external_checks=[
-            "State land-record seeding, Aadhaar e-KYC, bank validation and scheme exclusions are checked by the authorities."
+            "State/UT authorities verify the land record, family details, exclusion self-declaration, Aadhaar/e-KYC and bank linkage. This pre-screen cannot verify those official records."
         ],
     ),
     "HR-OASA-002": _reviewed(
@@ -575,9 +640,19 @@ RULE_SETS: dict[str, RuleSet] = {
                 300000,
                 description="Applicant and spouse combined annual income is no more than INR 3,00,000.",
                 missing_reason="Add the combined annual income of the applicant and spouse.",
+                source_url=HARYANA_OLD_AGE,
+            ),
+            _rule(
+                "hr-oasa-government-pension",
+                "household.receives_government_pension",
+                "equals",
+                False,
+                description="Applicant does not receive pension from a Government/Local/Statutory Body or substantially government-funded organization; the department also counts provident-fund income and annuities in its pension definition.",
+                missing_reason="Do you receive pension from a government or local/statutory body, a substantially government-funded organization, a provident fund or an annuity?",
+                source_url=HARYANA_OLD_AGE,
             ),
         ),
-        "https://socialjusticehry.gov.in/",
+        HARYANA_OLD_AGE,
         external_checks=[
             "PPP/CRID and pension/annuity records must be checked for the current proactive-service route."
         ],
@@ -832,13 +907,13 @@ def _evaluate_expression(
             conditions = passing_child.conditions
         elif any(child.status == RuleStatus.UNKNOWN for child in children):
             status = RuleStatus.UNKNOWN
-            conditions = [item for child in children for item in child.conditions]
+            conditions = _most_relevant_alternatives(children)
         elif any(child.status == RuleStatus.EXTERNAL_CHECK for child in children):
             status = RuleStatus.EXTERNAL_CHECK
-            conditions = [item for child in children for item in child.conditions]
+            conditions = _most_relevant_alternatives(children)
         else:
             status = RuleStatus.FAIL
-            conditions = [item for child in children for item in child.conditions]
+            conditions = _most_relevant_alternatives(children)
         return EvaluationSummary(status=status, conditions=conditions)
     if "not" in expression:
         child = _evaluate_expression(expression["not"], profile)
@@ -870,6 +945,30 @@ def _evaluate_expression(
             )
         ],
     )
+
+
+def _most_relevant_alternatives(
+    alternatives: list[EvaluationSummary],
+) -> list[AtomicEvaluation]:
+    """Show the closest OR branch instead of making every alternative look required.
+
+    If an applicant's known answers clearly fit one branch better (for example,
+    a man evaluated against the men's age threshold), the other branch is
+    irrelevant to their result and should not appear as a failed requirement.
+    Tied branches remain visible when the profile cannot distinguish them.
+    """
+    if not alternatives:
+        return []
+
+    def score(summary: EvaluationSummary) -> tuple[int, int]:
+        passed = sum(item.status == RuleStatus.PASS for item in summary.conditions)
+        failed = sum(item.status == RuleStatus.FAIL for item in summary.conditions)
+        return passed, -failed
+
+    scores = [score(summary) for summary in alternatives]
+    best = max(scores)
+    selected = [summary for summary, candidate in zip(alternatives, scores) if candidate == best]
+    return [item for summary in selected for item in summary.conditions]
 
 
 def _deduplicate(conditions: list[AtomicEvaluation]) -> list[AtomicEvaluation]:
