@@ -1,0 +1,51 @@
+"use client";
+
+import Link from "next/link";
+import DocumentChecker from "./DocumentChecker";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getScheme } from "@/lib/api";
+import { Scheme } from "@/lib/types";
+
+export default function SchemeDetail({ id }: { id: string }) {
+  const router = useRouter();
+  const [scheme, setScheme] = useState<Scheme>();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => { getScheme(id).then(setScheme).finally(() => setLoading(false)); }, [id]);
+  const goBack = () => { if (window.history.length > 1) router.back(); else router.push("/schemes"); };
+  if (loading) return <main className="page-wrap"><div className="loading" style={{ minHeight: 500 }}>Loading scheme details…</div></main>;
+  if (!scheme) return <main className="page-wrap"><div className="page-intro"><span className="eyebrow">Scheme not found</span><h1>That record is not available.</h1><p>Try returning to the catalogue and choosing another scheme.</p><Link className="btn btn-primary" href="/schemes" style={{ marginTop: 22 }}>Back to catalogue</Link></div></main>;
+  return (
+    <main>
+      <div className="page-wrap page-intro"><button className="back-link" type="button" onClick={goBack}>← Back to previous page</button><h1>{scheme.name}</h1><p>{scheme.summary || scheme.benefit}</p><div className="detail-meta"><span className="meta-pill">{scheme.jurisdiction}</span><span className="meta-pill">{scheme.category}</span>{scheme.last_checked && <span className="meta-pill">Checked {formatDate(scheme.last_checked)}</span>}</div></div>
+      <div className="page-wrap detail-layout">
+        <div className="detail-main">
+          <SourceCard scheme={scheme} />
+          <DocumentChecker key={id} schemeId={id} />
+
+          {scheme.application_guide && <DetailCard title="Application guide"><div className="guide-grid">{scheme.application_guide.who_should_try && <div><h3>Who should consider it</h3><p>{scheme.application_guide.who_should_try}</p></div>}{scheme.application_guide.documents_to_prepare && <div><h3>Documents to prepare</h3><p>{scheme.application_guide.documents_to_prepare}</p></div>}{scheme.application_guide.where_to_apply && <div><h3>Where to apply</h3><p>{scheme.application_guide.where_to_apply}</p></div>}{scheme.application_guide.application_walkthrough && <div><h3>Application walkthrough</h3><p>{scheme.application_guide.application_walkthrough}</p></div>}{scheme.application_guide.timing_and_tracking && <div><h3>Timing and tracking</h3><p>{scheme.application_guide.timing_and_tracking}</p></div>}{scheme.application_guide.important_caution && <div><h3>Important caution</h3><p>{scheme.application_guide.important_caution}</p></div>}</div></DetailCard>}
+          <DetailCard title="What you could receive"><p>{scheme.benefit || "Benefit details are being confirmed with the administering department."}</p></DetailCard>
+          <DetailCard title="Who should look at this"><p>{scheme.eligibility_text || "Eligibility information has not yet been structured for this record."}</p>{scheme.exclusions_text && <><h3 style={{ marginTop: 22 }}>Common exclusions</h3><p>{scheme.exclusions_text}</p></>}</DetailCard>
+          <DetailCard title="What to keep ready"><p>{scheme.documents_text || "Check the official route for the current document list."}</p></DetailCard>
+          {scheme.application_steps && <DetailCard title="A simple route through the process"><ol>{steps(scheme.application_steps).map((step) => <li key={step}>{step}</li>)}</ol></DetailCard>}
+          {scheme.tracking_method && <DetailCard title="Tracking and support"><p>{scheme.tracking_method}</p></DetailCard>}
+          {scheme.source_urls.length > 0 && <DetailCard title="Sources"><p style={{ marginTop: 0 }}>Use the official source to verify current rules before applying{scheme.source_authority ? ` · ${scheme.source_authority}` : ""}.</p><ul className="source-list">{scheme.source_urls.map((source) => <li key={source}><a href={source} target="_blank" rel="noreferrer">{source} <span aria-hidden="true">↗</span></a></li>)}</ul></DetailCard>}
+        </div>
+        <aside className="detail-side side-sticky">
+          <div className="detail-card apply-card"><h2>Application route</h2><p>Use the official route to confirm current eligibility, documents, deadlines and submission requirements.</p>{scheme.application_url ? <><a className="btn btn-primary apply-link" href={scheme.application_url} target="_blank" rel="noreferrer">Open official application route <span aria-hidden="true">↗</span></a>{scheme.application_mode && <p className="route-note">{scheme.application_mode}</p>}<p className="route-disclaimer">The link may require login, assisted service-centre support or departmental verification. Nagrik Path does not submit an application on your behalf.</p></> : <p style={{ marginBottom: 0 }}>No verified online route is currently recorded. Contact the administering department or a nearby service centre.</p>}</div>
+          {scheme.important_caution && <div className="detail-card caution"><h3>One thing to confirm</h3><p>{scheme.important_caution}</p></div>}
+        </aside>
+      </div>
+    </main>
+  );
+}
+
+function SourceCard({ scheme }: { scheme: Scheme }) {
+  const primaryUrl = scheme.source_urls[0];
+  return <section className="detail-card source-card" aria-label="Source and verification"><div className="source-card-head"><div><span className="eyebrow">Source and verification</span><h2>Official reference</h2></div><span className="source-badge">{scheme.source_authority || "Government source"}</span></div><p>This record is based on the official reference below. Confirm the latest notification, document requirements and application status before submitting.</p>{primaryUrl ? <a className="source-primary-link" href={primaryUrl} target="_blank" rel="noreferrer">Open official source <span aria-hidden="true">↗</span></a> : <p className="source-missing">Official source link is still being verified.</p>}{scheme.last_checked && <p className="source-checked">Last checked: {formatDate(scheme.last_checked)}</p>}</section>;
+}
+
+function DetailCard({ title, children }: { title: string; children: React.ReactNode }) { return <section className="detail-card"><h2>{title}</h2>{children}</section>; }
+function steps(value: string) { return value.split(/(?=\d+[)\.])/).map((item) => item.replace(/^\s*\d+[)\.]\s*/, "").trim()).filter(Boolean); }
+function formatDate(value: string) { const date = new Date(value); return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(date); }
+
