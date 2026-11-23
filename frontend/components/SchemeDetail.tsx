@@ -25,6 +25,14 @@ export default function SchemeDetail({ id }: { id: string }) {
 
           {scheme.application_guide && <DetailCard title="Application guide"><div className="guide-grid">{scheme.application_guide.who_should_try && <div><h3>Who should consider it</h3><p>{scheme.application_guide.who_should_try}</p></div>}{scheme.application_guide.documents_to_prepare && <div><h3>Documents to prepare</h3><p>{scheme.application_guide.documents_to_prepare}</p></div>}{scheme.application_guide.where_to_apply && <div><h3>Where to apply</h3><p>{scheme.application_guide.where_to_apply}</p></div>}{scheme.application_guide.application_walkthrough && <div><h3>Application walkthrough</h3><p>{scheme.application_guide.application_walkthrough}</p></div>}{scheme.application_guide.timing_and_tracking && <div><h3>Timing and tracking</h3><p>{scheme.application_guide.timing_and_tracking}</p></div>}{scheme.application_guide.important_caution && <div><h3>Important caution</h3><p>{scheme.application_guide.important_caution}</p></div>}</div></DetailCard>}
           <DetailCard title="What you could receive"><p>{scheme.benefit || "Benefit details are being confirmed with the administering department."}</p></DetailCard>
+          {scheme.normalized_conditions && scheme.normalized_conditions.length > 0 && <DetailCard title="Eligibility conditions, in simple facts">
+            <p>{scheme.condition_review_state === "REVIEWED" ? "These facts are backed by reviewed rules." : "These facts are used to compare this scheme with your saved answers. Confirm current eligibility with the scheme authority."}</p>
+            <ul className="normalized-condition-list">{scheme.normalized_conditions.map((condition) => <li key={condition.condition_id}>
+              <strong>{condition.normalized_label || condition.attribute_label || condition.source_text || condition.attribute_id}</strong>
+              {condition.source_text && condition.source_text !== condition.normalized_label && <small>Source wording: {condition.source_text}</small>}
+              {condition.confidence === "unresolved" && <small>Needs review before it can be used for matching.</small>}
+            </li>)}</ul>
+          </DetailCard>}
           <DetailCard title="Who should look at this"><p>{scheme.eligibility_text || "Eligibility information has not yet been structured for this record."}</p>{scheme.exclusions_text && <><h3 style={{ marginTop: 22 }}>Common exclusions</h3><p>{scheme.exclusions_text}</p></>}</DetailCard>
           <DetailCard title="What to keep ready"><p>{scheme.documents_text || "Check the official route for the current document list."}</p></DetailCard>
           {scheme.application_steps && <DetailCard title="A simple route through the process"><ol>{steps(scheme.application_steps).map((step) => <li key={step}>{step}</li>)}</ol></DetailCard>}

@@ -7,6 +7,9 @@ def profile_for_scheme(profile, scheme_id):
     values = deepcopy(profile)
     answers = values.pop("scheme_answers", {}) or {}
     for path, answer in answers.get(scheme_id, {}).items():
+        if path.startswith("custom."):
+            values.setdefault("facts", {})[path] = answer
+            continue
         parts = path.split(".")
         if len(parts) > 3 or not all(parts):
             continue

@@ -23,6 +23,7 @@ class ApplicationReadiness(str, Enum):
 
 class RuleReviewState(str, Enum):
     DRAFT = "DRAFT"
+    DEMO = "DEMO"
     REVIEWED = "REVIEWED"
     UNRESOLVED = "UNRESOLVED"
 
@@ -82,6 +83,9 @@ class SchemeRecord:
     application_guide: dict[str, str] | None = None
     ready_to_apply_snapshot: dict[str, str] | None = None
     resolution_snapshot: dict[str, str] | None = None
+    normalized_conditions: list[dict[str, Any]] = field(default_factory=list)
+    condition_schema_version: str | None = None
+    condition_review_state: str | None = None
 
     @property
     def sources(self) -> list[SourceRecord]:

@@ -1,5 +1,20 @@
 export type Readiness = "YES" | "CONDITIONAL" | "NO" | "UNKNOWN";
 
+export type NormalizedCondition = {
+  condition_id: string;
+  attribute_id: string;
+  attribute_label?: string;
+  normalized_label?: string;
+  operator: string;
+  value?: unknown;
+  scope?: string | null;
+  source_text?: string;
+  confidence?: string;
+  review_state?: string;
+  logic_group?: number;
+  joiner?: string;
+};
+
 export type Scheme = {
   scheme_id: string;
   name: string;
@@ -24,6 +39,9 @@ export type Scheme = {
   eligibility_unresolved?: string;
   exclusions_text?: string;
   target_group?: string;
+  normalized_conditions?: NormalizedCondition[];
+  condition_schema_version?: string;
+  condition_review_state?: "REVIEWED" | "DEMO" | "DRAFT" | "UNRESOLVED" | string;
   application_guide?: {
     who_should_try?: string;
     benefit?: string;
@@ -102,6 +120,8 @@ export type EligibilityReason = {
 };
 
 export type EligibilityResult = {
+  rule_review_state?: "REVIEWED" | "DEMO" | "DRAFT" | "UNRESOLVED" | string;
+  warnings?: string[];
   scheme: Scheme;
   result: ResultBucket;
   reasons: EligibilityReason[];
@@ -111,6 +131,8 @@ export type EligibilityResult = {
   external_checks?: EligibilityReason[];
   matched_conditions?: number;
   total_conditions?: number;
+  matched_requirement_groups?: number;
+  total_requirement_groups?: number;
 };
 
 export type EligibilityResponse = {

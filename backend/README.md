@@ -9,18 +9,23 @@ The importer `backend/scripts/import_scheme_workbook.py` generates the local
 normalized seed. `backend/scripts/import_scheme_workbook_to_mongo.py` upserts
 the canonical 75 schemes and their linked application-guide, ready-to-apply,
 resolution, source, document, and application-route data into Atlas. It also
-stores register metrics, category coverage, and the workbook field guide in
-`register_metadata`. The importer updates matching scheme IDs and does not
-delete other records.
+stores normalized eligibility atoms in each `schemes` record, one logical rule
+document per scheme in `scheme_rules`, reusable field definitions in
+`condition_attributes`, and register metadata in `register_metadata`. The
+importer updates matching IDs and does not delete other records.
 
-Profiles and sessions are stored separately from the scheme repository. A later
-phase can replace `SchemeRepository` with PostgreSQL without changing the HTTP
-contract.
+Condition IDs are stable hashes of the normalized fact, operator, value, and
+scope. Income is scope-aware (applicant, household, applicant-plus-spouse, or
+parent/guardian). Each atom retains its source wording and review state. Only
+criteria encoded as reviewed rule expressions are used to assess eligibility;
+source-derived draft atoms stay visible for review and never reject a user.
 
 Email/password accounts and seven-day browser sessions use MongoDB Atlas.
-Applicant questionnaire answers are saved per account in the `profiles`
-collection and can be edited from the profile page. The API only returns a
-profile to the account that owns it. Profiles are separate from scheme records.
+Applicant answers remain in the account-owned `profiles` document for backward
+compatibility and are also copied into the `users.profile_facts` map. Every user
+gets the same fact keys, including currently unanswered and scheme-specific
+facts; legacy profile answers are mapped into canonical keys by the importer.
+The API only returns profile data to its owning account.
 
 ### Configure MongoDB Atlas authentication
 
@@ -32,10 +37,10 @@ profile to the account that owns it. Profiles are separate from scheme records.
    `yojna_connect`.
 4. Start the API. `GET /api/v1/health` reports `database_status` as
    `connected`, `unavailable`, or `not_configured`.
-5. Import or refresh the workbook data with
+5. Import or refresh the workbook and normalized conditions with
    `python backend/scripts/import_scheme_workbook_to_mongo.py`. The default
    workbook path comes from `SCHEME_WORKBOOK_PATH`; pass `--workbook` to select
-   another file.
+   another file. This also backfills every existing user's `profile_facts` map.
 
 Authentication endpoints are `POST /api/v1/auth/signup`,
 `POST /api/v1/auth/login`, `GET /api/v1/auth/me`, and

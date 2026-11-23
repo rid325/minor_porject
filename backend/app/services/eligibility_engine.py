@@ -9,6 +9,7 @@ is always ``UNKNOWN``; it is never coerced to false or zero.
 from __future__ import annotations
 
 from datetime import date, datetime, timezone
+from functools import lru_cache
 from typing import Any, Mapping
 
 from ..models.domain import (
@@ -22,9 +23,12 @@ from ..models.domain import (
     age_on_date,
 )
 from ..schemas.profile import ApplicantProfile
+from pymongo.errors import PyMongoError
+from .auth_service import AuthNotConfigured, get_database
+from .condition_normalizer import fact_id_for_path
 
 
-ENGINE_VERSION = "1.0"
+ENGINE_VERSION = "2.0"
 UNKNOWN_VALUES = {
     "",
     "unknown",
@@ -772,8 +776,32 @@ RULE_SETS: dict[str, RuleSet] = {
 }
 
 
+@lru_cache(maxsize=1)
+def _database_rule_sets() -> dict[str, RuleSet]:
+    try:
+        documents = list(get_database().scheme_rules.find({}, {"_id": 0}))
+    except (AuthNotConfigured, PyMongoError):
+        return {}
+    result: dict[str, RuleSet] = {}
+    for document in documents:
+        try:
+            state = RuleReviewState(document.get("review_state", "UNRESOLVED"))
+        except ValueError:
+            state = RuleReviewState.UNRESOLVED
+        result[document["scheme_id"]] = RuleSet(
+            scheme_id=document["scheme_id"],
+            version=str(document.get("version") or ENGINE_VERSION),
+            review_state=state,
+            expression=document.get("expression"),
+            source_urls=document.get("source_urls") or [],
+            external_checks=document.get("external_checks") or [],
+            reviewed_at=document.get("reviewed_at"),
+        )
+    return result
+
+
 def get_rule_set(scheme_id: str) -> RuleSet | None:
-    return RULE_SETS.get(scheme_id)
+    return _database_rule_sets().get(scheme_id) or RULE_SETS.get(scheme_id)
 
 
 def _unknown(value: Any) -> bool:
@@ -812,7 +840,7 @@ def _profile_dict(profile: ApplicantProfile | Mapping[str, Any]) -> dict[str, An
 
 def _value_at(profile: ApplicantProfile | Mapping[str, Any], path: str) -> Any:
     values = _profile_dict(profile)
-    if path == "age":
+    if path in {"age", "personal.age"}:
         explicit = values.get("age")
         personal = values.get("personal") or {}
         dob = personal.get("date_of_birth")
@@ -823,7 +851,10 @@ def _value_at(profile: ApplicantProfile | Mapping[str, Any], path: str) -> Any:
                 dob = None
         if isinstance(dob, date):
             return age_on_date(dob)
-        return explicit
+        if explicit is not None:
+            return explicit
+        facts = values.get("facts") or {}
+        return facts.get("personal.age") or values.get("age")
     current: Any = values
     for segment in path.split("."):
         if isinstance(current, Mapping):
@@ -832,6 +863,9 @@ def _value_at(profile: ApplicantProfile | Mapping[str, Any], path: str) -> Any:
             current = getattr(current, segment, None)
         if current is None:
             break
+    if current is None:
+        facts = values.get("facts") or {}
+        current = facts.get(fact_id_for_path(path))
     return current
 
 
@@ -947,6 +981,19 @@ def _evaluate_expression(
     )
 
 
+
+def requirement_group_counts(expression: dict[str, Any] | None, profile: ApplicantProfile | Mapping[str, Any]) -> tuple[int, int]:
+    """Count satisfied logical requirements, treating each OR expression as one group."""
+    if not expression:
+        return 0, 0
+    if "all" in expression:
+        values = [requirement_group_counts(child, profile) for child in expression["all"]]
+        return sum(item[0] for item in values), sum(item[1] for item in values)
+    summary = _evaluate_expression(expression, profile)
+    total = 1
+    matched = 1 if summary.status == RuleStatus.PASS else 0
+    return matched, total
+
 def _most_relevant_alternatives(
     alternatives: list[EvaluationSummary],
 ) -> list[AtomicEvaluation]:
@@ -990,7 +1037,7 @@ def evaluate_scheme(
     """Evaluate one scheme and return category plus explainable conditions."""
 
     rule_set = get_rule_set(scheme.scheme_id)
-    if not rule_set or not rule_set.expression or rule_set.review_state != RuleReviewState.REVIEWED:
+    if not rule_set or not rule_set.expression or rule_set.review_state not in {RuleReviewState.REVIEWED, RuleReviewState.DEMO}:
         return (
             EligibilityCategory.INFORMATION_ONLY,
             rule_set.review_state if rule_set else RuleReviewState.UNRESOLVED,
@@ -1014,6 +1061,8 @@ def evaluate_scheme(
     else:
         category = EligibilityCategory.LIKELY_ELIGIBLE
     warnings = list(rule_set.external_checks)
+    if rule_set.review_state == RuleReviewState.DEMO:
+        warnings.append("Confirm current criteria with the administering authority before relying on this result.")
     if scheme.application_ready.value != "YES":
         warnings.append(
             f"Application route is marked {scheme.application_ready.value.title()} in the research register; confirm the caution before applying."

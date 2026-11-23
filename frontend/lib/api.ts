@@ -59,6 +59,9 @@ export function normalizeScheme(value: unknown): Scheme {
     last_checked: text(raw.last_checked),
     eligibility_unresolved: text(raw.eligibility_unresolved),
     exclusions_text: text(raw.exclusions_text),
+    normalized_conditions: Array.isArray(raw.normalized_conditions) ? raw.normalized_conditions as Scheme["normalized_conditions"] : [],
+    condition_schema_version: text(raw.condition_schema_version) || undefined,
+    condition_review_state: text(raw.condition_review_state) as Scheme["condition_review_state"],
     target_group: text(raw.target_group ?? raw.who_should_try),
     application_guide: raw.application_guide && typeof raw.application_guide === "object"
       ? raw.application_guide as Scheme["application_guide"]
@@ -165,10 +168,14 @@ function normalizeEligibilityResponse(value: unknown): EligibilityResponse {
       const totalConditions = passed.length + failed.length + unknown.length;
       return {
         scheme, result,
+        rule_review_state: text(row.rule_review_state) as EligibilityResult["rule_review_state"],
+        warnings: asArray(row.warnings).map((warning) => text(warning)).filter(Boolean),
         reasons: reasons.length ? reasons : [...passed, ...failed, ...unknown, ...externalChecks],
         passed, failed, unknown, external_checks: externalChecks,
         matched_conditions: passed.length,
         total_conditions: totalConditions,
+        matched_requirement_groups: Number(row.matched_requirement_groups ?? passed.length),
+        total_requirement_groups: Number(row.total_requirement_groups ?? totalConditions),
       };
     }),
     profile_version: text(raw.profile_version),

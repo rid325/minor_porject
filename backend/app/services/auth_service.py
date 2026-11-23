@@ -16,6 +16,8 @@ from bson import ObjectId
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError, PyMongoError
 
+from .condition_normalizer import SCHEMA_VERSION, empty_user_facts
+
 
 SESSION_COOKIE_NAME = "yojna_session"
 SESSION_TTL = timedelta(days=7)
@@ -160,10 +162,13 @@ def create_account(email: str, password: str) -> tuple[dict[str, Any], str]:
     password_hash = _hash_password(password)
     database = get_database()
     now = datetime.now(timezone.utc)
+    fact_ids = set(database.condition_attributes.distinct("attribute_id", {"active": True}))
     document = {
         "email": normalized_email,
         "password_hash": password_hash,
         "created_at": now,
+        "profile_facts": empty_user_facts(fact_ids),
+        "profile_schema_version": SCHEMA_VERSION,
     }
     try:
         inserted = database.users.insert_one(document)

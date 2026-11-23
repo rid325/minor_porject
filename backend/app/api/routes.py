@@ -31,6 +31,7 @@ from ..services.eligibility_engine import (
     ENGINE_VERSION,
     evaluate_scheme,
     get_rule_set,
+    requirement_group_counts,
 )
 from ..services.profile_schema_service import get_profile_schema
 from ..services.auth_service import database_status
@@ -87,6 +88,8 @@ def _detail(scheme: SchemeRecord) -> SchemeDetailResponse:
         note=(
             "Reviewed deterministic rules are available for this scheme."
             if rule_set and rule_set.review_state == RuleReviewState.REVIEWED
+            else "Matching rules were translated from the scheme register. Confirm current requirements with the scheme authority."
+            if rule_set and rule_set.review_state == RuleReviewState.DEMO
             else "This record is browseable, but its narrative eligibility criteria are not yet a reviewed machine rule set."
         ),
     )
@@ -238,6 +241,9 @@ def check_eligibility(request: EligibilityCheckRequest) -> EligibilityCheckRespo
         ):
             continue
         conditions = [_condition(item) for item in summary.conditions]
+        matched_groups, total_groups = requirement_group_counts(
+            rule_set.expression if rule_set else None, scheme_profile
+        )
         results.append(
             EligibilityResultResponse(
                 scheme=_summary(scheme),
@@ -245,6 +251,8 @@ def check_eligibility(request: EligibilityCheckRequest) -> EligibilityCheckRespo
                 display_label=DISPLAY_LABELS[category],
                 rule_set_version=rule_set.version if rule_set else None,
                 rule_review_state=review_state,
+                matched_requirement_groups=matched_groups,
+                total_requirement_groups=total_groups,
                 passed=[item for item in conditions if item.status == RuleStatus.PASS],
                 failed=[item for item in conditions if item.status == RuleStatus.FAIL],
                 missing=[item for item in conditions if item.status == RuleStatus.UNKNOWN],

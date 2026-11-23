@@ -335,11 +335,7 @@ export default function DocumentChecker({ schemeId, savedOnly = false }: { schem
   const busy = pending || uploading !== undefined;
   const comparisons = report?.comparisons ?? [];
   const classification = (item: Report["comparisons"][number]) => item.classification ?? item.status;
-  const count = (...states: string[]) => comparisons.filter((item) => states.includes(classification(item))).length;
-  const matches = count("exact_match", "normalized_match");
-  const differences = count("actual_mismatch", "clear_mismatch", "spelling_mismatch", "possible_mismatch");
-  const review = count("possible_match", "likely_match", "needs_verification");
-  const variations = count("language_variation", "transliteration_match");
+  const differenceComparisons = comparisons.filter((item) => ["actual_mismatch", "clear_mismatch", "spelling_mismatch", "possible_mismatch"].includes(classification(item)));
   const missing = (Object.keys(fields) as Field[]).flatMap((field) => {
     const applicable = submittedRows.map((row, index) => ({ row, index }))
       .filter(({ row }) => relevantFields[row.type].includes(field));
@@ -351,7 +347,7 @@ export default function DocumentChecker({ schemeId, savedOnly = false }: { schem
   function downloadReport() {
     if (!report) return;
     const sections = ["Yojna Connect document comparison", "",
-      `${report.document_count} documents | ${comparisons.length} comparisons | ${matches} matches | ${differences} discrepancies | ${variations} language variations | ${review} need verification | ${missing.length} missing values`, ""];
+      `${report.document_count} documents | ${differenceComparisons.length} differing fields`, ""];
     submittedRows.forEach((row, index) => {
       sections.push(`Document ${index + 1}: ${row.saved?.label ?? row.pendingFile?.name ?? documentTypes[row.type]}`);
       const details = row.upload?.document_details;
@@ -364,14 +360,13 @@ export default function DocumentChecker({ schemeId, savedOnly = false }: { schem
         const original = extracted?.value === value ? extracted.original_value ?? value : value;
         const details = extracted?.value === value ? [
           row.upload?.field_languages?.[field],
-          extracted.ocr_confidence == null ? undefined : `OCR confidence ${Math.round(extracted.ocr_confidence * 100)}%`,
           extracted.date_format_uncertain ? "date format needs verification" : undefined,
         ].filter(Boolean) : [];
         sections.push(`- ${fields[field].label}: ${original}${details.length ? " (" + details.join("; ") + ")" : ""}`);
       }
     });
     sections.push("", "Field-by-field comparisons");
-    comparisons.forEach((item) => sections.push(
+    differenceComparisons.forEach((item) => sections.push(
       `- ${fields[item.evidence[0].field].label}, ${item.evidence.map((evidence) => "document " + evidence.document).join(" and ")}${item.comparison === "profile_comparison" ? " and saved profile" : ""}: ${comparisonLabels[classification(item)] ?? classification(item)}`,
     ));
     if (missing.length) sections.push("", "Missing values", ...missing);
@@ -583,33 +578,19 @@ export default function DocumentChecker({ schemeId, savedOnly = false }: { schem
         <div className="checker-report" aria-live="polite">
           <h3 ref={reportHeading} tabIndex={-1} id="document-check-results">Comparison results</h3>
           <button type="button" className="btn btn-secondary" onClick={downloadReport}>Download report</button>
-          <p>{report.checklist_version && <>Checklist {report.checklist_version} · </>}{report.document_count} documents · {report.fields_checked} fields reviewed</p>
-          <dl className="resolution-values">
-            {Object.entries({ Comparisons: comparisons.length, Matches: matches, "Language variations": variations,
-              Discrepancies: differences, "Needs review": review, "Missing values": missing.length }).map(([label, value]) => (
-              <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
-            ))}
-          </dl>
+          <p>Only fields with different values are shown below.</p>
           {missing.length > 0 && <details className="checker-details">
             <summary>See missing values</summary>
             <ul>{missing.map((item, index) => <li key={index}>{item}</li>)}</ul>
           </details>}
           {report.rule_set_version && <p>Eligibility rules {report.rule_set_version}</p>}
-          <p className="checker-result-summary">
-            {differences > 0
-              ? "Discrepancies found. Review the differences below."
-              : review > 0
-                ? "Some fields need verification against the original documents."
-                : report.comparisons?.length
-                  ? "No discrepancies found in the fields compared."
-                  : "No comparable fields found. Review or enter details and compare again."}
-          </p>
+          <p className="checker-result-summary">{differenceComparisons.length > 0 ? "Differences found. Review the fields below." : "No differing fields found."}</p>
           {submittedRows.some((row) => row.upload) && <p>Check the extracted values against the originals before requesting a correction.</p>}
-          {comparisons.map((comparison, index) => (
+          {differenceComparisons.map((comparison, index) => (
             <section className="checker-findings" key={index}>
               <h4>{fields[comparison.evidence[0].field].label}</h4>
               <div className="checker-comparison-values">
-                {comparison.evidence.map(({ document, field, page, language, confidence_band }) => {
+                {comparison.evidence.map(({ document, field, page }) => {
                   const row = submittedRows[document - 1];
                   const value = submittedValues[document - 1]?.[field];
                   const extracted = row?.upload?.fields[field];
@@ -619,7 +600,7 @@ export default function DocumentChecker({ schemeId, savedOnly = false }: { schem
                     <strong>{row?.saved?.label ?? ("Document " + document)}</strong>
                     <div>{display}</div>
                     {original && original !== display && <div>Original: {original}</div>}
-                    <small>Page {page}{language && " · " + language}{confidence_band && " · " + confidence_band + " OCR confidence"}</small>
+                    <small>Document {document} · Page {page}</small>
                   </div>;
                 })}
                 {comparison.comparison === "profile_comparison" && <div>Saved profile</div>}
@@ -647,8 +628,6 @@ export default function DocumentChecker({ schemeId, savedOnly = false }: { schem
                     {finding.evidence.map((item) => (
                       <div key={item.document + "-" + item.field}>
                         Document {item.document} · Page {item.page} · {fields[item.field].label}
-                        {item.ocr_confidence !== null && " · OCR " + Math.round(item.ocr_confidence * 100) + "%"}
-                        {item.extraction_confidence !== null && " · Extraction " + Math.round(item.extraction_confidence * 100) + "%"}
                       </div>
                     ))}
                     {finding.source_url && <a href={finding.source_url} target="_blank" rel="noreferrer">Scheme rule source</a>}

@@ -80,6 +80,9 @@ class SchemeDetailResponse(SchemeSummaryResponse):
     application_guide: ApplicationGuideResponse | None = None
     sources: list[SourceResponse] = Field(default_factory=list)
     rule_coverage: RuleCoverageResponse
+    normalized_conditions: list[dict[str, Any]] = Field(default_factory=list)
+    condition_schema_version: str | None = None
+    condition_review_state: str | None = None
 
 
 class SchemeListResponse(BaseModel):
@@ -108,6 +111,8 @@ class EligibilityResultResponse(BaseModel):
     display_label: str
     rule_set_version: str | None = None
     rule_review_state: RuleReviewState
+    matched_requirement_groups: int = 0
+    total_requirement_groups: int = 0
     passed: list[EligibilityConditionResponse] = Field(default_factory=list)
     failed: list[EligibilityConditionResponse] = Field(default_factory=list)
     missing: list[EligibilityConditionResponse] = Field(default_factory=list)
@@ -135,7 +140,7 @@ class EligibilityCheckRequest(BaseModel):
 
 class EligibilityCheckResponse(BaseModel):
     evaluated_at: datetime
-    profile_schema_version: str = "1.0"
+    profile_schema_version: str = "2.0"
     rule_engine_version: str = "1.0"
     total_schemes: int
     counts: dict[str, int]

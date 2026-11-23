@@ -176,6 +176,9 @@ def row_to_scheme(row: dict[str, str]) -> SchemeRecord:
         application_guide=row.get("application_guide") or None,
         ready_to_apply_snapshot=row.get("ready_to_apply_snapshot") or None,
         resolution_snapshot=row.get("resolution_snapshot") or None,
+        normalized_conditions=row.get("normalized_conditions") or [],
+        condition_schema_version=_clean(row.get("condition_schema_version")),
+        condition_review_state=_clean(row.get("condition_review_state")),
     )
 
 
