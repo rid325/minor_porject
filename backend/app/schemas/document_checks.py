@@ -44,6 +44,7 @@ class DocumentCheckRequest(BaseModel):
 
     consent: Literal[True]
     documents: list[DocumentEvidence] = Field(max_length=20)
+    preparation: dict[str, Literal["ready", "missing", "unsure", "inapplicable"]] = Field(default_factory=dict, max_length=150)
     compare_unconfirmed: bool = False
 
 

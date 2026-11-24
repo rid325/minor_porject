@@ -101,17 +101,34 @@ def _reviewed(
     expression: dict[str, Any],
     source_url: str,
     *,
+    reviewed_date: str = "2026-09-21",
     external_checks: list[str] | None = None,
 ) -> RuleSet:
     return RuleSet(
         scheme_id=scheme_id,
-        version="2026-09-21.v1",
+        version=f"{reviewed_date}.v1",
         review_state=RuleReviewState.REVIEWED,
         expression=expression,
         source_urls=[source_url],
         external_checks=external_checks or [],
-        reviewed_at="2026-09-21T00:00:00Z",
+        reviewed_at=f"{reviewed_date}T00:00:00Z",
     )
+
+
+def _post_matric_disability(scheme_id: str) -> RuleSet:
+    source = "https://depwd.gov.in/en/scholarship-post-matric/"
+    def confirm(key: str, description: str):
+        return _rule(key, f"custom.{scheme_id}.{key}", "equals", True, description=description)
+
+    return _reviewed(scheme_id, _all(
+        confirm("course", "The applicant is in class XI or XII, diploma, degree or postgraduate study."),
+        _rule("nationality", "social.is_indian_citizen", "equals", True, description="The applicant is an Indian national."),
+        _rule("percentage", "personal.disability_percentage", "gte", 40, description="Benchmark disability is at least 40 percent."),
+        _rule("income", "household.household_annual_income", "lte", 250000, description="Annual family income is at most INR 250,000."),
+        confirm("no_other_stipend", "The applicant receives no other post-matric scholarship or stipend."),
+        confirm("family_limit", "This award would stay within the two-child family limit."),
+    ), source, reviewed_date="2026-11-24",
+        external_checks=["Confirm UDID, Aadhaar, applicable exceptions, enrolment year and current application window with the authority."])
 
 
 # The first pilot rule set covers representative pension, insurance, banking,
@@ -119,6 +136,25 @@ def _reviewed(
 # visible but are deliberately not evaluated as if their narrative text were a
 # verified machine rule.
 RULE_SETS: dict[str, RuleSet] = {
+    **{key: _post_matric_disability(key) for key in (
+        "central_depwd_post_matric_scholarship_disabilities", "chd_post_matric_scholarship_students_disabilities"
+    )},
+    "HR-LADLI-004": _reviewed(
+        "HR-LADLI-004",
+        _all(
+            _rule("ladli-daughters", "household.only_daughters_no_sons", "equals", True,
+                  description="The family has daughters and no biological or adopted son."),
+            _rule("ladli-income", "household.household_annual_income", "less_than_or_equal", 200000,
+                  description="Gross annual family income from all sources is at most INR 200,000."),
+            _rule("ladli-parents", "custom.HR-LADLI-004.parent_connection", "equals", True,
+                  description="The biological parent or parents are domiciled in Haryana or work for the Haryana government."),
+            _rule("ladli-window", "custom.HR-LADLI-004.parent_window", "equals", True,
+                  description="The family is within the 15-year benefit period starting when either parent turns 45."),
+        ),
+        "https://sewa.haryana.gov.in/ladli-social-security-allowance-scheme/",
+        reviewed_date="2026-11-24",
+        external_checks=["Confirm the applicable parent, family record and enrolment period with Haryana SEWA."],
+    ),
     "central_pmjjby": _reviewed(
         "central_pmjjby",
         _all(
@@ -801,7 +837,12 @@ def _database_rule_sets() -> dict[str, RuleSet]:
 
 
 def get_rule_set(scheme_id: str) -> RuleSet | None:
-    return _database_rule_sets().get(scheme_id) or RULE_SETS.get(scheme_id)
+    stored = _database_rule_sets().get(scheme_id)
+    reviewed = RULE_SETS.get(scheme_id)
+    if reviewed and (not stored or stored.review_state != RuleReviewState.REVIEWED
+                     or str(reviewed.reviewed_at or "") > str(stored.reviewed_at or "")):
+        return reviewed
+    return stored or reviewed
 
 
 def _unknown(value: Any) -> bool:
@@ -1062,6 +1103,7 @@ def evaluate_scheme(
         category = EligibilityCategory.LIKELY_ELIGIBLE
     warnings = list(rule_set.external_checks)
     if rule_set.review_state == RuleReviewState.DEMO:
+        category = EligibilityCategory.INFORMATION_ONLY
         warnings.append("Confirm current criteria with the administering authority before relying on this result.")
     if scheme.application_ready.value != "YES":
         warnings.append(

@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { getSchemes } from "@/lib/api";
 import { getAccountProfile, getAuthStatus } from "@/lib/auth";
 import { Scheme } from "@/lib/types";
-import { mergeProfile, PROFILE_STORAGE_KEY } from "@/lib/profile";
+import { isInProfileRegion, mergeProfile, PROFILE_OWNER_KEY, PROFILE_STORAGE_KEY } from "@/lib/profile";
 import { SchemeCard } from "./SchemeCard";
 
 type Props = { limit?: number; embedded?: boolean };
@@ -17,11 +17,12 @@ export default function Catalogue({ limit, embedded = false }: Props) {
   const [category, setCategory] = useState("");
   const [applicantState, setApplicantState] = useState("");
   const [showAll, setShowAll] = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let active = true;
-    getSchemes().then((data) => { if (active) setSchemes(data); }).finally(() => { if (active) setLoading(false); });
+    getSchemes().then((data) => { if (active) setSchemes(data); }).catch(() => { if (active) setLoadError(true); }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, []);
 
@@ -30,7 +31,7 @@ export default function Catalogue({ limit, embedded = false }: Props) {
     async function loadApplicantState() {
       try {
         const saved = window.localStorage.getItem(PROFILE_STORAGE_KEY);
-        if (saved && active) setApplicantState(mergeProfile(JSON.parse(saved)).location.state.trim());
+        if (saved && active && !window.localStorage.getItem(PROFILE_OWNER_KEY)) setApplicantState(mergeProfile(JSON.parse(saved)).location.state.trim());
       } catch { /* Fall back to the account copy when local data is unavailable. */ }
       try {
         const auth = await getAuthStatus();
@@ -49,8 +50,7 @@ export default function Catalogue({ limit, embedded = false }: Props) {
     const needle = search.trim().toLowerCase();
     return schemes.filter((scheme) => {
       const corpus = `${scheme.name} ${scheme.summary} ${scheme.category} ${scheme.jurisdiction}`.toLowerCase();
-      const normalizedJurisdiction = scheme.jurisdiction.trim().toLowerCase();
-      const isStateOrNational = !applicantState || normalizedJurisdiction === "india" || normalizedJurisdiction.includes(applicantState.toLowerCase());
+      const isStateOrNational = isInProfileRegion(scheme.jurisdiction, applicantState);
       return (!applicantState || showAll || isStateOrNational) && (!needle || corpus.includes(needle)) && (!jurisdiction || scheme.jurisdiction === jurisdiction) && (!category || scheme.category === category);
     });
   }, [schemes, search, jurisdiction, category, applicantState, showAll]);
@@ -69,7 +69,7 @@ export default function Catalogue({ limit, embedded = false }: Props) {
           </aside>
           <div>
             <div className="catalogue-top"><label className="sr-only" htmlFor="scheme-search">Search schemes</label><input className="field" id="scheme-search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search by scheme name, benefit or sector…" /><span className="result-count">{filtered.length} {filtered.length === 1 ? "record" : "records"}</span></div>
-            {loading ? <div className="loading">Loading the catalogue…</div> : visible.length ? <div className="scheme-grid">{visible.map((scheme) => <SchemeCard scheme={scheme} key={scheme.scheme_id} />)}</div> : <div className="empty-state">No schemes match those filters. Try clearing one filter or searching a broader phrase.</div>}
+            {loading ? <div className="loading">Loading the catalogue…</div> : loadError ? <div className="empty-state" role="alert">Catalogue unavailable. <button onClick={() => window.location.reload()}>Retry</button></div> : visible.length ? <div className="scheme-grid">{visible.map((scheme) => <SchemeCard scheme={scheme} key={scheme.scheme_id} />)}</div> : <div className="empty-state">No schemes match those filters. Try clearing one filter or searching a broader phrase.</div>}
             {limit && filtered.length > limit && <div style={{ marginTop: 17 }}><Link className="btn btn-ghost" href="/schemes">View all {filtered.length} matches <span aria-hidden="true">→</span></Link></div>}
           </div>
         </div>

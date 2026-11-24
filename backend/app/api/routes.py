@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from ..services.scheme_matching import profile_for_scheme
+from dataclasses import asdict
+from ..services.condition_normalizer import normalize_scheme
 from datetime import date, datetime, timezone
 from typing import Any
 
@@ -93,8 +95,12 @@ def _detail(scheme: SchemeRecord) -> SchemeDetailResponse:
             else "This record is browseable, but its narrative eligibility criteria are not yet a reviewed machine rule set."
         ),
     )
+    conditions = normalize_scheme(asdict(scheme), asdict(rule_set) if rule_set else None)
     return SchemeDetailResponse(
         **_summary(scheme).model_dump(),
+        normalized_conditions=conditions["normalized_conditions"],
+        condition_schema_version=conditions["schema_version"],
+        condition_review_state=conditions["review_state"],
         record_type=scheme.record_type,
         administering_authority=scheme.administering_authority,
         eligibility_text=scheme.eligibility_text,

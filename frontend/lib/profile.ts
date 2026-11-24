@@ -4,6 +4,11 @@ export const PROFILE_STORAGE_KEY = "scheme-finder-profile-v1";
 export const RESULTS_STORAGE_KEY = "scheme-finder-results-v1";
 export const PROFILE_OWNER_KEY = "scheme-finder-profile-owner-v1";
 
+export function isInProfileRegion(jurisdiction: string, state: string) {
+  const region = jurisdiction.split(";")[0].trim().toLowerCase();
+  return !state.trim() || /^(?:(?:urban|rural) )?india\b/.test(region) || region.includes(state.trim().toLowerCase());
+}
+
 export function clearLocalProfileData(onlyIfAccountOwned = false) {
   try {
     if (onlyIfAccountOwned && !window.localStorage.getItem(PROFILE_OWNER_KEY)) return;

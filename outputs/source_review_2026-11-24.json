@@ -1,0 +1,1608 @@
+{
+  "checked_on": "2026-11-24",
+  "distinct_references_attempted": 310,
+  "successful_fetches": 159,
+  "failed_fetches": [
+    {
+      "scheme_ids": [
+        "HR-MSYBC"
+      ],
+      "url": "https://nbcfdc.gov.in/nbcfdc/web/node/530",
+      "issue": "Client error '403 Forbidden' for url 'https://nbcfdc.gov.in/nbcfdc/web/node/530'",
+      "primary_for": [
+        "HR-MSYBC"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HR-MSYBC"
+      ],
+      "url": "https://www.hbews.org.in/",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "HR-MSYBC"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HR-MSYBC"
+      ],
+      "url": "https://www.hbews.org.in/appreg",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "HR-MSYBC"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HP-IGNWPS"
+      ],
+      "url": "https://esomsa.hp.gov.in/?q=social-security-pension",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-DISABILITY-006",
+        "HP-IGNWPS"
+      ],
+      "url": "https://esomsa.hp.gov.in/sites/default/files/Sar%20Sangrrah%202021.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-IGNWPS"
+      ],
+      "url": "https://www.cmsankalp.hp.gov.in/",
+      "issue": "[Errno 54] Connection reset by peer",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-DISABILITY-006",
+        "HP-IGNWPS"
+      ],
+      "url": "https://esomsa.hp.gov.in/?q=downloadable-forms",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "HP-IGNWPS",
+        "HP-DISABILITY-006"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "PB-DCP"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2025/09/Dependent-children-pension-scheme.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [
+        "PB-DCP"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "PB-DCP",
+        "pb_bebe_nanki_ladli_beti_kalyan",
+        "pb_disabled_person_pension",
+        "pb_old_age_pension",
+        "pb_widow_destitute_pension"
+      ],
+      "url": "https://punjab.gov.in/government/departments/social-security1/",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "PB-DCP"
+      ],
+      "url": "https://services.india.gov.in/service/detail/apply-for-dependent-children-pension-scheme-punjab",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "CH-PMEGP"
+      ],
+      "url": "https://msme.gov.in/sites/default/files/Revisedguidelines07.12.2023.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.msme.gov.in/sites/default/files/Revisedguidelines07.12.2023.pdf'",
+      "primary_for": [
+        "CH-PMEGP"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "CH-PMEGP"
+      ],
+      "url": "https://www.kviconline.gov.in/pmegpeportal/jsp/pmegponline.jsp",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "CH-PMEGP"
+      ],
+      "url": "https://chandigarh.gov.in/industries",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "IN-PMKISAN-UMANG"
+      ],
+      "url": "https://pmkisan.gov.in/",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "IN-PMKISAN-UMANG"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HR-CHIRAYU-ABHA-001"
+      ],
+      "url": "https://mera.pmjay.gov.in/search/login",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": [
+        "HR-CHIRAYU-ABHA-001"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HR-DIVYANG-003"
+      ],
+      "url": "https://socialjusticehry.gov.in/document/regarding-notification-of-haryana-divyang-pension-rules-2025/",
+      "issue": "Client error '404 Not Found' for url 'https://socialjusticehry.gov.in/document/regarding-notification-of-haryana-divyang-pension-rules-2025/'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-PMS-EKALYAN-012",
+        "HR-PMS-SC-005",
+        "pb_post_matric_sc_scholarship"
+      ],
+      "url": "https://scholarships.gov.in",
+      "issue": "The read operation timed out",
+      "primary_for": [],
+      "application_route_for": [
+        "HR-PMS-SC-005",
+        "central_depwd_post_matric_scholarship_disabilities",
+        "pb_post_matric_sc_scholarship",
+        "HP-PMS-EKALYAN-012",
+        "chd_post_matric_scholarship_students_disabilities",
+        "chd_sc_obc_post_matric_scholarship",
+        "central_aicte_pragati_girls",
+        "central_aicte_saksham",
+        "chd_post_matric_scholarship_minority"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HR-PMS-SC-005"
+      ],
+      "url": "https://harchhatravratti.highereduhry.ac.in/",
+      "issue": "The read operation timed out",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HR-MMPSY-006"
+      ],
+      "url": "https://cdnbbsr.s3waas.gov.in/s386e78499eeb33fb9cac16b7555b50767/uploads/2025/03/20250317378593833.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://cdnbbsr.s3waas.gov.in/s386e78499eeb33fb9cac16b7555b50767/uploads/2025/03/20250317378593833.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmay_gramin"
+      ],
+      "url": "https://rural.gov.in/sites/default/files/Annual%20Report%202023-24%20English.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.rural.gov.in/sites/default/files/Annual%20Report%202023-24%20English.pdf'",
+      "primary_for": [
+        "central_pmay_gramin"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmay_gramin"
+      ],
+      "url": "https://pmayg.nic.in/netiayHome/questions.html",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": [
+        "central_pmay_gramin"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "central_pmay_gramin"
+      ],
+      "url": "https://pmayg.nic.in/infoapp.html",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmay_gramin"
+      ],
+      "url": "https://pmayg.nic.in/netiay/circular/PMAYGCircular.aspx?flag=ATfXj4sgHJBUi8I%2FJgtpkw%3D%3D&page_level=AHooS4LZKrtDBUGa7aiOMw%3D%3D",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmay_gramin"
+      ],
+      "url": "https://rural.gov.in/sites/default/files/PMAY-G_Suo_moto_disclosure_27012022_0.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.rural.gov.in/sites/default/files/PMAY-G_Suo_moto_disclosure_27012022_0.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_nsap_ignoaps"
+      ],
+      "url": "https://rural.gov.in/sites/default/files/NSAP_Guidelines_English.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.rural.gov.in/sites/default/files/NSAP_Guidelines_English.pdf'",
+      "primary_for": [
+        "central_nsap_ignoaps"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_nsap_ignoaps"
+      ],
+      "url": "https://rural.gov.in/sites/default/files/NSAP%20Social%20Audit%20Guidelines_english-2023_08022024.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.rural.gov.in/sites/default/files/NSAP%20Social%20Audit%20Guidelines_english-2023_08022024.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_nsap_ignoaps"
+      ],
+      "url": "https://nsap.nic.in/",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": [
+        "central_nsap_ignoaps"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "central_depwd_post_matric_scholarship_disabilities"
+      ],
+      "url": "https://divyangjan.depwd.gov.in/content/Compendim-of-Schemes.pdf",
+      "issue": "timed out",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_mmsy_abpmjay"
+      ],
+      "url": "https://saiindia.gov.in/uploads/download_audit_report/2024/PA-Report-on-PHIMHS-%28Report-No.-4-of-2024%29-067e28cda491020.60257581.pdf",
+      "issue": "timed out",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_old_age_pension"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2025/09/Old-Age-Pension-Scheme.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [
+        "pb_old_age_pension"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_disabled_person_pension",
+        "pb_old_age_pension",
+        "pb_widow_destitute_pension"
+      ],
+      "url": "https://upload.indiacode.nic.in/showfile?actid=AC_PB_82_985_00002_00002_1553492693909&filename=notification_13.6.2017_in_eng.pdf&type=notification",
+      "issue": "timed out",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_disabled_person_pension",
+        "pb_old_age_pension",
+        "pb_widow_destitute_pension"
+      ],
+      "url": "https://eservices.punjab.gov.in/",
+      "issue": "Server disconnected without sending a response.",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_widow_destitute_pension"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2025/09/Widow-Destitute-pension-scheme.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [
+        "pb_widow_destitute_pension"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_disabled_person_pension"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2025/09/Disabled-Person-Pension-scheme.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [
+        "pb_disabled_person_pension"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_aashirwad"
+      ],
+      "url": "https://punjab.gov.in/aashirwad-scheme/",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [
+        "pb_aashirwad"
+      ],
+      "application_route_for": [
+        "pb_aashirwad"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "pb_aashirwad"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2020/05/Aashirwad-Scheme.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_aashirwad",
+        "pb_debt_relief_farm_labour_landless"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2019/08/Achievements-of-the-Govt-31.07.2019-Final-1.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [
+        "pb_debt_relief_farm_labour_landless"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_aashirwad"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2019/04/Aashirwad-Scheme.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_old_age_pension"
+      ],
+      "url": "https://serviceonline.gov.in/dbt/getServiceDesc.html?serviceId=15950001",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [
+        "chd_old_age_pension"
+      ],
+      "application_route_for": [
+        "chd_old_age_pension"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_old_age_pension"
+      ],
+      "url": "https://chandigarh.gov.in/sites/default/files/updation2025/rtsnotification0905.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-HIMCARE-001"
+      ],
+      "url": "https://app.hpsbys.in/website/rationcardregistration.aspx",
+      "issue": "Client error '404 Not Found' for url 'https://app.hpsbys.in/website/rationcardregistration.aspx'",
+      "primary_for": [],
+      "application_route_for": [
+        "HP-HIMCARE-001"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HP-HIMCARE-001"
+      ],
+      "url": "https://himachalpr.gov.in/OnePressRelease.aspx?ID=41420&Language=1",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'himachalpr.gov.in'. (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-PMS-EKALYAN-012",
+        "HP-SAHARA-002"
+      ],
+      "url": "https://esomsa.hp.gov.in/",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "HP-IGNWPS",
+        "HP-DISABILITY-006"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HP-BETI-003",
+        "HP-KANYADAN-010"
+      ],
+      "url": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/Scheme-81391295.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://himachal.nic.in/WriteReadData/l892s/176_l892s/Scheme-81391295.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-BETI-003"
+      ],
+      "url": "https://edistrict.hp.gov.in",
+      "issue": "[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] ssl/tls alert handshake failure (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "HP-BETI-003",
+        "HP-KANYADAN-010",
+        "HP-SHAGUN-011"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HP-MMSY-004"
+      ],
+      "url": "https://emerginghimachal.hp.gov.in/site/gis",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-GRIHINI-005"
+      ],
+      "url": "https://food.hp.nic.in/downloads.htm",
+      "issue": "[Errno 51] Network is unreachable",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-GRIHINI-005"
+      ],
+      "url": "https://planning.hp.gov.in/NewReleases/ease_of_living.pdf",
+      "issue": "[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-GRIHINI-005"
+      ],
+      "url": "https://planning.hp.gov.in/plg_PlanFormulation/Annual_Plan_2023-24.pdf",
+      "issue": "[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-GRIHINI-005"
+      ],
+      "url": "https://epds.hp.gov.in/Download/Forms/MGSY.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://epds.hp.gov.in/Download/Forms/MGSY.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-DISABILITY-006"
+      ],
+      "url": "https://esomsa.hp.gov.in/?q=hi/%E0%A4%B8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%9C%E0%A4%BF%E0%A4%95-%E0%A4%B8%E0%A5%81%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%BE-%E0%A4%AA%E0%A5%88%E0%A4%82%E0%A4%B6%E0%A4%A8",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [
+        "HP-DISABILITY-006"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-DISABILITY-006"
+      ],
+      "url": "https://esomsa.hp.gov.in/?q=notifications-rulesguidlines",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-DISABILITY-006",
+        "HP-PMS-EKALYAN-012"
+      ],
+      "url": "https://himparivar.hp.gov.in/ekalyan",
+      "issue": "Client error '404 Not Found' for url 'https://himparivar.hp.gov.in/ekalyan'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmmvy_2"
+      ],
+      "url": "https://www.wcd.gov.in/offerings/pradhan-mantri-matru-vandana-yojana",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmmy_mudra"
+      ],
+      "url": "https://financialservices.gov.in/beta/sites/default/files/2025-04/Decade-of-Mudra-Yojana-Cover-Story-by-NIS.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://financialservices.gov.in/beta/sites/default/files/2025-04/Decade-of-Mudra-Yojana-Cover-Story-by-NIS.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmmy_mudra"
+      ],
+      "url": "https://www.msme.gov.in/sites/default/files/KNOW-YOUR-LENDER-2025.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.msme.gov.in/sites/default/files/KNOW-YOUR-LENDER-2025.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_vishwakarma"
+      ],
+      "url": "https://msme.gov.in/sites/default/files/MSMESchemebooklet2024.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.msme.gov.in/sites/default/files/MSMESchemebooklet2024.pdf'",
+      "primary_for": [
+        "central_pm_vishwakarma"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_vishwakarma"
+      ],
+      "url": "https://msme.gov.in/sites/default/files/July-SeptemberInsider2023v2.0.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.msme.gov.in/sites/default/files/July-SeptemberInsider2023v2.0.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_vishwakarma"
+      ],
+      "url": "https://disclaimer.pmvishwakarma.gov.in/",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_vishwakarma"
+      ],
+      "url": "https://dashboard.msme.gov.in/dashboard.aspx",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_post_matric_sc_scholarship"
+      ],
+      "url": "https://punjab.gov.in/post-matric-scholarship-to-sc/",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [
+        "pb_post_matric_sc_scholarship"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_post_matric_sc_scholarship"
+      ],
+      "url": "https://scst.puchd.ac.in/includes/noticeboard/2026/20260724140050-pmspunjabguidelines2026-27.pdf?2026=",
+      "issue": "Client error '403 Forbidden' for url 'https://scst.puchd.ac.in/includes/noticeboard/2026/20260724140050-pmspunjabguidelines2026-27.pdf?2026='",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_post_matric_sc_scholarship"
+      ],
+      "url": "https://scst.puchd.ac.in/includes/noticeboard/2026/20260914150306-nsppmsfulldetailedprocedureguide.pdf?2026=",
+      "issue": "Client error '403 Forbidden' for url 'https://scst.puchd.ac.in/includes/noticeboard/2026/20260914150306-nsppmsfulldetailedprocedureguide.pdf?2026='",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_post_matric_sc_scholarship"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2018/10/GuidelinesforvariousScholarshipSchemesEnglish03_10_2018.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_bebe_nanki_ladli_beti_kalyan"
+      ],
+      "url": "https://sswcd.punjab.gov.in/en/bebe-nanki-laadli-beti-kalyan-scheme",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [
+        "pb_bebe_nanki_ladli_beti_kalyan"
+      ],
+      "application_route_for": [
+        "pb_bebe_nanki_ladli_beti_kalyan"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "pb_bebe_nanki_ladli_beti_kalyan"
+      ],
+      "url": "https://sswcd.punjab.gov.in/en/contact-us/district-program-officer",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_bebe_nanki_ladli_beti_kalyan"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2020/04/Services-provided-womenchild-1.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_debt_relief_farm_labour_landless"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2023/01/MANUAL-UNDER-RIGHT-TO-INFORMATION-ACT-2005-Obligations-Of-Public-Authorities.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_debt_relief_farm_labour_landless"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2023/01/RTI-Manual-Download.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_debt_relief_farm_labour_landless"
+      ],
+      "url": "https://punjab.gov.in/government/departments/department-of-agriculture/",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_debt_relief_farm_labour_landless"
+      ],
+      "url": "https://www.tribuneindia.com/news/chandigarh/punjab-cm-announces-waiver-of-rs-590-crore-worth-loans-of-2-85-lakh-farm-labourers-and-landless-farmers-283042",
+      "issue": "Client error '403 Forbidden' for url 'https://www.tribuneindia.com/news/chandigarh/punjab-cm-announces-waiver-of-rs-590-crore-worth-loans-of-2-85-lakh-farm-labourers-and-landless-farmers-283042'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_debt_relief_farm_labour_landless"
+      ],
+      "url": "https://punjab.gov.in/government/departments/",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "pb_debt_relief_farm_labour_landless"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_national_family_benefit_scheme",
+        "pb_national_family_benefit_scheme"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2020/05/NationalFamilyBenefitScheme.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [
+        "pb_national_family_benefit_scheme"
+      ],
+      "application_route_for": [
+        "pb_national_family_benefit_scheme",
+        "chd_national_family_benefit_scheme"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_funeral_assistance",
+        "pb_bocw_maternity_benefit",
+        "pb_bocw_pension",
+        "pb_national_family_benefit_scheme"
+      ],
+      "url": "https://punjab.gov.in/forms/",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_national_family_benefit_scheme"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2022/12/24082022.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_widow_pension"
+      ],
+      "url": "https://serviceonline.gov.in/dbt/getServiceDesc.html?serviceId=16400001",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [
+        "chd_widow_pension"
+      ],
+      "application_route_for": [
+        "chd_widow_pension"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_disability_pension",
+        "chd_widow_pension"
+      ],
+      "url": "https://chandigarh.gov.in/sites/default/files/stat2024/stat24-sampk.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_disability_pension",
+        "chd_widow_pension"
+      ],
+      "url": "https://www.mha.gov.in/sites/default/files/AnnualReport202122_24112022%5B1%5D.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.mha.gov.in/sites/default/files/AnnualReport202122_24112022%5B1%5D.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_disability_pension"
+      ],
+      "url": "https://serviceonline.gov.in/dbt/getServiceDesc.html?serviceId=15940001",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [
+        "chd_disability_pension"
+      ],
+      "application_route_for": [
+        "chd_disability_pension"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "central_pmsby"
+      ],
+      "url": "https://www.financialservices.gov.in/pmsby",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.financialservices.gov.in'. (_ssl.c:1081)",
+      "primary_for": [
+        "central_pmsby"
+      ],
+      "application_route_for": [
+        "central_pmsby"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "central_pmsby"
+      ],
+      "url": "https://jansuraksha.gov.in/Files/PMSBY/ENGLISH/FAQ.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmsby"
+      ],
+      "url": "https://www.indiapost.gov.in/insurance-services/pmsby",
+      "issue": "Client error '406 Not Acceptable' for url 'https://www.indiapost.gov.in/insurance-services/pmsby'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmjjby"
+      ],
+      "url": "https://www.financialservices.gov.in/pmjjby",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.financialservices.gov.in'. (_ssl.c:1081)",
+      "primary_for": [
+        "central_pmjjby"
+      ],
+      "application_route_for": [
+        "central_pmjjby"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "central_pmjjby"
+      ],
+      "url": "https://www.indiapost.gov.in/insurance-services/pmjjby",
+      "issue": "Client error '406 Not Acceptable' for url 'https://www.indiapost.gov.in/insurance-services/pmjjby'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmjjby"
+      ],
+      "url": "https://www.jansuraksha.gov.in/Files/PMJJBY/English/Rules.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_apy"
+      ],
+      "url": "https://www.indiapost.gov.in/insurance-services/apy",
+      "issue": "Client error '406 Not Acceptable' for url 'https://www.indiapost.gov.in/insurance-services/apy'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_surya_ghar"
+      ],
+      "url": "https://www.solarrooftop.pmsuryaghar.gov.in/",
+      "issue": "timed out",
+      "primary_for": [
+        "central_pm_surya_ghar"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_surya_ghar"
+      ],
+      "url": "https://mnre.gov.in/en/notice/operational-guidelines-for-implementation-of-the-component-central-financial-assistance-to-residential-consumers-of-pm-surya-ghar-muft-bijli-yojana/",
+      "issue": "Client error '404 Not Found' for url 'https://mnre.gov.in/en/notice/operational-guidelines-for-implementation-of-the-component-central-financial-assistance-to-residential-consumers-of-pm-surya-ghar-muft-bijli-yojana'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_surya_ghar"
+      ],
+      "url": "https://mnre.gov.in/en/notice/amendment-in-guidelines-for-implementation-of-pm-surya-ghar-muft-bijli-yojana-for-the-component-of-cfa-to-residential-consumers/",
+      "issue": "Client error '404 Not Found' for url 'https://mnre.gov.in/en/notice/amendment-in-guidelines-for-implementation-of-pm-surya-ghar-muft-bijli-yojana-for-the-component-of-cfa-to-residential-consumers'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_surya_ghar"
+      ],
+      "url": "https://solarrooftop.pmsuryaghar.gov.in/notification/166_notification.pdf",
+      "issue": "timed out",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_nalsa_legal_aid"
+      ],
+      "url": "https://nalsa.gov.in/uploads//pdf/2019/03/12/12_03_2019_362396240.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://nalsa.gov.in/uploads/pdf/2019/03/12/12_03_2019_362396240.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HR-VIVAH-008"
+      ],
+      "url": "https://shaadi.edisha.gov.in",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": [
+        "HR-VIVAH-008"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HR-SAKSHAM-009"
+      ],
+      "url": "https://hrex.gov.in/api/downloadFile/pdf/saksham.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [
+        "HR-SAKSHAM-009"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HR-SAKSHAM-009"
+      ],
+      "url": "https://hrex.gov.in/account/about-us/tpo",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HR-SAKSHAM-009"
+      ],
+      "url": "https://hrex.gov.in/account/register/jobseeker",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "HR-SAKSHAM-009"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HR-SAKSHAM-009"
+      ],
+      "url": "https://www.dbtharyana.gov.in/scheme/schemelist",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.dbtharyana.gov.in'. (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-KANYADAN-010",
+        "HP-SHAGUN-011"
+      ],
+      "url": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1678002609.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://himachal.nic.in/WriteReadData/l892s/176_l892s/1678002609.pdf'",
+      "primary_for": [
+        "HP-KANYADAN-010",
+        "HP-SHAGUN-011"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-KANYADAN-010",
+        "HP-SHAGUN-011"
+      ],
+      "url": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1626072027.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://himachal.nic.in/WriteReadData/l892s/176_l892s/1626072027.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-KANYADAN-010"
+      ],
+      "url": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/Mukhya%20Mantri%20Kanyadan%20Yojna%20%28B%29-78665675.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://himachal.nic.in/WriteReadData/l892s/176_l892s/Mukhya%20Mantri%20Kanyadan%20Yojna%20%28B%29-78665675.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-KANYADAN-010",
+        "HP-SHAGUN-011"
+      ],
+      "url": "https://edistrict.hp.gov.in/pages/staticSite/serviceList.xhtml?a=03",
+      "issue": "[SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] ssl/tls alert handshake failure (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "HP-KANYADAN-010",
+        "HP-SHAGUN-011"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "HP-SHAGUN-011"
+      ],
+      "url": "https://himachal.nic.in/WriteReadData/l892s/1_l892s/gender_Budget_Statement_2022-23-65828974.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://himachal.nic.in/WriteReadData/l892s/1_l892s/gender_Budget_Statement_2022-23-65828974.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-PMS-EKALYAN-012"
+      ],
+      "url": "https://www.education.hp.gov.in/?q=notices",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.education.hp.gov.in'. (_ssl.c:1081)",
+      "primary_for": [
+        "HP-PMS-EKALYAN-012"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-PMS-EKALYAN-012"
+      ],
+      "url": "https://education.hp.gov.in/sites/default/files/verification_3.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://education.hp.gov.in/sites/default/files/verification_3.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-PMS-EKALYAN-012"
+      ],
+      "url": "https://education.hp.gov.in/sites/default/files/Pressrelease_sch.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://education.hp.gov.in/sites/default/files/Pressrelease_sch.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "HP-PMS-EKALYAN-012"
+      ],
+      "url": "https://education.hp.gov.in/sites/default/files/SCHOLARSHIP%20%202024.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://education.hp.gov.in/sites/default/files/SCHOLARSHIP%20%202024.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_education_assistance_children",
+        "pb_bocw_exgratia_accidental_death_disability",
+        "pb_bocw_shagun_scheme"
+      ],
+      "url": "https://punjab.gov.in/government/departments/department-of-labour/",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_shagun_scheme"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2020/05/Application-for-Shagun-scheme-for-marriage-of-daughter-form-35.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_education_assistance_children"
+      ],
+      "url": "https://www.india.gov.in/application-stipend-children-beneficiaries-punjab",
+      "issue": "Client error '404 Not Found' for url 'https://www.india.gov.in/application-stipend-children-beneficiaries-punjab'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_exgratia_accidental_death_disability"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2023/10/Punjab-at-Glance-2022-Punjabi-English.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_post_matric_scholarship_students_disabilities"
+      ],
+      "url": "https://divyangjan.depwd.gov.in/upload/uploadfiles/files/Scholarship%20Scheme%20Guidelines%202023-24.pdf",
+      "issue": "timed out",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_post_matric_scholarship_students_disabilities"
+      ],
+      "url": "https://www.chdeducation.gov.in/wp-content/uploads/2021/05/Advertisement-Pre-Matric-Post-Matric-and-Top-Class-scholarship-scheme-for-Persons-with-Disability-Divyangjan-for-the-year-2018-19.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_sc_obc_post_matric_scholarship"
+      ],
+      "url": "https://chdeducation.gov.in/page/viewpage/103",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [
+        "chd_sc_obc_post_matric_scholarship"
+      ],
+      "application_route_for": [
+        "chd_sc_obc_post_matric_scholarship"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_post_matric_scholarship_minority",
+        "chd_sc_obc_post_matric_scholarship"
+      ],
+      "url": "https://chdeducation.gov.in/page/viewpage/45/106",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "chd_sc_obc_post_matric_scholarship"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_sc_obc_post_matric_scholarship"
+      ],
+      "url": "https://www.chdeducation.gov.in/?p=2928",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_sc_obc_post_matric_scholarship"
+      ],
+      "url": "https://www.chdeducation.gov.in/wp-content/uploads/2022/08/Post-Matric-SC-Chandigarh-guidelines.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_sc_obc_post_matric_scholarship"
+      ],
+      "url": "https://www.chdeducation.gov.in/wp-content/uploads/2023/01/FREE-EDUCATION-TO-MERITORIOUS-SC-AND-OBC-STUDENTS-1.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_sc_obc_post_matric_scholarship"
+      ],
+      "url": "https://serviceonline.gov.in/",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "chd_old_age_pension",
+        "chd_widow_pension",
+        "chd_disability_pension",
+        "chd_sc_obc_post_matric_scholarship",
+        "chd_hamari_beti_girl_child",
+        "chd_national_family_benefit_scheme"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_free_legal_aid_slsa"
+      ],
+      "url": "https://scourtapp.nic.in/lacms/nologin/howToApply.action",
+      "issue": "timed out",
+      "primary_for": [],
+      "application_route_for": [
+        "chd_free_legal_aid_slsa"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_free_legal_aid_slsa"
+      ],
+      "url": "https://chandigarh.gov.in/sites/default/files/RTI/r2i_slsa.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_svanidhi"
+      ],
+      "url": "https://www.mohua.gov.in/upload/uploadfiles/files/FAQ-PM-SAVNidhi-English.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.mohua.gov.in/upload/uploadfiles/files/FAQ-PM-SAVNidhi-English.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_svanidhi"
+      ],
+      "url": "https://mohua.gov.in/upload/pressrelease/6954a12dccb16%E0%A4%B5%E0%A4%B0%E0%A5%8D%E0%A4%B7%E0%A4%BE%E0%A4%82%E0%A4%B8%E0%A4%AE%E0%A5%80%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%BE-2025.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.mohua.gov.in/upload/pressrelease/6954a12dccb16%E0%A4%B5%E0%A4%B0%E0%A5%8D%E0%A4%B7%E0%A4%BE%E0%A4%82%E0%A4%B8%E0%A4%AE%E0%A5%80%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%BE-2025.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pm_sym"
+      ],
+      "url": "https://services.india.gov.in/service/detail/enroll-to-avail-benefits-from-pradhan-mantri-shram-yogi-maandhan-yojana-1",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_nos_sc_etc"
+      ],
+      "url": "https://socialjustice.gov.in/schemes/28",
+      "issue": "Server error '503 Service Unavailable' for url 'https://socialjustice.gov.in/schemes/28'",
+      "primary_for": [
+        "central_nos_sc_etc"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_nos_sc_etc"
+      ],
+      "url": "https://nosmsje.gov.in/public/",
+      "issue": "timed out",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_nos_sc_etc"
+      ],
+      "url": "https://nosmsje.gov.in/downloads",
+      "issue": "timed out",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_nos_sc_etc"
+      ],
+      "url": "https://socialjustice.gov.in/writereaddata/UploadFile/90391739514832.pdf",
+      "issue": "Server error '503 Service Unavailable' for url 'https://socialjustice.gov.in/writereaddata/UploadFile/90391739514832.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_nos_sc_etc"
+      ],
+      "url": "https://nosmsje.gov.in/",
+      "issue": "timed out",
+      "primary_for": [],
+      "application_route_for": [
+        "central_nos_sc_etc"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "central_aicte_pragati_girls",
+        "central_aicte_saksham"
+      ],
+      "url": "https://aicte-qa.aicte-india.org/sites/default/files/Final%20FAQ.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_aicte_pragati_girls",
+        "central_aicte_saksham"
+      ],
+      "url": "https://aicte-qa.aicte-india.org/sites/default/files/Press%20Release%20AICTE%20Scholarship%20Schemes%20English%2028%20Nov.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_aicte_saksham"
+      ],
+      "url": "https://aicte-qa.aicte-india.org/sites/default/files/ps_faq.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_maternity_benefit"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2020/05/Application-for-Maternity-Benefit-scheme-Form-No-46.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "pb_bocw_maternity_benefit"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_maternity_benefit"
+      ],
+      "url": "https://www.tribuneindia.com/news/chandigarh/punjab-labour-dept-simplifies-access-to-welfare-schemes-627493",
+      "issue": "Client error '403 Forbidden' for url 'https://www.tribuneindia.com/news/chandigarh/punjab-labour-dept-simplifies-access-to-welfare-schemes-627493'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_pension"
+      ],
+      "url": "https://services.india.gov.in/service/state_services?ln=en&page_no=10&sd_id=2967",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": [
+        "pb_bocw_pension"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_pension"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2020/05/Application-for-Pension-Payment-Register-Form-No-44.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "pb_bocw_pension"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_funeral_assistance"
+      ],
+      "url": "https://services.india.gov.in/service/detail/application-for-funeral-rites-for-beneficiary-in-punjab-1",
+      "issue": "[Errno 8] nodename nor servname provided, or not known",
+      "primary_for": [],
+      "application_route_for": [
+        "pb_bocw_funeral_assistance"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "pb_bocw_funeral_assistance"
+      ],
+      "url": "https://punjab.gov.in/wp-content/uploads/2020/05/Application-for-Financial-assistance-for-Funeral-last-rites-of-beneficiary-family-member-Form-No-39.pdf",
+      "issue": "[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "pb_bocw_funeral_assistance"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_hamari_beti_girl_child"
+      ],
+      "url": "https://serviceonline.gov.in/dbt/getServiceDesc.html?serviceId=16320002",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [
+        "chd_hamari_beti_girl_child"
+      ],
+      "application_route_for": [
+        "chd_hamari_beti_girl_child"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_hamari_beti_girl_child"
+      ],
+      "url": "https://www.mha.gov.in/sites/default/files/AREnglish_24032026.pdf",
+      "issue": "Client error '404 Not Found' for url 'https://www.mha.gov.in/sites/default/files/AREnglish_24032026.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_hamari_beti_girl_child"
+      ],
+      "url": "https://chandigarh.gov.in/sites/default/files/documents/r2i_social.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_national_family_benefit_scheme"
+      ],
+      "url": "https://chandigarh.gov.in/sites/default/files/stat18/Abstract2018/stat18-T28.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [
+        "chd_national_family_benefit_scheme"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_national_family_benefit_scheme"
+      ],
+      "url": "https://chandigarh.gov.in/sites/default/files/stat18/Abstract2018/stat18-T27.pdf",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "chd_national_family_benefit_scheme"
+      ],
+      "url": "https://chandigarh.gov.in/other-departments",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "chd_national_family_benefit_scheme"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_national_family_benefit_scheme"
+      ],
+      "url": "https://serviceonline.gov.in/dbt/",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "chd_old_age_pension",
+        "chd_widow_pension",
+        "chd_disability_pension",
+        "chd_hamari_beti_girl_child",
+        "chd_national_family_benefit_scheme"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "chd_post_matric_scholarship_minority"
+      ],
+      "url": "https://scholarships.gov.in/Officers",
+      "issue": "The read operation timed out",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmjdy"
+      ],
+      "url": "https://www.financialservices.gov.in/pradhan-mantri-jan-dhan-yojana-pmjdy",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.financialservices.gov.in'. (_ssl.c:1081)",
+      "primary_for": [
+        "central_pmjdy"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_pmjdy"
+      ],
+      "url": "https://www.pmjdy.gov.in/",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.pmjdy.gov.in'. (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": [
+        "central_pmjdy"
+      ]
+    },
+    {
+      "scheme_ids": [
+        "central_pmjdy"
+      ],
+      "url": "https://www.financialservices.gov.in/banking",
+      "issue": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.financialservices.gov.in'. (_ssl.c:1081)",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_sukanya_samriddhi"
+      ],
+      "url": "https://www.indiapost.gov.in/VAS/DOP_PDFFiles/Sukanya%20Samriddhi%20Account%20Scheme%202019%20English.pdf",
+      "issue": "Client error '406 Not Acceptable' for url 'https://www.indiapost.gov.in/VAS/DOP_PDFFiles/Sukanya%20Samriddhi%20Account%20Scheme%202019%20English.pdf'",
+      "primary_for": [
+        "central_sukanya_samriddhi"
+      ],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_sukanya_samriddhi"
+      ],
+      "url": "https://www.indiapost.gov.in/VAS/DOP_PDFFiles/POSB%28CBS%29Manual.pdf",
+      "issue": "Client error '406 Not Acceptable' for url 'https://www.indiapost.gov.in/VAS/DOP_PDFFiles/POSB%28CBS%29Manual.pdf'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_sukanya_samriddhi"
+      ],
+      "url": "https://www.indiapost.gov.in/api/documents/file/U2FsdGVkX18zFDge_-_R9ej8rJsV0DLUW_LEqQjKREoJAgE5RC15hJx7SyEmM_f7qjrYbSY_CDnHvDvGo0IMHg",
+      "issue": "Client error '406 Not Acceptable' for url 'https://www.indiapost.gov.in/api/documents/file/U2FsdGVkX18zFDge_-_R9ej8rJsV0DLUW_LEqQjKREoJAgE5RC15hJx7SyEmM_f7qjrYbSY_CDnHvDvGo0IMHg'",
+      "primary_for": [],
+      "application_route_for": []
+    },
+    {
+      "scheme_ids": [
+        "central_sukanya_samriddhi"
+      ],
+      "url": "https://www.indiapost.gov.in/vas/pages/IndiaPostHome.aspx",
+      "issue": "Client error '406 Not Acceptable' for url 'https://www.indiapost.gov.in/vas/pages/IndiaPostHome.aspx'",
+      "primary_for": [],
+      "application_route_for": [
+        "central_sukanya_samriddhi"
+      ]
+    }
+  ],
+  "discovery_candidates": [
+    "https://gurugram.gov.in/scheme/drda-schemes/",
+    "https://hpshimla.nic.in/scheme/rastriya-swasthya-bima-yojna/"
+  ],
+  "follow_up": [
+    {
+      "scheme_id": "HP-HIMCARE-001",
+      "old_url": "https://app.hpsbys.in/website/rationcardregistration.aspx",
+      "replacement": "https://app.hpsbys.in/website/AddBeneficiaryInfo.aspx",
+      "replacement_http_status": 200,
+      "verification": "Read the state society enrolment form. No personal data entered or application submitted."
+    },
+    {
+      "scheme_id": "CH-PMEGP",
+      "old_url": "https://msme.gov.in/sites/default/files/Revisedguidelines07.12.2023.pdf",
+      "replacement": "https://kviconline.gov.in/pmegpeportal/dashboard/notification/Revised_PMEGP_Scheme_Guidelines_07122023_compressed.pdf",
+      "verification": "Local fetch failed: [Errno 8] nodename nor servname provided, or not known"
+    },
+    {
+      "scheme_id": "central_pmay_gramin",
+      "old_url": "https://rural.gov.in/sites/default/files/Annual%20Report%202023-24%20English.pdf",
+      "replacement": "https://pmayg.dord.gov.in/netiayHome/home.aspx",
+      "replacement_http_status": 200,
+      "verification": "Official catalogue reference updated. No application submitted."
+    },
+    {
+      "scheme_id": "central_nsap_ignoaps",
+      "old_url": "https://rural.gov.in/sites/default/files/NSAP_Guidelines_English.pdf",
+      "replacement": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2323266&lang=1&reg=3",
+      "replacement_http_status": 200,
+      "verification": "Official catalogue reference updated. No application submitted."
+    },
+    {
+      "scheme_id": "central_pm_vishwakarma",
+      "old_url": "https://msme.gov.in/sites/default/files/MSMESchemebooklet2024.pdf",
+      "replacement": "https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1959098&lang=2&reg=48",
+      "replacement_http_status": 200,
+      "verification": "Official catalogue reference updated. No application submitted."
+    },
+    {
+      "scheme_id": "HP-KANYADAN-010",
+      "old_url": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1678002609.pdf",
+      "replacement": "https://edistrict.hp.gov.in/pages/services/designForm/InfoPages/CM_Bestowing_Plan_%28Mukhya_Mantri_Kanyadaan_Yojana%29.xhtml",
+      "verification": "Local fetch failed: [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] ssl/tls alert handshake failure (_ssl.c:1081)"
+    },
+    {
+      "scheme_id": "HP-SHAGUN-011",
+      "old_url": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1678002609.pdf",
+      "replacement": "https://himseva.hp.gov.in/pages/staticSite/serviceList.xhtml",
+      "verification": "Local fetch failed: [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] ssl/tls alert handshake failure (_ssl.c:1081)"
+    }
+  ]
+}

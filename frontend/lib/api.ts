@@ -1,6 +1,6 @@
 import { emptyProfile, profileToApiPayload } from "./profile";
 import { EligibilityResponse, EligibilityResult, Profile, Readiness, Scheme } from "./types";
-import { mockSchemes } from "./mock-schemes";
+
 
 const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000").replace(/\/$/, "");
 
@@ -20,13 +20,14 @@ function text(value: unknown, fallback = "") {
 }
 
 function splitSources(value: unknown): string[] {
-  if (Array.isArray(value)) return value.filter((item): item is string => typeof item === "string" && item.length > 0);
-  return text(value).split(/[|;\n]/).map((item) => item.trim()).filter(Boolean).filter((item) => item.startsWith("http"));
+  const items = Array.isArray(value) ? value : [value];
+  return items.flatMap(item => text(item && typeof item === "object" ? item.url : item).split(/[|;\n]/))
+    .map(url => url.trim()).filter(url => URL.canParse(url) && /^https?:\/\//i.test(url));
 }
 
 function readiness(value: unknown): Readiness {
   const normalized = text(value).toLowerCase();
-  if (normalized === "yes" || normalized.includes("ready")) return "YES";
+  if (normalized === "yes" || (normalized.includes("ready") && !normalized.includes("not ready"))) return "YES";
   if (normalized === "conditional" || normalized.includes("caution")) return "CONDITIONAL";
   if (normalized === "no" || normalized.includes("not ready") || normalized.includes("incomplete")) return "NO";
   return "UNKNOWN";
@@ -34,7 +35,7 @@ function readiness(value: unknown): Readiness {
 
 export function normalizeScheme(value: unknown): Scheme {
   const raw = (value || {}) as Record<string, unknown>;
-  const sourceUrls = splitSources(raw.source_urls ?? raw.sources ?? raw.source_url ?? raw.additional_sources);
+  const sourceUrls = [...new Set([raw.source_urls, raw.sources, raw.source_url, raw.additional_sources].flatMap(splitSources))];
   const resolvedReadiness = readiness(raw.application_readiness ?? raw.application_ready ?? raw.readiness);
   return {
     scheme_id: text(raw.scheme_id ?? raw.id, cryptoSafeId(raw.name)),
@@ -47,7 +48,7 @@ export function normalizeScheme(value: unknown): Scheme {
     eligibility_text: text(raw.eligibility_text ?? raw.eligibility),
     documents_text: text(raw.documents_text ?? raw.documents_required),
     application_mode: text(raw.application_mode, "Check official route"),
-    application_url: text(raw.application_url) || undefined,
+    application_url: splitSources(raw.application_url)[0],
     application_steps: text(raw.application_steps),
     deadline_or_timing: text(raw.deadline_or_timing ?? raw.deadline_or_renewal),
     tracking_method: text(raw.tracking_method ?? raw.tracking_grievance),
@@ -94,18 +95,17 @@ export async function getSchemes(query: SchemeQuery = {}): Promise<Scheme[]> {
   try {
     const data = await getJson(`${API_BASE}/api/v1/schemes${params.size ? `?${params}` : ""}`);
     const schemes = asArray(data).map(normalizeScheme);
-    if (schemes.length) return schemes;
+    return schemes;
   } catch {
     // The local route below makes the preview work before FastAPI is running.
   }
   try {
     const data = await getJson(`/api/v1/schemes?mock=1${params.size ? `&${params}` : ""}`);
     const schemes = asArray(data).map(normalizeScheme);
-    if (schemes.length) return schemes;
+    return schemes;
   } catch {
-    // Use the in-bundle seed as the final offline fallback.
+    throw new Error("Could not load the scheme catalogue.");
   }
-  return filterSchemes(mockSchemes, query);
 }
 
 export async function getScheme(id: string): Promise<Scheme | undefined> {
@@ -117,20 +117,9 @@ export async function getScheme(id: string): Promise<Scheme | undefined> {
       const data = await getJson(`/api/v1/schemes/${encodeURIComponent(id)}?mock=1`);
       return normalizeScheme(data?.scheme ?? data?.data ?? data);
     } catch {
-      return mockSchemes.find((scheme) => scheme.scheme_id === id);
+      return undefined;
     }
   }
-}
-
-function filterSchemes(schemes: Scheme[], query: SchemeQuery) {
-  const search = (query.search || "").toLowerCase();
-  return schemes.filter((scheme) => {
-    const matchesSearch = !search || `${scheme.name} ${scheme.summary} ${scheme.category} ${scheme.jurisdiction}`.toLowerCase().includes(search);
-    const matchesJurisdiction = !query.jurisdiction || scheme.jurisdiction.toLowerCase().includes(query.jurisdiction.toLowerCase());
-    const matchesCategory = !query.category || scheme.category === query.category;
-    const matchesReadiness = !query.readiness || scheme.application_readiness === query.readiness;
-    return matchesSearch && matchesJurisdiction && matchesCategory && matchesReadiness;
-  });
 }
 
 export async function checkEligibility(profile: Profile): Promise<EligibilityResponse> {
@@ -142,13 +131,7 @@ export async function checkEligibility(profile: Profile): Promise<EligibilityRes
     });
     return normalizeEligibilityResponse(data);
   } catch {
-    let schemes = mockSchemes;
-    try {
-      schemes = await getSchemes();
-    } catch {
-      // Keep the seed data.
-    }
-    return localEligibility(profile, schemes);
+    throw new Error("Eligibility checking is unavailable. Your answers are saved. Please retry when the API is available.");
   }
 }
 
@@ -186,7 +169,7 @@ function normalizeEligibilityResponse(value: unknown): EligibilityResponse {
 
 function normalizeResult(value: unknown): EligibilityResult["result"] {
   const normalized = text(value).toLowerCase().replace(/[ -]/g, "_");
-  if (normalized.includes("eligible") && !normalized.includes("not")) return "likely_eligible";
+  if (normalized.includes("eligible") && !normalized.includes("not") && !normalized.includes("ineligible")) return "likely_eligible";
   if (normalized.includes("not_eligible") || normalized.includes("ineligible")) return "likely_not_eligible";
   if (normalized.includes("needs_more_information") || normalized.includes("needs_information")) return "needs_information";
   if (normalized.includes("information_only") || normalized === "information") return "information_only";
@@ -200,56 +183,6 @@ function normalizeReasons(value: unknown): EligibilityResult["reasons"] {
     const row = (reason || {}) as Record<string, unknown>;
     return { label: text(row.label ?? row.field ?? row.rule_id), message: text(row.message ?? row.reason ?? row.explanation ?? row.description ?? row.missing_reason ?? row.failure_reason, "Review this condition."), status: text(row.status).toUpperCase() as EligibilityResult["reasons"][number]["status"], source_url: text(row.source_url) || undefined };
   });
-}
-
-function localEligibility(profile: Profile, schemes: Scheme[]): EligibilityResponse {
-  const answered = Object.values(profile).flatMap((section) => Object.values(section)).filter((value) => value !== "" && value !== null && value !== undefined).length;
-  const hasLocation = Boolean(profile.location.state);
-  const age = profile.personal.date_of_birth ? calculateAge(profile.personal.date_of_birth) : null;
-  const income = Number(profile.household.family_income || 0);
-  const results: EligibilityResult[] = schemes.map((scheme) => {
-    const allReasons: EligibilityResult["reasons"] = [];
-    const textCorpus = `${scheme.name} ${scheme.category} ${scheme.eligibility_text}`.toLowerCase();
-    let result: EligibilityResult["result"] = "needs_information";
-    if (scheme.application_readiness === "NO" || scheme.application_readiness === "UNKNOWN") {
-      result = "information_only";
-      allReasons.push({ message: "This record still needs source or application-route review.", status: "EXTERNAL_CHECK" });
-    } else if (hasLocation && scheme.jurisdiction.toLowerCase().includes(profile.location.state.toLowerCase())) {
-      result = "likely_eligible";
-      allReasons.push({ message: "Your state matches this scheme’s listed jurisdiction.", status: "PASS" });
-    } else if (hasLocation && scheme.jurisdiction.toLowerCase().includes("india")) {
-      result = answered > 5 ? "likely_eligible" : "needs_information";
-      allReasons.push({ message: "This scheme is available nationally; a few conditions still need verification.", status: answered > 5 ? "PASS" : "UNKNOWN" });
-    } else if (hasLocation) {
-      result = "likely_not_eligible";
-      allReasons.push({ message: `The listed jurisdiction is ${scheme.jurisdiction}; your profile says ${profile.location.state}.`, status: "FAIL" });
-    } else {
-      allReasons.push({ message: "Add your state to check jurisdiction and local conditions.", status: "UNKNOWN" });
-    }
-    if (textCorpus.includes("farmer") || textCorpus.includes("agriculture")) {
-      if (profile.agriculture.farmer_status === "yes") allReasons.push({ message: "Farmer status is marked yes.", status: "PASS" });
-      else if (!profile.agriculture.farmer_status) allReasons.push({ message: "Tell us whether you are a farmer for the agriculture check.", status: "UNKNOWN" });
-    }
-    if (textCorpus.includes("income") && !profile.household.family_income) allReasons.push({ message: "Family income is needed for this scheme’s income condition.", status: "UNKNOWN" });
-    if (textCorpus.includes("widow") && profile.personal.marital_status === "widowed") allReasons.push({ message: "Your profile marks you as widowed.", status: "PASS" });
-    if (textCorpus.includes("widow") && profile.personal.marital_status && profile.personal.marital_status !== "widowed") { result = "likely_not_eligible"; allReasons.push({ message: "This scheme is for widows; your marital-status answer does not match.", status: "FAIL" }); }
-    if (age !== null && textCorpus.includes("18") && age < 18) { result = "likely_not_eligible"; allReasons.push({ message: "The listed minimum age is 18.", status: "FAIL" }); }
-    if (income > 0 && textCorpus.includes("3 lakh") && income > 300000) { result = "likely_not_eligible"; allReasons.push({ message: "The listed family-income ceiling is INR 3 lakh per year.", status: "FAIL" }); }
-    const passed = allReasons.filter((reason) => reason.status === "PASS");
-    const checked = allReasons.filter((reason) => reason.status === "PASS" || reason.status === "FAIL" || reason.status === "UNKNOWN");
-    return { scheme, result, reasons: allReasons, passed, matched_conditions: passed.length, total_conditions: checked.length };
-  });
-  return { results, profile_version: "local-preview", rule_set_version: "mock-v1", generated_at: new Date().toISOString() };
-}
-
-function calculateAge(date: string) {
-  const birth = new Date(`${date}T00:00:00`);
-  if (Number.isNaN(birth.getTime())) return null;
-  const today = new Date();
-  let age = today.getFullYear() - birth.getFullYear();
-  const beforeBirthday = today.getMonth() < birth.getMonth() || (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate());
-  if (beforeBirthday) age -= 1;
-  return age;
 }
 
 export { emptyProfile };

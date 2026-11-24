@@ -3,7 +3,7 @@
   "source": {
     "workbook": "scheme_research_register.xlsx",
     "worksheet": "Scheme Data",
-    "sha256": "92bc4d86391d9b23684f1b60f638b92004ef96a7ea605ad93b3f6d07f92c7603",
+    "sha256": "e0018e9859e074410204ff1122de529d55f486534740bbdc67abbd1565aa7712",
     "headers": [
       "scheme_id",
       "scheme_name",
@@ -360,7 +360,7 @@
     },
     {
       "scheme_id": "HP-IGNWPS",
-      "scheme_name": "Indira Gandhi National Widow Pension Scheme – Himachal Pradesh",
+      "scheme_name": "Pradhan Mantri Vidhawa Pension Yojana — Indira Gandhi National Widow Pension Scheme – Himachal Pradesh",
       "jurisdiction": "Himachal Pradesh",
       "record_type": "State social-security pension",
       "category": "Pension",
@@ -378,7 +378,7 @@
       "deadline_or_renewal": "No fixed annual deadline or renewal cycle found; report eligibility changes.",
       "tracking_grievance": "Ask Tehsil/District Welfare Office for status. ESOMSA: 0177-3525101/5102. Grievance: 1100 or https://www.cmsankalp.hp.gov.in/ .",
       "source_url": "https://hpshimla.nic.in/dwo-shimla/",
-      "additional_sources": "https://esomsa.hp.gov.in/?q=social-security-pension | https://esomsa.hp.gov.in/sites/default/files/Sar%20Sangrrah%202021.pdf | https://www.cmsankalp.hp.gov.in/",
+      "additional_sources": "https://esomsa.hp.gov.in/?q=social-security-pension | https://esomsa.hp.gov.in/sites/default/files/Sar%20Sangrrah%202021.pdf | https://www.cmsankalp.hp.gov.in/; https://www.pib.gov.in/PressReleasePage.aspx?PRID=2323266&lang=1&reg=3",
       "source_authority": "Official HP district and departmental sources; offline route is the reliable current path.",
       "extraction_status": "Application-ready research",
       "source_risk": "Medium",
@@ -423,7 +423,7 @@
           "last_checked": "2026-09-22"
         },
         {
-          "url": "https://www.cmsankalp.hp.gov.in/",
+          "url": "https://www.cmsankalp.hp.gov.in/; https://www.pib.gov.in/PressReleasePage.aspx?PRID=2323266&lang=1&reg=3",
           "role": "additional",
           "last_checked": "2026-09-22"
         }
@@ -432,7 +432,7 @@
         "Official pages differ slightly on whether the higher rate begins at '70 and above' or 'above 70'. Confirm for an applicant turning 70."
       ],
       "application_guide": {
-        "scheme_name": "Indira Gandhi National Widow Pension Scheme – Himachal Pradesh",
+        "scheme_name": "Pradhan Mantri Vidhawa Pension Yojana — Indira Gandhi National Widow Pension Scheme – Himachal Pradesh",
         "who_should_try": "Widow; resident of Himachal Pradesh; age 40–79; belongs to a Below Poverty Line family.",
         "benefit": "Monthly pension reported by current HP sources: INR 1,000 for ages 40–69 and INR 1,500 at age 70 and above, including applicable state top-up.",
         "documents_to_prepare": "Prescribed pension form; Aadhaar; latest BPL certificate; Panchayat recommendation; Parivar Register copy; bank account/passbook details. Conditional: Carry husband's death certificate and age proof; some offices may request them even when not shown in the latest district checklist.",
@@ -443,7 +443,7 @@
       },
       "ready_to_apply_snapshot": null,
       "resolution_snapshot": {
-        "scheme_name": "Indira Gandhi National Widow Pension Scheme – Himachal Pradesh",
+        "scheme_name": "Pradhan Mantri Vidhawa Pension Yojana — Indira Gandhi National Widow Pension Scheme – Himachal Pradesh",
         "jurisdiction": "Himachal Pradesh",
         "status": "Conditional",
         "source_risk": "Medium",
@@ -566,7 +566,7 @@
       "application_url": "https://pmegp.msme.gov.in/",
       "deadline_or_renewal": "No universal annual deadline; portal/targets govern availability. Agency forwarding up to 3 weeks; bank appraisal up to 60 days. Lock-in generally 3 years.",
       "tracking_grievance": "Use portal ID. DIC Chandigarh: Plot 39, Industrial Area Phase II; 0172-2679007 / 0172-2653140; dic-chd@nic.in. Portal grievance: support-pmegp@msme.gov.in.",
-      "source_url": "https://msme.gov.in/sites/default/files/Revisedguidelines07.12.2023.pdf",
+      "source_url": "https://kviconline.gov.in/pmegpeportal/dashboard/notification/Revised_PMEGP_Scheme_Guidelines_07122023_compressed.pdf",
       "additional_sources": "https://common-pmegp.msme.gov.in/ | https://www.kviconline.gov.in/pmegpeportal/jsp/pmegponline.jsp | https://chandigarh.gov.in/industries",
       "source_authority": "Official Ministry/KVIC guideline and portal plus Chandigarh contact.",
       "extraction_status": "Application-ready research",
@@ -593,7 +593,7 @@
       },
       "sources": [
         {
-          "url": "https://msme.gov.in/sites/default/files/Revisedguidelines07.12.2023.pdf",
+          "url": "https://kviconline.gov.in/pmegpeportal/dashboard/notification/Revised_PMEGP_Scheme_Guidelines_07122023_compressed.pdf",
           "role": "primary",
           "authority": "Official Ministry/KVIC guideline and portal plus Chandigarh contact.",
           "source_risk": "Low",
@@ -639,7 +639,7 @@
         "unresolved_issue": "Confirm current-cycle targets/cut-off. Activity eligibility can be fact-specific, especially trading, transport, agriculture-linked and food activities.",
         "required_resolution": "Before investing, ask DIC/bank to confirm activity is permitted and whether a current-cycle local limit changed.",
         "application_channel": "Online with DIC/KVIC/bank processing — https://pmegp.msme.gov.in/",
-        "primary_source": "https://msme.gov.in/sites/default/files/Revisedguidelines07.12.2023.pdf",
+        "primary_source": "https://kviconline.gov.in/pmegpeportal/dashboard/notification/Revised_PMEGP_Scheme_Guidelines_07122023_compressed.pdf",
         "last_checked": "2026-09-22",
         "_source_row": "5"
       }
@@ -1459,9 +1459,9 @@
       "application_url": "https://pmayg.nic.in/netiayHome/questions.html",
       "deadline_or_renewal": "No permanent national citizen deadline; Awaas+ survey and State targets have time-bound windows. The official PMAY-G circular page records 2025 extensions for Awaas+ 2024 survey; check the current State/UT window. Once sanctioned, instalments follow construction milestones rather than annual renewal.",
       "tracking_grievance": "PMAY-G portal/dashboard: https://pmayg.nic.in; AwaasSoft/Awaas App and PMAY-G ID/sanction letter; Gram Panchayat, Block Development Officer, Chief Executive Officer/Zilla Parishad and State Rural Development grievance channels. State-specific grievance portals/helplines must be captured for the pilot.",
-      "source_url": "https://rural.gov.in/sites/default/files/Annual%20Report%202023-24%20English.pdf",
+      "source_url": "https://pmayg.dord.gov.in/netiayHome/home.aspx",
       "additional_sources": "https://pmayg.nic.in/netiayHome/questions.html; https://pmayg.nic.in/infoapp.html; https://pmayg.nic.in/netiay/circular/PMAYGCircular.aspx?flag=ATfXj4sgHJBUi8I%2FJgtpkw%3D%3D&page_level=AHooS4LZKrtDBUGa7aiOMw%3D%3D; https://rural.gov.in/sites/default/files/PMAY-G_Suo_moto_disclosure_27012022_0.pdf",
-      "source_authority": "Ministry of Rural Development official annual report, PMAY-G portal, Awaas+ instructions and official self-survey; local Gram Sabha/State list determines individual award",
+      "source_authority": "Ministry of Rural Development PMAY-G portal and official programme materials; local verification determines individual awards.",
       "extraction_status": "Application-ready research",
       "source_risk": "High",
       "next_review_action": "Capture active Awaas+ window and local grievance/Block contacts for Punjab, Haryana, Himachal Pradesh and Chandigarh (where rural jurisdiction exists); verify current target/PWL status and State document requirements.",
@@ -1486,9 +1486,9 @@
       },
       "sources": [
         {
-          "url": "https://rural.gov.in/sites/default/files/Annual%20Report%202023-24%20English.pdf",
+          "url": "https://pmayg.dord.gov.in/netiayHome/home.aspx",
           "role": "primary",
-          "authority": "Ministry of Rural Development official annual report, PMAY-G portal, Awaas+ instructions and official self-survey; local Gram Sabha/State list determines individual award",
+          "authority": "Ministry of Rural Development PMAY-G portal and official programme materials; local verification determines individual awards.",
           "source_risk": "High",
           "last_checked": "2026-09-22",
           "unresolved_issue": "Selection is list/Gram Sabha/target based rather than an unrestricted central online grant application. Current Awaas+ survey windows and State/UT inclusion process vary. The PMAY-G self-survey is a screening tool; final eligibility and priority come from SECC/Awaas+ verification, Gram Sabha and the Permanent Wait List.",
@@ -1522,7 +1522,7 @@
         "unresolved_issue": "Selection is list/Gram Sabha/target based rather than an unrestricted central online grant application. Current Awaas+ survey windows and State/UT inclusion process vary. The PMAY-G self-survey is a screening tool; final eligibility and priority come from SECC/Awaas+ verification, Gram Sabha and the Permanent Wait List.",
         "required_resolution": "Capture active Awaas+ window and local grievance/Block contacts for Punjab, Haryana, Himachal Pradesh and Chandigarh (where rural jurisdiction exists); verify current target/PWL status and State document requirements.",
         "application_channel": "Not a conventional individual central-portal application. Apply/seek inclusion through Gram Panchayat/Gram Sabha, Block/Taluka development office, Panchayat Samiti, designated survey/Awaas+ process or e-Mitra/CSC where the State supports it; PMAY-G MIS/AwaasSoft and Awaas App are administrative channels. — https://pmayg.nic.in/netiayHome/questions.html",
-        "primary_source": "https://rural.gov.in/sites/default/files/Annual%20Report%202023-24%20English.pdf",
+        "primary_source": "https://pmayg.dord.gov.in/netiayHome/home.aspx",
         "last_checked": "2026-09-22",
         "_source_row": "12"
       }
@@ -1617,7 +1617,7 @@
     },
     {
       "scheme_id": "central_nsap_ignoaps",
-      "scheme_name": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS) under NSAP",
+      "scheme_name": "Pradhan Mantri Vridhavastha Pension Yojana — Indira Gandhi National Old Age Pension Scheme (IGNOAPS) under NSAP",
       "jurisdiction": "India; implemented through State/UT social-welfare machinery and local bodies",
       "record_type": "scheme",
       "category": "Pension",
@@ -1634,9 +1634,9 @@
       "application_url": "https://nsap.nic.in/",
       "deadline_or_renewal": "No single national annual deadline found. Applications are generally accepted under State/UT pension calendars; life verification, Aadhaar/bank validation or annual renewal may be required under State rules. Amount changes when beneficiary reaches 80.",
       "tracking_grievance": "NSAP portal/dashboard: https://nsap.nic.in/; Gram Panchayat/Municipality, Block/District social-welfare authority and State pension portal. The NSAP Guidelines include social-audit/grievance processes; capture state contact and payment-status URL for pilot states.",
-      "source_url": "https://rural.gov.in/sites/default/files/NSAP_Guidelines_English.pdf",
-      "additional_sources": "https://rural.gov.in/sites/default/files/NSAP%20Social%20Audit%20Guidelines_english-2023_08022024.pdf; https://nsap.nic.in/",
-      "source_authority": "Ministry of Rural Development NSAP Guidelines and Social Audit Guidelines; State/UT pension authority controls case-level sanction",
+      "source_url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2323266&lang=1&reg=3",
+      "additional_sources": "https://www.pib.gov.in/PressNoteDetails.aspx?ModuleId=3&NoteId=155928&lang=1&reg=3; https://rural.gov.in/sites/default/files/NSAP%20Social%20Audit%20Guidelines_english-2023_08022024.pdf; https://nsap.nic.in/",
+      "source_authority": "Ministry of Rural Development Cabinet announcement via PIB, NSAP programme materials and the state pension authority.",
       "extraction_status": "Application-ready research",
       "source_risk": "High",
       "next_review_action": "Resolve Punjab, Haryana, Himachal Pradesh and Chandigarh social-pension department routes, state top-up rates, current BPL proxy, life-certificate requirements and grievance contacts.",
@@ -1661,16 +1661,16 @@
       },
       "sources": [
         {
-          "url": "https://rural.gov.in/sites/default/files/NSAP_Guidelines_English.pdf",
+          "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2323266&lang=1&reg=3",
           "role": "primary",
-          "authority": "Ministry of Rural Development NSAP Guidelines and Social Audit Guidelines; State/UT pension authority controls case-level sanction",
+          "authority": "Ministry of Rural Development Cabinet announcement via PIB, NSAP programme materials and the state pension authority.",
           "source_risk": "High",
           "last_checked": "2026-09-22",
           "unresolved_issue": "State/UT may use updated deprivation/income databases, add state assistance, prescribe residence/domicile and define application/payment channel. The central guideline says BPL; current State interpretation and whether an applicant is already covered must be verified locally.",
           "required_next_action": "Resolve Punjab, Haryana, Himachal Pradesh and Chandigarh social-pension department routes, state top-up rates, current BPL proxy, life-certificate requirements and grievance contacts."
         },
         {
-          "url": "https://rural.gov.in/sites/default/files/NSAP%20Social%20Audit%20Guidelines_english-2023_08022024.pdf; https://nsap.nic.in/",
+          "url": "https://www.pib.gov.in/PressNoteDetails.aspx?ModuleId=3&NoteId=155928&lang=1&reg=3; https://rural.gov.in/sites/default/files/NSAP%20Social%20Audit%20Guidelines_english-2023_08022024.pdf; https://nsap.nic.in/",
           "role": "additional",
           "last_checked": "2026-09-22"
         }
@@ -1679,7 +1679,7 @@
         "State/UT may use updated deprivation/income databases, add state assistance, prescribe residence/domicile and define application/payment channel. The central guideline says BPL; current State interpretation and whether an applicant is already covered must be verified locally."
       ],
       "application_guide": {
-        "scheme_name": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS) under NSAP",
+        "scheme_name": "Pradhan Mantri Vridhavastha Pension Yojana — Indira Gandhi National Old Age Pension Scheme (IGNOAPS) under NSAP",
         "who_should_try": "Person aged 60 or above belonging to a Below Poverty Line (BPL) household, with age 80+ receiving the higher central rate. Applicant must establish identity, age, address and BPL/poverty status under the State/UT implementation process. The scheme is for individual old-age social assistance and is normally processed through local government rather than a national self-service grant portal.",
         "benefit": "Central assistance under NSAP of Rs 200 per month for eligible BPL persons aged 60-79 and Rs 500 per month for persons aged 80 or above; States/UTs may add top-up amounts and set payment/eligibility procedures. Payments are generally periodic DBT or State-authorised pension channels.",
         "documents_to_prepare": "Model NSAP application asks for photograph, name, parent/spouse name, gender, date of birth or proof of birth, category, full address, Gram Panchayat/Ward, Block/Sub-District, District, State/PIN, Aadhaar number, ration-card number and EPIC/voter ID number. Bank/post-office account details are needed for DBT where used by the State. Conditional: Age proof may be birth certificate, school/official record or State-accepted age document; BPL/poverty proof is database/local verification dependent; disability/widow/caste documents are not required for IGNOAPS itself unless used for another NSAP component or State priority.",
@@ -1690,14 +1690,14 @@
       },
       "ready_to_apply_snapshot": null,
       "resolution_snapshot": {
-        "scheme_name": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS) under NSAP",
+        "scheme_name": "Pradhan Mantri Vridhavastha Pension Yojana — Indira Gandhi National Old Age Pension Scheme (IGNOAPS) under NSAP",
         "jurisdiction": "India; implemented through State/UT social-welfare machinery and local bodies",
         "status": "Conditional",
         "source_risk": "High",
         "unresolved_issue": "State/UT may use updated deprivation/income databases, add state assistance, prescribe residence/domicile and define application/payment channel. The central guideline says BPL; current State interpretation and whether an applicant is already covered must be verified locally.",
         "required_resolution": "Resolve Punjab, Haryana, Himachal Pradesh and Chandigarh social-pension department routes, state top-up rates, current BPL proxy, life-certificate requirements and grievance contacts.",
         "application_channel": "Offline/local application through Gram Panchayat, Municipality/Ward office, Block/District Social Welfare/Rural Development office or State pension portal where available. The national NSAP portal is principally monitoring/status infrastructure, not a universal national application form. — https://nsap.nic.in/",
-        "primary_source": "https://rural.gov.in/sites/default/files/NSAP_Guidelines_English.pdf",
+        "primary_source": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2323266&lang=1&reg=3",
         "last_checked": "2026-09-22",
         "_source_row": "13"
       }
@@ -2446,11 +2446,11 @@
       "conditional_documents": "Street-vendor registration certificate; MNREGA job card plus MIS report showing at least 50 days; CDPO certificate for Ekal Nari; Permanent medical disability certificate above 40%; Department certificates for mid-day meal, daily-wage, part-time, contractual or outsource workers; Birth/marriage/adoption/death certificate for family-member changes",
       "application_mode": "Online at the official HIMCARE enrollment portal or assisted through a Lok Mitra Kendra/Common Service Centre. New registration/renewal is scheduled in March, June, September and December; policy validity is one year.",
       "application_steps": "Check that the ration card is not enrolled under PM-JAY and select the correct category.; Register the ration card without the HP prefix; upload clear front/back scans and complete family, Aadhaar, address and mobile fields.; Upload category proof; for paid categories pay the displayed premium within 30 days after confirmation.; Track enrollment, correct defects and download the e-card after approval.; Use an empanelled hospital and renew from the official renewal page before expiry.",
-      "application_url": "https://app.hpsbys.in/website/rationcardregistration.aspx",
+      "application_url": "https://app.hpsbys.in/website/AddBeneficiaryInfo.aspx",
       "deadline_or_renewal": "No final one-time deadline. New registration/renewal is opened for one month in March, June, September and December under the 2025 process; card validity is one year. Incorrect submissions should be resubmitted within 60 days after action.",
       "tracking_grievance": "Status on hpsbys.in/app.hpsbys.in. Toll-free 18002021311; card approvals 7018606884 and 7008605212; technical support 8091773886; technicalquerieshpsbys@gmail.com. Official portal lists a three-day PSGA limit.",
       "source_url": "https://www.hpsbys.in/content/mmmn",
-      "additional_sources": "https://www.hpsbys.in/; https://app.hpsbys.in/website/rationcardregistration.aspx; https://app.hpsbys.in/WebSite/checkforrenew.aspx; https://himachalpr.gov.in/OnePressRelease.aspx?ID=41420&Language=1",
+      "additional_sources": "https://www.hpsbys.in/; https://app.hpsbys.in/website/AddBeneficiaryInfo.aspx; https://app.hpsbys.in/WebSite/checkforrenew.aspx; https://himachalpr.gov.in/OnePressRelease.aspx?ID=41420&Language=1",
       "source_authority": "Himachal Pradesh Swasthya Bima Yojana Society, Department of Health and Family Welfare, Government of Himachal Pradesh",
       "extraction_status": "Application-ready research",
       "source_risk": "Medium",
@@ -2469,7 +2469,7 @@
       },
       "application_route": {
         "mode": "Online at the official HIMCARE enrollment portal or assisted through a Lok Mitra Kendra/Common Service Centre. New registration/renewal is scheduled in March, June, September and December; policy validity is one year.",
-        "url": "https://app.hpsbys.in/website/rationcardregistration.aspx",
+        "url": "https://app.hpsbys.in/website/AddBeneficiaryInfo.aspx",
         "steps": "Check that the ration card is not enrolled under PM-JAY and select the correct category.; Register the ration card without the HP prefix; upload clear front/back scans and complete family, Aadhaar, address and mobile fields.; Upload category proof; for paid categories pay the displayed premium within 30 days after confirmation.; Track enrollment, correct defects and download the e-card after approval.; Use an empanelled hospital and renew from the official renewal page before expiry.",
         "deadline_or_renewal": "No final one-time deadline. New registration/renewal is opened for one month in March, June, September and December under the 2025 process; card validity is one year. Incorrect submissions should be resubmitted within 60 days after action.",
         "tracking_or_grievance": "Status on hpsbys.in/app.hpsbys.in. Toll-free 18002021311; card approvals 7018606884 and 7008605212; technical support 8091773886; technicalquerieshpsbys@gmail.com. Official portal lists a three-day PSGA limit."
@@ -2485,7 +2485,7 @@
           "required_next_action": "Recheck the quarterly registration notice and category-premium table before each refresh."
         },
         {
-          "url": "https://www.hpsbys.in/; https://app.hpsbys.in/website/rationcardregistration.aspx; https://app.hpsbys.in/WebSite/checkforrenew.aspx; https://himachalpr.gov.in/OnePressRelease.aspx?ID=41420&Language=1",
+          "url": "https://www.hpsbys.in/; https://app.hpsbys.in/website/AddBeneficiaryInfo.aspx; https://app.hpsbys.in/WebSite/checkforrenew.aspx; https://himachalpr.gov.in/OnePressRelease.aspx?ID=41420&Language=1",
           "role": "additional",
           "last_checked": "2026-09-22"
         }
@@ -2498,7 +2498,7 @@
         "who_should_try": "Category I: BPL households not covered by Ayushman Bharat, registered street vendors not covered by AB-PMJAY, MNREGA workers with at least 50 days in the preceding/current financial year, and orphanage children. Category II: Ekal Naris (widows, divorced, legally separated and unmarried women over 40), persons with disability above 40%, mid-day meal workers and eligible state-controlled daily-wage, part-time, contractual and outsource workers. Category III: families not in I/II and not government servants/pensioners or their dependent family members.",
         "benefit": "Cashless treatment up to Rs 5,00,000 per family per year in empanelled hospitals. A unit is capped at five members; additional family members may be enrolled as a separate unit. Premium: zero for Category I, Rs 365/year for Category II and Rs 1,000/year for Category III.",
         "documents_to_prepare": "Himachal ration card number and clear front/back scans; Aadhaar/identity details and mobile number; Category proof: recent attested BPL certificate where applicable; Bank/payment details when premium is due Conditional: Street-vendor registration certificate; MNREGA job card plus MIS report showing at least 50 days; CDPO certificate for Ekal Nari; Permanent medical disability certificate above 40%; Department certificates for mid-day meal, daily-wage, part-time, contractual or outsource workers; Birth/marriage/adoption/death certificate for family-member changes",
-        "where_to_apply": "Online at the official HIMCARE enrollment portal or assisted through a Lok Mitra Kendra/Common Service Centre. New registration/renewal is scheduled in March, June, September and December; policy validity is one year. — https://app.hpsbys.in/website/rationcardregistration.aspx",
+        "where_to_apply": "Online at the official HIMCARE enrollment portal or assisted through a Lok Mitra Kendra/Common Service Centre. New registration/renewal is scheduled in March, June, September and December; policy validity is one year. — https://app.hpsbys.in/website/AddBeneficiaryInfo.aspx",
         "application_walkthrough": "Check that the ration card is not enrolled under PM-JAY and select the correct category.; Register the ration card without the HP prefix; upload clear front/back scans and complete family, Aadhaar, address and mobile fields.; Upload category proof; for paid categories pay the displayed premium within 30 days after confirmation.; Track enrollment, correct defects and download the e-card after approval.; Use an empanelled hospital and renew from the official renewal page before expiry.",
         "timing_and_tracking": "No final one-time deadline. New registration/renewal is opened for one month in March, June, September and December under the 2025 process; card validity is one year. Incorrect submissions should be resubmitted within 60 days after action. Status on hpsbys.in/app.hpsbys.in. Toll-free 18002021311; card approvals 7018606884 and 7008605212; technical support 8091773886; technicalquerieshpsbys@gmail.com. Official portal lists a three-day PSGA limit.",
         "important_caution": "Recheck whether current category definitions, premium rates and AB-PMJAY overlap rules changed after the cited official page/2025 quarterly notice. The enrollment portal says a ration card enrolled under PMJAY cannot submit HIMCARE. Recheck the quarterly registration notice and category-premium table before each refresh."
@@ -2510,7 +2510,7 @@
         "benefit": "Cashless treatment up to Rs 5,00,000 per family per year in empanelled hospitals. A unit is capped at five members; additional family members may be enrolled as a separate unit. Premium: zero for Category I, Rs 365/year for Category II and Rs 1,000/year for Category III.",
         "eligibility": "Category I: BPL households not covered by Ayushman Bharat, registered street vendors not covered by AB-PMJAY, MNREGA workers with at least 50 days in the preceding/current financial year, and orphanage children. Category II: Ekal Naris (widows, divorced, legally separated and unmarried women over 40), persons with disability above 40%, mid-day meal workers and eligible state-controlled daily-wage, part-time, contractual and outsource workers. Category III: families not in I/II and not government servants/pensioners or their dependent family members.",
         "documents": "Himachal ration card number and clear front/back scans; Aadhaar/identity details and mobile number; Category proof: recent attested BPL certificate where applicable; Bank/payment details when premium is due Conditional: Street-vendor registration certificate; MNREGA job card plus MIS report showing at least 50 days; CDPO certificate for Ekal Nari; Permanent medical disability certificate above 40%; Department certificates for mid-day meal, daily-wage, part-time, contractual or outsource workers; Birth/marriage/adoption/death certificate for family-member changes",
-        "where_to_apply": "Online at the official HIMCARE enrollment portal or assisted through a Lok Mitra Kendra/Common Service Centre. New registration/renewal is scheduled in March, June, September and December; policy validity is one year. — https://app.hpsbys.in/website/rationcardregistration.aspx",
+        "where_to_apply": "Online at the official HIMCARE enrollment portal or assisted through a Lok Mitra Kendra/Common Service Centre. New registration/renewal is scheduled in March, June, September and December; policy validity is one year. — https://app.hpsbys.in/website/AddBeneficiaryInfo.aspx",
         "next_steps_and_tracking": "Check that the ration card is not enrolled under PM-JAY and select the correct category.; Register the ration card without the HP prefix; upload clear front/back scans and complete family, Aadhaar, address and mobile fields.; Upload category proof; for paid categories pay the displayed premium within 30 days after confirmation.; Track enrollment, correct defects and download the e-card after approval.; Use an empanelled hospital and renew from the official renewal page before expiry. Status on hpsbys.in/app.hpsbys.in. Toll-free 18002021311; card approvals 7018606884 and 7008605212; technical support 8091773886; technicalquerieshpsbys@gmail.com. Official portal lists a three-day PSGA limit.",
         "official_source": "https://www.hpsbys.in/content/mmmn",
         "last_checked": "2026-09-22",
@@ -2956,31 +2956,31 @@
     },
     {
       "scheme_id": "central_mgnrega_jobcard",
-      "scheme_name": "Mahatma Gandhi National Rural Employment Guarantee Scheme (MGNREGA) — job card and work demand",
-      "jurisdiction": "India; Gram Panchayat, Programme Officer and State MGNREGA administration",
+      "scheme_name": "VB–G RAM G rural employment guarantee (formerly MGNREGA) — registration and work demand",
+      "jurisdiction": "India",
       "record_type": "scheme",
       "category": "Wage employment",
       "discovered_on": "2026-09-22",
-      "administering_body": "Department of Rural Development, Ministry of Rural Development; implemented by States/UTs through Gram Panchayats and Programme Officers",
-      "benefit_summary": "Demand-driven legal guarantee of up to 100 days of unskilled manual wage employment in a financial year for each rural household whose adult members volunteer to do unskilled work. Work should be provided within 15 days of a valid demand; if not, unemployment allowance is payable under the Act/state rules. Wages are paid through the notified payment system/DBT.",
-      "eligibility_text": "Any rural household whose adult members are willing to do unskilled manual work may register for a job card. Every adult member who seeks work should be recorded on the job card. Registration is available throughout the year at the local Gram Panchayat; the household must ordinarily reside in the village and provide the required household particulars.",
-      "eligibility_unresolved": "Actual work availability, wage rate, unemployment-allowance conditions, payment channel and permissible work categories are state/district and programme-implementation dependent. A job card is not a promise of 100 days at once; the household must submit a dated demand for work.",
-      "exclusions_text": "Not an urban employment programme. Persons who are not adult household members, households outside the applicable rural Gram Panchayat area, or requests for work other than permitted unskilled manual MGNREGA work are not covered. Misrepresentation, duplicate cards and demand outside the household/job-card process may be rejected under state rules.",
-      "documents_required": "Household member names, ages and address/residence details; photographs of adult members; a job-card application (prescribed form or plain paper). Provide bank or post-office account details for wage payment and a mobile number where available. Aadhaar/e-KYC may be requested for payment authentication but the job-card application should not be blocked solely for lack of Aadhaar.",
-      "conditional_documents": "Residence proof, ration card, voter ID or other locally accepted identity/address evidence may be requested by the Gram Panchayat; bank/post-office passbook and Aadhaar are conditional on the state payment/e-KYC workflow. Ask for a dated receipt for both job-card registration and each work demand.",
-      "application_mode": "Assisted/offline at the Gram Panchayat or Programme Officer; some States provide online job-card/work-demand portals. This is an open, demand-driven application, but registration, work allocation and payment are local/state administered.",
-      "application_steps": "1) Submit household registration/job-card application to the Gram Panchayat, identifying every adult willing to work. 2) Obtain the job card after verification and check that names/photos are correct. 3) Submit a written or portal work demand stating the number of days and keep the dated receipt. 4) Work should be allocated within 15 days; attend the muster roll and verify attendance/wages. 5) If work is not provided or wages are delayed, file a complaint with the Programme Officer/DPC and use the state grievance/Ombudsperson route.",
-      "application_url": "https://nrega.nic.in/",
-      "deadline_or_renewal": "Job-card registration is available throughout the year. Work demand is recurring and may be submitted whenever work is needed; annual household guarantee is capped at 100 days and the financial year resets the count. Keep the job card updated when household membership or bank details change.",
-      "tracking_grievance": "Use the MGNREGA portal for job-card, demand, muster-roll, wage-list and FTO status where the State has uploaded records. Escalate to Gram Panchayat, Programme Officer, District Programme Coordinator, State grievance authority and the district/state Ombudsperson; social-audit forums are also an official accountability channel.",
-      "source_url": "https://rural.gov.in/sites/default/files/MGNREGA_FAQ_ENGLISH.pdf",
-      "additional_sources": "https://rural.gov.in/sites/default/files/MGNREGA_Guidelines_English.pdf; https://nrega.nic.in/",
-      "source_authority": "Ministry of Rural Development official FAQ/guidelines and the national MGNREGA portal; local records control an individual case",
-      "extraction_status": "Application-ready research",
+      "administering_body": "Ministry of Rural Development, states and Gram Panchayats",
+      "benefit_summary": "Under the successor Act, eligible rural households can seek up to 125 days of unskilled manual work per financial year.",
+      "eligibility_text": "An adult member of a rural household willing to undertake unskilled manual work can approach the Gram Panchayat.",
+      "eligibility_unresolved": "Ask the Gram Panchayat about the current state procedure, local work allocation and payment arrangements.",
+      "exclusions_text": "Confirm household eligibility and local implementation with the Gram Panchayat.",
+      "documents_required": "For new registration, provide household members’ names, ages and address to the Gram Panchayat.",
+      "conditional_documents": "Existing MGNREGA job cards with completed e-KYC remain valid during transition until replacement cards are issued.",
+      "application_mode": "Contact the Gram Panchayat for registration. The linked Ministry FAQ explains the route.",
+      "application_steps": "1) Ask the Gram Panchayat to check your existing card or register your household. 2) Give the household particulars for new registration. 3) Submit a work request to the Gram Panchayat, Programme Officer or authorised person and retain the dated receipt.",
+      "application_url": "https://www.pib.gov.in/FaqDetails.aspx?ModuleId=4&NoteId=158511&lang=1&reg=3",
+      "deadline_or_renewal": "The new Act took effect on 1 July 2026. The employment guarantee is calculated per household per financial year.",
+      "tracking_grievance": "Use the dated receipt to follow up with the Gram Panchayat or Programme Officer.",
+      "source_url": "https://www.pib.gov.in/FaqDetails.aspx?ModuleId=4&NoteId=158511&lang=1&reg=3",
+      "additional_sources": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2026/may/doc2026511867901.pdf",
+      "source_authority": "Ministry of Rural Development FAQ and commencement notification",
+      "extraction_status": "Successor Act reviewed against Ministry FAQ; state implementation to confirm",
       "source_risk": "Medium",
-      "next_review_action": "For the pilot State, capture the current state MGNREGA portal, local job-card form, wage rate, bank/Aadhaar payment instructions and district Ombudsperson contact.",
+      "next_review_action": "Ask the Gram Panchayat about the current state procedure, local work allocation and payment arrangements.",
       "application_ready": "Conditional",
-      "last_checked": "2026-09-22",
+      "last_checked": "2026-11-24",
       "_source_row": 31,
       "application_readiness": "CONDITIONAL",
       "readiness": {
@@ -2988,56 +2988,56 @@
         "normalized": "CONDITIONAL"
       },
       "documents": {
-        "required": "Household member names, ages and address/residence details; photographs of adult members; a job-card application (prescribed form or plain paper). Provide bank or post-office account details for wage payment and a mobile number where available. Aadhaar/e-KYC may be requested for payment authentication but the job-card application should not be blocked solely for lack of Aadhaar.",
-        "conditional": "Residence proof, ration card, voter ID or other locally accepted identity/address evidence may be requested by the Gram Panchayat; bank/post-office passbook and Aadhaar are conditional on the state payment/e-KYC workflow. Ask for a dated receipt for both job-card registration and each work demand."
+        "required": "For new registration, provide household members’ names, ages and address to the Gram Panchayat.",
+        "conditional": "Existing MGNREGA job cards with completed e-KYC remain valid during transition until replacement cards are issued."
       },
       "application_route": {
-        "mode": "Assisted/offline at the Gram Panchayat or Programme Officer; some States provide online job-card/work-demand portals. This is an open, demand-driven application, but registration, work allocation and payment are local/state administered.",
-        "url": "https://nrega.nic.in/",
-        "steps": "1) Submit household registration/job-card application to the Gram Panchayat, identifying every adult willing to work. 2) Obtain the job card after verification and check that names/photos are correct. 3) Submit a written or portal work demand stating the number of days and keep the dated receipt. 4) Work should be allocated within 15 days; attend the muster roll and verify attendance/wages. 5) If work is not provided or wages are delayed, file a complaint with the Programme Officer/DPC and use the state grievance/Ombudsperson route.",
-        "deadline_or_renewal": "Job-card registration is available throughout the year. Work demand is recurring and may be submitted whenever work is needed; annual household guarantee is capped at 100 days and the financial year resets the count. Keep the job card updated when household membership or bank details change.",
-        "tracking_or_grievance": "Use the MGNREGA portal for job-card, demand, muster-roll, wage-list and FTO status where the State has uploaded records. Escalate to Gram Panchayat, Programme Officer, District Programme Coordinator, State grievance authority and the district/state Ombudsperson; social-audit forums are also an official accountability channel."
+        "mode": "Contact the Gram Panchayat for registration. The linked Ministry FAQ explains the route.",
+        "url": "https://www.pib.gov.in/FaqDetails.aspx?ModuleId=4&NoteId=158511&lang=1&reg=3",
+        "steps": "1) Ask the Gram Panchayat to check your existing card or register your household. 2) Give the household particulars for new registration. 3) Submit a work request to the Gram Panchayat, Programme Officer or authorised person and retain the dated receipt.",
+        "deadline_or_renewal": "The new Act took effect on 1 July 2026. The employment guarantee is calculated per household per financial year.",
+        "tracking_or_grievance": "Use the dated receipt to follow up with the Gram Panchayat or Programme Officer."
       },
       "sources": [
         {
-          "url": "https://rural.gov.in/sites/default/files/MGNREGA_FAQ_ENGLISH.pdf",
+          "url": "https://www.pib.gov.in/FaqDetails.aspx?ModuleId=4&NoteId=158511&lang=1&reg=3",
           "role": "primary",
-          "authority": "Ministry of Rural Development official FAQ/guidelines and the national MGNREGA portal; local records control an individual case",
+          "authority": "Ministry of Rural Development FAQ and commencement notification",
           "source_risk": "Medium",
-          "last_checked": "2026-09-22",
-          "unresolved_issue": "Actual work availability, wage rate, unemployment-allowance conditions, payment channel and permissible work categories are state/district and programme-implementation dependent. A job card is not a promise of 100 days at once; the household must submit a dated demand for work.",
-          "required_next_action": "For the pilot State, capture the current state MGNREGA portal, local job-card form, wage rate, bank/Aadhaar payment instructions and district Ombudsperson contact."
+          "last_checked": "2026-11-24",
+          "unresolved_issue": "Ask the Gram Panchayat about the current state procedure, local work allocation and payment arrangements.",
+          "required_next_action": "Ask the Gram Panchayat about the current state procedure, local work allocation and payment arrangements."
         },
         {
-          "url": "https://rural.gov.in/sites/default/files/MGNREGA_Guidelines_English.pdf; https://nrega.nic.in/",
+          "url": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2026/may/doc2026511867901.pdf",
           "role": "additional",
-          "last_checked": "2026-09-22"
+          "last_checked": "2026-11-24"
         }
       ],
       "unresolved_issues": [
-        "Actual work availability, wage rate, unemployment-allowance conditions, payment channel and permissible work categories are state/district and programme-implementation dependent. A job card is not a promise of 100 days at once; the household must submit a dated demand for work."
+        "Ask the Gram Panchayat about the current state procedure, local work allocation and payment arrangements."
       ],
       "application_guide": {
-        "scheme_name": "Mahatma Gandhi National Rural Employment Guarantee Scheme (MGNREGA) — job card and work demand",
-        "who_should_try": "Any rural household whose adult members are willing to do unskilled manual work may register for a job card. Every adult member who seeks work should be recorded on the job card. Registration is available throughout the year at the local Gram Panchayat; the household must ordinarily reside in the village and provide the required household particulars.",
-        "benefit": "Demand-driven legal guarantee of up to 100 days of unskilled manual wage employment in a financial year for each rural household whose adult members volunteer to do unskilled work. Work should be provided within 15 days of a valid demand; if not, unemployment allowance is payable under the Act/state rules. Wages are paid through the notified payment system/DBT.",
-        "documents_to_prepare": "Household member names, ages and address/residence details; photographs of adult members; a job-card application (prescribed form or plain paper). Provide bank or post-office account details for wage payment and a mobile number where available. Aadhaar/e-KYC may be requested for payment authentication but the job-card application should not be blocked solely for lack of Aadhaar. Conditional: Residence proof, ration card, voter ID or other locally accepted identity/address evidence may be requested by the Gram Panchayat; bank/post-office passbook and Aadhaar are conditional on the state payment/e-KYC workflow. Ask for a dated receipt for both job-card registration and each work demand.",
-        "where_to_apply": "Assisted/offline at the Gram Panchayat or Programme Officer; some States provide online job-card/work-demand portals. This is an open, demand-driven application, but registration, work allocation and payment are local/state administered. — https://nrega.nic.in/",
-        "application_walkthrough": "1) Submit household registration/job-card application to the Gram Panchayat, identifying every adult willing to work. 2) Obtain the job card after verification and check that names/photos are correct. 3) Submit a written or portal work demand stating the number of days and keep the dated receipt. 4) Work should be allocated within 15 days; attend the muster roll and verify attendance/wages. 5) If work is not provided or wages are delayed, file a complaint with the Programme Officer/DPC and use the state grievance/Ombudsperson route.",
-        "timing_and_tracking": "Job-card registration is available throughout the year. Work demand is recurring and may be submitted whenever work is needed; annual household guarantee is capped at 100 days and the financial year resets the count. Keep the job card updated when household membership or bank details change. Use the MGNREGA portal for job-card, demand, muster-roll, wage-list and FTO status where the State has uploaded records. Escalate to Gram Panchayat, Programme Officer, District Programme Coordinator, State grievance authority and the district/state Ombudsperson; social-audit forums are also an official accountability channel.",
-        "important_caution": "Actual work availability, wage rate, unemployment-allowance conditions, payment channel and permissible work categories are state/district and programme-implementation dependent. A job card is not a promise of 100 days at once; the household must submit a dated demand for work. For the pilot State, capture the current state MGNREGA portal, local job-card form, wage rate, bank/Aadhaar payment instructions and district Ombudsperson contact."
+        "scheme_name": "VB–G RAM G rural employment guarantee (formerly MGNREGA) — registration and work demand",
+        "who_should_try": "An adult member of a rural household willing to undertake unskilled manual work can approach the Gram Panchayat.",
+        "benefit": "Under the successor Act, eligible rural households can seek up to 125 days of unskilled manual work per financial year.",
+        "documents_to_prepare": "For new registration, provide household members’ names, ages and address to the Gram Panchayat. Existing MGNREGA job cards with completed e-KYC remain valid during transition until replacement cards are issued.",
+        "where_to_apply": "Contact the Gram Panchayat for registration. The linked Ministry FAQ explains the route.",
+        "application_walkthrough": "1) Ask the Gram Panchayat to check your existing card or register your household. 2) Give the household particulars for new registration. 3) Submit a work request to the Gram Panchayat, Programme Officer or authorised person and retain the dated receipt.",
+        "timing_and_tracking": "The new Act took effect on 1 July 2026. The employment guarantee is calculated per household per financial year. Use the dated receipt to follow up with the Gram Panchayat or Programme Officer.",
+        "important_caution": "Ask the Gram Panchayat about the current state procedure, local work allocation and payment arrangements."
       },
       "ready_to_apply_snapshot": null,
       "resolution_snapshot": {
-        "scheme_name": "Mahatma Gandhi National Rural Employment Guarantee Scheme (MGNREGA) — job card and work demand",
-        "jurisdiction": "India; Gram Panchayat, Programme Officer and State MGNREGA administration",
+        "scheme_name": "VB–G RAM G rural employment guarantee (formerly MGNREGA) — registration and work demand",
+        "jurisdiction": "India",
         "status": "Conditional",
         "source_risk": "Medium",
-        "unresolved_issue": "Actual work availability, wage rate, unemployment-allowance conditions, payment channel and permissible work categories are state/district and programme-implementation dependent. A job card is not a promise of 100 days at once; the household must submit a dated demand for work.",
-        "required_resolution": "For the pilot State, capture the current state MGNREGA portal, local job-card form, wage rate, bank/Aadhaar payment instructions and district Ombudsperson contact.",
-        "application_channel": "Assisted/offline at the Gram Panchayat or Programme Officer; some States provide online job-card/work-demand portals. This is an open, demand-driven application, but registration, work allocation and payment are local/state administered. — https://nrega.nic.in/",
-        "primary_source": "https://rural.gov.in/sites/default/files/MGNREGA_FAQ_ENGLISH.pdf",
-        "last_checked": "2026-09-22",
+        "unresolved_issue": "Ask the Gram Panchayat about the current state procedure, local work allocation and payment arrangements.",
+        "required_resolution": "Ask the Gram Panchayat about the current state procedure, local work allocation and payment arrangements.",
+        "application_channel": "Contact the Gram Panchayat for registration. The linked Ministry FAQ explains the route.",
+        "primary_source": "https://www.pib.gov.in/FaqDetails.aspx?ModuleId=4&NoteId=158511&lang=1&reg=3",
+        "last_checked": "2026-11-24",
         "_source_row": "21"
       }
     },
@@ -3234,9 +3234,9 @@
       "application_url": "https://pmvishwakarma.gov.in/",
       "deadline_or_renewal": "The scheme was approved for five years from FY 2023-24 through FY 2027-28. Registration is subject to the live portal/implementation window; certificate does not require annual renewal, but training, digital-incentive and staged-loan conditions must be met when claimed.",
       "tracking_grievance": "Track registration and verification with the CSC/PM Vishwakarma portal and the local Gram Panchayat/ULB. For loan issues, contact the participating lender; for scheme/service issues, use the portal/CSC escalation and MSME/State nodal channels.",
-      "source_url": "https://msme.gov.in/sites/default/files/MSMESchemebooklet2024.pdf",
+      "source_url": "https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1959098&lang=2&reg=48",
       "additional_sources": "https://msme.gov.in/sites/default/files/July-SeptemberInsider2023v2.0.pdf; https://disclaimer.pmvishwakarma.gov.in/; https://dashboard.msme.gov.in/dashboard.aspx",
-      "source_authority": "MSME Ministry official scheme materials and PM Vishwakarma portal; local verification and lender records control individual outcomes",
+      "source_authority": "Ministry of MSME scheme guidelines published by the Press Information Bureau and official scheme portal.",
       "extraction_status": "Application-ready research",
       "source_risk": "High",
       "next_review_action": "Capture the current PM Vishwakarma portal FAQ/operational guideline, registration status and CSC checklist; verify the 18-trade list and family/prior-benefit restrictions before pilot use.",
@@ -3261,9 +3261,9 @@
       },
       "sources": [
         {
-          "url": "https://msme.gov.in/sites/default/files/MSMESchemebooklet2024.pdf",
+          "url": "https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1959098&lang=2&reg=48",
           "role": "primary",
-          "authority": "MSME Ministry official scheme materials and PM Vishwakarma portal; local verification and lender records control individual outcomes",
+          "authority": "Ministry of MSME scheme guidelines published by the Press Information Bureau and official scheme portal.",
           "source_risk": "High",
           "last_checked": "2026-09-22",
           "unresolved_issue": "The public scheme summaries do not expose every current exclusion and family/previous-benefit rule in one place. Confirm the live portal guideline for one beneficiary per family, recent receipt of similar credit/subsidy, trade evidence, state/ULB verification, training attendance and loan-stage conditions before promising eligibility.",
@@ -3297,7 +3297,7 @@
         "unresolved_issue": "The public scheme summaries do not expose every current exclusion and family/previous-benefit rule in one place. Confirm the live portal guideline for one beneficiary per family, recent receipt of similar credit/subsidy, trade evidence, state/ULB verification, training attendance and loan-stage conditions before promising eligibility.",
         "required_resolution": "Capture the current PM Vishwakarma portal FAQ/operational guideline, registration status and CSC checklist; verify the 18-trade list and family/prior-benefit restrictions before pilot use.",
         "application_channel": "Assisted application at a Common Service Centre and on https://pmvishwakarma.gov.in; verification by Gram Panchayat/ULB and a three-stage process (local verification, district/state review and screening) precedes certificate/training and benefits. It is an open registration route for qualifying artisans, not an automatic grant. — https://pmvishwakarma.gov.in/",
-        "primary_source": "https://msme.gov.in/sites/default/files/MSMESchemebooklet2024.pdf",
+        "primary_source": "https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1959098&lang=2&reg=48",
         "last_checked": "2026-09-22",
         "_source_row": "24"
       }
@@ -3796,7 +3796,7 @@
     },
     {
       "scheme_id": "pb_national_family_benefit_scheme",
-      "scheme_name": "National Family Benefit Scheme (NFBS) – Punjab implementation",
+      "scheme_name": "Pradhan Mantri Parivar Labh Yojana — National Family Benefit Scheme (NFBS) – Punjab implementation",
       "jurisdiction": "Punjab (NSAP centrally sponsored scheme implemented by Punjab Social Security and Women & Child Development Department)",
       "record_type": "scheme",
       "category": "Family assistance",
@@ -3814,7 +3814,7 @@
       "deadline_or_renewal": "One-time assistance; no renewal. Ludhiana district guidance says apply within one year of death, but the current statewide deadline must be confirmed. Punjab RTS material has historically listed 30-day disposal for sanction.",
       "tracking_grievance": "Track through the District Social Security Officer/Sewa Kendra acknowledgement and Punjab eServices/Connect if the district accepts online filing; escalate under Punjab RTS to the District Social Security Officer and Additional Deputy Commissioner/Deputy Commissioner. National funds are released against state proposals and caps.",
       "source_url": "https://punjab.gov.in/wp-content/uploads/2020/05/NationalFamilyBenefitScheme.pdf",
-      "additional_sources": "https://punjab.gov.in/forms/ | https://ludhiana.nic.in/departments/state-govt/district-social/ | https://www.pib.gov.in/PressReleasePage.aspx?PRID=2290671&lang=1&reg=3 | https://www.pib.gov.in/PressReleasePage.aspx?PRID=1740783 | https://punjab.gov.in/wp-content/uploads/2022/12/24082022.pdf | https://tarntaran.nic.in/departments/",
+      "additional_sources": "https://punjab.gov.in/forms/ | https://ludhiana.nic.in/departments/state-govt/district-social/ | https://www.pib.gov.in/PressReleasePage.aspx?PRID=2290671&lang=1&reg=3 | https://www.pib.gov.in/PressReleasePage.aspx?PRID=1740783 | https://punjab.gov.in/wp-content/uploads/2022/12/24082022.pdf | https://tarntaran.nic.in/departments/; https://www.pib.gov.in/PressReleasePage.aspx?PRID=2323266&lang=1&reg=3",
       "source_authority": "Punjab official NFBS application form and forms directory; Ministry of Rural Development/PIB current NSAP information; official district Social Security page",
       "extraction_status": "Application-ready research",
       "source_risk": "Medium",
@@ -3874,7 +3874,7 @@
           "last_checked": "2026-09-22"
         },
         {
-          "url": "https://tarntaran.nic.in/departments/",
+          "url": "https://tarntaran.nic.in/departments/; https://www.pib.gov.in/PressReleasePage.aspx?PRID=2323266&lang=1&reg=3",
           "role": "additional",
           "last_checked": "2026-09-22"
         }
@@ -3883,7 +3883,7 @@
         "Resolve the conflicting age rule (Punjab form 18-64 versus current NSAP/district 18-59), whether the one-year filing rule is current statewide, whether BPL is now verified through SECC/food-supply data, and whether survivor/head-of-household wording has changed."
       ],
       "application_guide": {
-        "scheme_name": "National Family Benefit Scheme (NFBS) – Punjab implementation",
+        "scheme_name": "Pradhan Mantri Parivar Labh Yojana — National Family Benefit Scheme (NFBS) – Punjab implementation",
         "who_should_try": "BPL household; death of the primary/main earning member; the Punjab form states the main earning member's age at death is 18-64, while current national/ Punjab district references commonly state 18-59. Punjab district guidance says the surviving widow/household may claim and application should be made within one year from death. The applicant must establish the household/BPL and deceased breadwinner relationship.",
         "benefit": "One-time Rs 20,000 assistance to an eligible BPL bereaved household on death of the primary breadwinner. The current central NSAP description confirms Rs 20,000 and demand-based state processing. Punjab's official form is still marked last revised August 2017 and district guidance says apply within one year, so current Punjab processing requirements require confirmation.",
         "documents_to_prepare": "Death certificate; self-declaration; BPL card/number and family ID/member ID where available; Aadhaar/enrolment and Voter ID of applicant/deceased where available; applicant address/contact and bank/payment details; relationship proof if not apparent from family record. Conditional: Post-mortem/FIR or cause-of-death evidence if the verifier requests it; legal-heir/survivor certificate; residence or family register; bank account/mandate for current DBT route. The official form specifically requires scanned death certificate and self-declaration.",
@@ -3893,7 +3893,7 @@
         "important_caution": "Resolve the conflicting age rule (Punjab form 18-64 versus current NSAP/district 18-59), whether the one-year filing rule is current statewide, whether BPL is now verified through SECC/food-supply data, and whether survivor/head-of-household wording has changed. Obtain current Punjab NFBS circular and district checklist confirming breadwinner age, one-year deadline, BPL verification and current payment route."
       },
       "ready_to_apply_snapshot": {
-        "scheme_name": "National Family Benefit Scheme (NFBS) – Punjab implementation",
+        "scheme_name": "Pradhan Mantri Parivar Labh Yojana — National Family Benefit Scheme (NFBS) – Punjab implementation",
         "jurisdiction": "Punjab (NSAP centrally sponsored scheme implemented by Punjab Social Security and Women & Child Development Department)",
         "category": "Family assistance",
         "benefit": "One-time Rs 20,000 assistance to an eligible BPL bereaved household on death of the primary breadwinner. The current central NSAP description confirms Rs 20,000 and demand-based state processing. Punjab's official form is still marked last revised August 2017 and district guidance says apply within one year, so current Punjab processing requirements require confirmation.",
@@ -4925,9 +4925,9 @@
       "application_url": "https://edistrict.hp.gov.in/pages/staticSite/serviceList.xhtml?a=03",
       "deadline_or_renewal": "No fixed annual deadline found. Timing is notification-specific; 2021 materials require marriage-related proof and say grant unused for three months must be refunded. Confirm the current submission window.",
       "tracking_grievance": "CDPO/District Programme Officer and District Welfare Officer; use Himachal Mukhya Mantri Sewa Sankalp 1100/e-District grievance if the service is migrated.",
-      "source_url": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1678002609.pdf",
+      "source_url": "https://edistrict.hp.gov.in/pages/services/designForm/InfoPages/CM_Bestowing_Plan_%28Mukhya_Mantri_Kanyadaan_Yojana%29.xhtml",
       "additional_sources": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/Scheme-81391295.pdf; https://himachal.nic.in/WriteReadData/l892s/176_l892s/1626072027.pdf; https://himachal.nic.in/WriteReadData/l892s/176_l892s/Mukhya%20Mantri%20Kanyadan%20Yojna%20%28B%29-78665675.pdf",
-      "source_authority": "Government of Himachal Pradesh Women and Child Development/Social Justice and Empowerment official scheme and plan documents",
+      "source_authority": "Himachal Pradesh e-District scheme description and supporting document list.",
       "extraction_status": "Application-ready research",
       "source_risk": "High",
       "next_review_action": "Obtain the latest 2026 WCD/SJ&E Kanyadan notification and live form before giving an applicant a definitive amount or deadline.",
@@ -4952,9 +4952,9 @@
       },
       "sources": [
         {
-          "url": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1678002609.pdf",
+          "url": "https://edistrict.hp.gov.in/pages/services/designForm/InfoPages/CM_Bestowing_Plan_%28Mukhya_Mantri_Kanyadaan_Yojana%29.xhtml",
           "role": "primary",
-          "authority": "Government of Himachal Pradesh Women and Child Development/Social Justice and Empowerment official scheme and plan documents",
+          "authority": "Himachal Pradesh e-District scheme description and supporting document list.",
           "source_risk": "High",
           "last_checked": "2026-09-22",
           "unresolved_issue": "Resolve the current amount/income threshold against the latest WCD/SJ&E notification: older official departmental scheme says Rs 25,000 and Rs 35,000, while the 2023-24 plan says Rs 51,000 and Rs 50,000. Confirm marriage-before/after application timing and whether the state-home/CCI route has separate documents.",
@@ -4988,7 +4988,7 @@
         "unresolved_issue": "Resolve the current amount/income threshold against the latest WCD/SJ&E notification: older official departmental scheme says Rs 25,000 and Rs 35,000, while the 2023-24 plan says Rs 51,000 and Rs 50,000. Confirm marriage-before/after application timing and whether the state-home/CCI route has separate documents.",
         "required_resolution": "Obtain the latest 2026 WCD/SJ&E Kanyadan notification and live form before giving an applicant a definitive amount or deadline.",
         "application_channel": "Offline/department-assisted through Anganwadi/CDPO/District Programme Officer, with prescribed form and verification; the current e-District service list should be checked for any migrated online service. — https://edistrict.hp.gov.in/pages/staticSite/serviceList.xhtml?a=03",
-        "primary_source": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1678002609.pdf",
+        "primary_source": "https://edistrict.hp.gov.in/pages/services/designForm/InfoPages/CM_Bestowing_Plan_%28Mukhya_Mantri_Kanyadaan_Yojana%29.xhtml",
         "last_checked": "2026-09-22",
         "_source_row": "37"
       }
@@ -5012,9 +5012,9 @@
       "application_url": "https://edistrict.hp.gov.in/pages/staticSite/serviceList.xhtml?a=03",
       "deadline_or_renewal": "No fixed annual deadline or reliable current window found. Apply within the current notification’s marriage-related window; confirm before filing.",
       "tracking_grievance": "CDPO/District Programme Officer, District Welfare Officer and e-District grievance if service migrated; Mukhya Mantri Sewa Sankalp 1100 for escalation.",
-      "source_url": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1678002609.pdf",
+      "source_url": "https://himseva.hp.gov.in/pages/staticSite/serviceList.xhtml",
       "additional_sources": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1626072027.pdf; https://himachal.nic.in/WriteReadData/l892s/1_l892s/gender_Budget_Statement_2022-23-65828974.pdf; https://edistrict.hp.gov.in/pages/staticSite/serviceList.xhtml?a=03",
-      "source_authority": "Government of Himachal Pradesh Women and Child Development/Social Justice and Empowerment official plan, notification and e-District sources",
+      "source_authority": "Himachal Pradesh HimSeva lists Mukhya Mantri Shagun Yojna; confirm detailed terms with the department.",
       "extraction_status": "Application-ready research",
       "source_risk": "High",
       "next_review_action": "Locate the current Shagun notification/form and confirm amount, BPL definition, timing, documents and live online/offline submission route.",
@@ -5039,9 +5039,9 @@
       },
       "sources": [
         {
-          "url": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1678002609.pdf",
+          "url": "https://himseva.hp.gov.in/pages/staticSite/serviceList.xhtml",
           "role": "primary",
-          "authority": "Government of Himachal Pradesh Women and Child Development/Social Justice and Empowerment official plan, notification and e-District sources",
+          "authority": "Himachal Pradesh HimSeva lists Mukhya Mantri Shagun Yojna; confirm detailed terms with the department.",
           "source_risk": "High",
           "last_checked": "2026-09-22",
           "unresolved_issue": "Confirm current marriage-age, income/BPL, application-before/after marriage, payment timing and whether the 2021 restriction on choosing only one of Kanyadan/Shagun remains. The plan document is 2023-24 and no current dedicated live Shagun service page was found.",
@@ -5075,7 +5075,7 @@
         "unresolved_issue": "Confirm current marriage-age, income/BPL, application-before/after marriage, payment timing and whether the 2021 restriction on choosing only one of Kanyadan/Shagun remains. The plan document is 2023-24 and no current dedicated live Shagun service page was found.",
         "required_resolution": "Locate the current Shagun notification/form and confirm amount, BPL definition, timing, documents and live online/offline submission route.",
         "application_channel": "Department/CDPO/Anganwadi-assisted application with prescribed form; check Himachal e-District service list for an online migrated service. Current public sources do not expose a dedicated Shagun application URL. — https://edistrict.hp.gov.in/pages/staticSite/serviceList.xhtml?a=03",
-        "primary_source": "https://himachal.nic.in/WriteReadData/l892s/176_l892s/1678002609.pdf",
+        "primary_source": "https://himseva.hp.gov.in/pages/staticSite/serviceList.xhtml",
         "last_checked": "2026-09-22",
         "_source_row": "38"
       }
@@ -6726,7 +6726,7 @@
     },
     {
       "scheme_id": "chd_national_family_benefit_scheme",
-      "scheme_name": "National Family Benefit Scheme (Chandigarh UT implementation)",
+      "scheme_name": "Pradhan Mantri Parivar Labh Yojana — National Family Benefit Scheme (Chandigarh UT implementation)",
       "jurisdiction": "Chandigarh UT; National Social Assistance Programme route",
       "record_type": "scheme",
       "category": "Family assistance",
@@ -6744,7 +6744,7 @@
       "deadline_or_renewal": "No current Chandigarh deadline or renewal cycle verified; NFBS is normally a one-time death claim and should be filed promptly after death. Do not present the standard Rs 20,000 or any deadline as confirmed for Chandigarh until the department publishes a current notice.",
       "tracking_grievance": "Ask the Chandigarh Social Welfare/WCD Department (Director, Town Hall Extension Building Sector 17, 0172-2700372, dswsec17-chd@nic.in), Deputy Commissioner office or ServicePlus/e-Sampark for an application number and status; escalate through Chandigarh RTSC/grievance channels.",
       "source_url": "https://chandigarh.gov.in/sites/default/files/stat18/Abstract2018/stat18-T28.pdf",
-      "additional_sources": "https://chandigarh.gov.in/sites/default/files/stat18/Abstract2018/stat18-T27.pdf | https://punjab.gov.in/wp-content/uploads/2020/05/NationalFamilyBenefitScheme.pdf | https://chandigarh.gov.in/other-departments | https://serviceonline.gov.in/dbt/",
+      "additional_sources": "https://chandigarh.gov.in/sites/default/files/stat18/Abstract2018/stat18-T27.pdf | https://punjab.gov.in/wp-content/uploads/2020/05/NationalFamilyBenefitScheme.pdf | https://chandigarh.gov.in/other-departments | https://serviceonline.gov.in/dbt/; https://www.pib.gov.in/PressReleasePage.aspx?PRID=2323266&lang=1&reg=3",
       "source_authority": "Chandigarh Administration official statistical abstracts and Social Welfare department directory; Government of Punjab official NFBS form used as a procedural reference; current ServicePlus checked but no Chandigarh NFBS service confirmed",
       "extraction_status": "Application-ready research",
       "source_risk": "High",
@@ -6794,7 +6794,7 @@
           "last_checked": "2026-09-22"
         },
         {
-          "url": "https://serviceonline.gov.in/dbt/",
+          "url": "https://serviceonline.gov.in/dbt/; https://www.pib.gov.in/PressReleasePage.aspx?PRID=2323266&lang=1&reg=3",
           "role": "additional",
           "last_checked": "2026-09-22"
         }
@@ -6803,7 +6803,7 @@
         "No current 2026 Chandigarh NFBS service page, benefit order, deadline or application form was located. Confirm whether Chandigarh currently accepts new NFBS claims, whether the benefit remains Rs 20,000, current BPL/priority-household test, primary-breadwinner age band, claim deadline and whether applications are online, through e-Sampark/Sewa Kendra or through the Deputy Commissioner/Social Welfare office."
       ],
       "application_guide": {
-        "scheme_name": "National Family Benefit Scheme (Chandigarh UT implementation)",
+        "scheme_name": "Pradhan Mantri Parivar Labh Yojana — National Family Benefit Scheme (Chandigarh UT implementation)",
         "who_should_try": "Typically, the deceased must have been the primary breadwinner of a Below Poverty Line household and be within the prescribed working-age band (normally 18–59 years under NFBS guidelines). The surviving household/head or eligible dependent applies with death, BPL, age, residence, relationship and bank proof. Current Chandigarh-specific eligibility, income/BPL verification and age rule must be confirmed by Social Welfare before application.",
         "benefit": "One-time assistance for a BPL household on the death of its primary breadwinner. The standard NFBS benefit is Rs 20,000, but a current Chandigarh sanction amount and live intake could not be verified. Chandigarh’s official statistical abstracts record historical NFBS beneficiaries and payments, confirming past implementation.",
         "documents_to_prepare": "Death certificate; BPL/priority-household ration card or current eligibility proof; deceased’s age/identity proof; applicant/head-of-household identity and residence proof; relationship/legal-heir proof; bank or post-office account details; application/affidavit; proof that the deceased was the primary breadwinner where required. Conditional: Income certificate; family register; domicile/residence certificate; nominee/legal-heir certificate; medical or cause-of-death record; guardian documents for a minor; any current Chandigarh Social Welfare verification form.",
@@ -6814,7 +6814,7 @@
       },
       "ready_to_apply_snapshot": null,
       "resolution_snapshot": {
-        "scheme_name": "National Family Benefit Scheme (Chandigarh UT implementation)",
+        "scheme_name": "Pradhan Mantri Parivar Labh Yojana — National Family Benefit Scheme (Chandigarh UT implementation)",
         "jurisdiction": "Chandigarh UT; National Social Assistance Programme route",
         "status": "No",
         "source_risk": "High",

@@ -13,7 +13,7 @@ from starlette.requests import ClientDisconnect
 from ..schemas.document_checks import DocumentCheckRequest, DocumentLanguage, DocumentType
 from ..schemas.document_resolution import ResolutionRequest
 from ..services import account_profile_service, auth_service, document_storage
-from ..services.document_checker import CHECKLISTS, check_documents
+from ..services.document_checker import CHECKLISTS, check_documents, preparation_items
 from ..services.document_extraction import (
     CONTENT_TYPES, FIELDS_BY_TYPE, MAX_UPLOAD_BYTES, InvalidUpload, OCRUnavailable,
     extract_document, validate_upload,
@@ -45,22 +45,24 @@ router = APIRouter(route_class=EvidenceRoute, tags=["document checks"])
 _extraction_slot = CapacityLimiter(1)
 
 
-def _pilot_scheme(scheme_id: str):
+def _catalogue_scheme(scheme_id: str):
     try:
         scheme = repository.get(scheme_id)
     except SchemeNotFound as exc:
         raise HTTPException(status_code=404, detail="Scheme was not found.") from exc
-    if (scheme_id, str(scheme.last_checked)) not in CHECKLISTS:
-        raise HTTPException(status_code=404, detail="This scheme has no structured document checklist.")
     return scheme
 
 
 @router.get("/schemes/{scheme_id}/document-checklist")
 def document_checklist(scheme_id: str):
-    scheme = _pilot_scheme(scheme_id)
+    scheme = _catalogue_scheme(scheme_id)
     return {
         "version": f"{scheme.last_checked}.v1",
-        "required_types": CHECKLISTS[(scheme_id, str(scheme.last_checked))],
+        "items": preparation_items(scheme),
+        "instructions": scheme.documents_required,
+        "conditional": scheme.conditional_documents,
+        "source": scheme.source_url,
+        "required_types": CHECKLISTS.get((scheme_id, str(scheme.last_checked)), ()),
     }
 
 
@@ -76,7 +78,7 @@ def _saved_profile(user_id):
 @router.post("/schemes/{scheme_id}/document-checks")
 def run_document_check(body: DocumentCheckRequest, request: Request, response: Response, scheme_id: str | None = None):
     user_id = _require_user_id(request)
-    scheme = _pilot_scheme(scheme_id) if scheme_id is not None else None
+    scheme = _catalogue_scheme(scheme_id) if scheme_id is not None else None
     profile = _saved_profile(user_id)
     household = dict(profile.get("household") or {})
     if household.get("household_annual_income") is None:
@@ -84,7 +86,12 @@ def run_document_check(body: DocumentCheckRequest, request: Request, response: R
     profile["household"] = household
     today = datetime.now(timezone(timedelta(hours=5, minutes=30))).date()
     response.headers["Cache-Control"] = "no-store"
-    return check_documents(scheme, body.documents, profile, today, compare_unconfirmed=body.compare_unconfirmed)
+    items = preparation_items(scheme) if scheme else []
+    if body.preparation.keys() - {item["id"] for item in items}:
+        raise HTTPException(409, "The checklist changed. Reload the scheme before continuing.")
+    report = check_documents(scheme, body.documents, profile, today, compare_unconfirmed=body.compare_unconfirmed)
+    report["preparation"] = [{**item, "answer": body.preparation.get(item["id"], "unsure")} for item in items]
+    return report
 
 
 async def _read_upload(request):
@@ -130,7 +137,7 @@ async def extract_uploaded_document(
 ):
     await run_in_threadpool(_require_user_id, request)
     if scheme_id is not None:
-        await run_in_threadpool(_pilot_scheme, scheme_id)
+        await run_in_threadpool(_catalogue_scheme, scheme_id)
     if document_type not in FIELDS_BY_TYPE:
         raise HTTPException(status_code=422, detail="Select the evidence type before uploading.")
     data, content_type = await _read_upload(request)
@@ -213,7 +220,7 @@ async def extract_saved_document(
 ):
     user_id = await run_in_threadpool(_require_user_id, request)
     if scheme_id is not None:
-        await run_in_threadpool(_pilot_scheme, scheme_id)
+        await run_in_threadpool(_catalogue_scheme, scheme_id)
     if request.headers.get("X-Document-Consent") != "true":
         raise HTTPException(status_code=422, detail="Consent is required to process the file.")
     if document_type not in FIELDS_BY_TYPE:
@@ -233,7 +240,7 @@ def resolve_document_mismatch(
     body: ResolutionRequest, request: Request, response: Response, scheme_id: str | None = None,
 ):
     user_id = _require_user_id(request)
-    scheme = _pilot_scheme(scheme_id) if scheme_id is not None else None
+    scheme = _catalogue_scheme(scheme_id) if scheme_id is not None else None
     response.headers["Cache-Control"] = "no-store"
     try:
         return build_resolution(body, scheme, _saved_profile(user_id))
@@ -245,7 +252,7 @@ def resolve_document_mismatch(
 @router.get("/schemes/{scheme_id}/document-resolution-example")
 def document_resolution_example(scheme_id: str | None = None):
     """Render a fixed example without reading the user's account or calling AI."""
-    scheme = _pilot_scheme(scheme_id) if scheme_id is not None else None
+    scheme = _catalogue_scheme(scheme_id) if scheme_id is not None else None
     sample = ResolutionRequest(
         documents=(
             {"kind": "aadhaar", "value": "2002-05-10"},

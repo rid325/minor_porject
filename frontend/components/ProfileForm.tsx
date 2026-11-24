@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { checkEligibility } from "@/lib/api";
@@ -25,7 +25,9 @@ export default function ProfileForm() {
   const router = useRouter();
   const [profile, setProfile] = useState<Profile>(emptyProfile);
   const [step, setStep] = useState(0);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [ready, setReady] = useState(false);
+  const [dirty, setDirty] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [accountEmail, setAccountEmail] = useState("");
   const [syncStatus, setSyncStatus] = useState("Loading your saved information…");
@@ -46,8 +48,11 @@ export default function ProfileForm() {
       setAuthenticated(signedIn);
       if (auth?.user?.email) setAccountEmail(auth.user.email);
       const localOwner = window.localStorage.getItem(PROFILE_OWNER_KEY);
-      if (signedIn && localOwner && localOwner !== auth?.user?.email) initial = emptyProfile();
-      if (!signedIn) { clearLocalProfileData(); initial = emptyProfile(); }
+      if (!auth && localOwner) { setLoadFailed(true); return; }
+      if (localOwner && localOwner !== auth?.user?.email) {
+        clearLocalProfileData();
+        initial = emptyProfile();
+      }
       if (signedIn) {
         try {
           const saved = await getAccountProfile();
@@ -62,6 +67,21 @@ export default function ProfileForm() {
       const requestedSection = new URLSearchParams(window.location.search).get("section");
       const requestedStep = sections.findIndex((item) => item.key === requestedSection);
       if (requestedStep >= 0) setStep(requestedStep);
+      if (!active) return;
+      if (auth?.user?.email) window.localStorage.setItem(PROFILE_OWNER_KEY, auth.user.email);
+      if (new URLSearchParams(window.location.search).has("fromChat")) {
+        try {
+          const facts = JSON.parse(sessionStorage.getItem("yojana-confirmed-intake") || "{}");
+          sessionStorage.removeItem("yojana-confirmed-intake");
+          if (Object.keys(facts).length) setDirty(true);
+          if (/^\d{4}-\d{2}-\d{2}$/.test(facts["personal.date_of_birth"] || "")) initial.personal.date_of_birth = facts["personal.date_of_birth"];
+          if (/^\d{1,12}$/.test(facts["household.family_income"] || "")) initial.household.family_income = facts["household.family_income"];
+          if (["single", "married", "widowed", "divorced"].includes(facts["personal.marital_status"])) initial.personal.marital_status = facts["personal.marital_status"];
+          if (["Punjab", "Haryana", "Chandigarh", "Himachal Pradesh"].includes(facts["location.state"])) initial.location.state = facts["location.state"];
+          if (["yes","no"].includes(facts["education.student_status"])) initial.education.student_status = facts["education.student_status"];
+          if (["yes","no"].includes(facts["agriculture.farmer_status"])) initial.agriculture.farmer_status = facts["agriculture.farmer_status"];
+        } catch { /* Profile form remains available without intake. */ }
+      }
       setProfile(initial);
       setReady(true);
     }
@@ -72,7 +92,7 @@ export default function ProfileForm() {
   useEffect(() => {
     if (!ready) return;
     try { window.localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile)); } catch { /* The account copy is still available when signed in. */ }
-    if (!authenticated) return;
+    if (!authenticated || !dirty) return;
     setSyncStatus("Saving your answers to your account…");
     const timer = window.setTimeout(() => {
       saveAccountProfile(profile)
@@ -80,9 +100,10 @@ export default function ProfileForm() {
         .catch(() => setSyncStatus("Could not sync just now. Your answers remain saved in this browser."));
     }, 600);
     return () => window.clearTimeout(timer);
-  }, [profile, ready, authenticated, accountEmail]);
+  }, [profile, ready, authenticated, accountEmail, dirty]);
 
   const update = (section: SectionKey, field: string, value: string) => {
+    setDirty(true);
     setProfile((current) => ({ ...current, [section]: { ...(current[section] as Record<string, string>), [field]: value } } as Profile));
     setError("");
   };
@@ -92,7 +113,7 @@ export default function ProfileForm() {
   const previous = () => setStep((value) => Math.max(value - 1, 0));
   const reset = () => {
     if (!window.confirm("Clear your saved profile answers from this browser and your account?")) return;
-    setProfile(emptyProfile()); setStep(0); setError("");
+    setDirty(true); setProfile(emptyProfile()); setStep(0); setError("");
     try { window.localStorage.removeItem(PROFILE_STORAGE_KEY); window.localStorage.removeItem(RESULTS_STORAGE_KEY); } catch { /* ignore */ }
   };
   const runMatch = async () => {
@@ -107,11 +128,12 @@ export default function ProfileForm() {
     } finally { setRunning(false); }
   };
 
+  if (loadFailed) return <main className="page-wrap page-intro"><h1>Account temporarily unavailable</h1><p>Your saved answers are still in this browser.</p><button className="btn btn-primary" onClick={() => window.location.reload()}>Retry</button></main>;
   if (!ready) return <main className="page-wrap"><div className="loading" style={{ minHeight: 440 }}>Loading your saved answers…</div></main>;
 
   return (
     <main className="form-page">
-      <div className="page-wrap page-intro"><span className="eyebrow">Your private profile</span><h1>Edit your information<br /><span style={{ color: "var(--brand)" }}>whenever you need.</span></h1><p>Your answers are saved to your account when you are signed in. Revisit this page any time to update them before checking your scheme matches.</p><div className="account-actions"><Link className="btn btn-secondary" href="/document-checker">Open document mismatch checker</Link></div></div>
+      <div className="page-wrap page-intro"><span className="eyebrow">Your private profile</span><h1>Edit your information<br /><span style={{ color: "var(--brand)" }}>whenever you need.</span></h1><p>Your answers are saved to your account when you are signed in. Revisit this page any time to update them before checking your scheme matches.</p><div className="account-actions"><Link className="btn btn-primary" href="/chat">Go to chatbot</Link><Link className="btn btn-secondary" href="/document-checker">Open document mismatch checker</Link></div></div>
       <div className="page-wrap form-shell">
         <aside className="form-nav" aria-label="Profile sections"><div className="form-nav-title">Your progress</div>{sections.map((item, index) => <button className={`form-step ${index === step ? "active" : ""}`} key={item.key} onClick={() => setStep(index)}><span className="step-number">{index + 1}</span><span>{item.label}</span></button>)}</aside>
         <div className="form-content">
@@ -132,15 +154,15 @@ function StepFields({ section, profile, update }: { section: SectionKey; profile
   const values = profile[section] as Record<string, string>;
   const field = (name: string) => values[name] || "";
   if (section === "location") return <div className="form-grid"><TextField label="State or Union Territory" value={field("state")} onChange={(value) => update(section, "state", value)} placeholder="e.g. Punjab" help="Used to find state-specific routes." /><TextField label="District" value={field("district")} onChange={(value) => update(section, "district", value)} placeholder="e.g. Ludhiana" /><TextField label="Postal PIN (optional)" value={field("pin")} onChange={(value) => update(section, "pin", value)} help="Used for document comparison." /><ChoiceField label="Where do you live?" value={field("residence_type")} onChange={(value) => update(section, "residence_type", value)} options={[["rural", "Rural"], ["urban", "Urban"], ["unknown", "I don’t know"]]} /><ChoiceField label="Are you domiciled in this state?" value={field("domicile")} onChange={(value) => update(section, "domicile", value)} options={[["yes", "Yes"], ["no", "No"], ["unknown", "I don’t know"]]} /> </div>;
-  if (section === "personal") return <div className="form-grid"><TextField label="Name as shown on your documents (optional)" value={field("name")} onChange={(value) => update(section, "name", value)} help="Used for document comparison." /><TextField label="Date of birth" type="date" value={field("date_of_birth")} onChange={(value) => update(section, "date_of_birth", value)} help="Used to calculate age for age-based schemes." /><ChoiceField label="Gender" value={field("gender")} onChange={(value) => update(section, "gender", value)} options={[["woman", "Woman"], ["man", "Man"], ["non_binary", "Non-binary"], ["prefer_not_to_say", "Prefer not to say"]]} /></div>;
-  if (section === "household") return <div className="form-grid"><TextField label="Applicant + spouse annual income (INR)" type="number" value={field("family_income")} onChange={(value) => update(section, "family_income", value)} placeholder="Optional" help="Leave blank if you do not know." /><ChoiceField label="Does your household have BPL status?" value={field("bpl_status")} onChange={(value) => update(section, "bpl_status", value)} options={[["yes", "Yes"], ["no", "No"], ["unknown", "I don’t know"]]} /></div>;
+  if (section === "personal") return <div className="form-grid"><TextField label="Name as shown on your documents (optional)" value={field("name")} onChange={(value) => update(section, "name", value)} help="Used for document comparison." /><TextField label="Date of birth" type="date" value={field("date_of_birth")} onChange={(value) => update(section, "date_of_birth", value)} help="Used to calculate age for age-based schemes." /><ChoiceField label="Marital status" value={field("marital_status")} onChange={value => update(section, "marital_status", value)} options={[["single","Single"],["married","Married"],["widowed","Widowed"],["divorced","Divorced"]]} /><ChoiceField label="Gender" value={field("gender")} onChange={(value) => update(section, "gender", value)} options={[["woman", "Woman"], ["man", "Man"], ["non_binary", "Non-binary"], ["prefer_not_to_say", "Prefer not to say"]]} /></div>;
+  if (section === "household") return <div className="form-grid"><TextField label="Total annual household income (INR)" type="number" value={field("family_income")} onChange={(value) => update(section, "family_income", value)} placeholder="Optional" help="Leave blank if you do not know." /><ChoiceField label="Does your household have BPL status?" value={field("bpl_status")} onChange={(value) => update(section, "bpl_status", value)} options={[["yes", "Yes"], ["no", "No"], ["unknown", "I don’t know"]]} /></div>;
   if (section === "education") return <div className="form-grid"><ChoiceField label="Are you currently studying?" value={field("student_status")} onChange={(value) => update(section, "student_status", value)} options={[["yes", "Yes"], ["no", "No"], ["unknown", "I don’t know"]]} /></div>;
   if (section === "employment") return <div className="form-grid"><ChoiceField label="Current work situation" value={field("employment_status")} onChange={(value) => update(section, "employment_status", value)} options={[["employed", "Employed"], ["self_employed", "Self-employed"], ["unemployed", "Not working"], ["student", "Student"], ["retired", "Retired"], ["unknown", "I don’t know"]]} /></div>;
   if (section === "agriculture") return <div className="form-grid"><ChoiceField label="Are you a farmer?" value={field("farmer_status")} onChange={(value) => update(section, "farmer_status", value)} options={[["yes", "Yes"], ["no", "No"], ["unknown", "I don’t know"]]} /></div>;
   return <div className="form-grid"><ChoiceField label="Social category (optional; only relevant to some schemes)" value={field("social_category")} onChange={(value) => update(section, "social_category", value)} options={[["general", "General"], ["sc", "SC"], ["st", "ST"], ["obc", "OBC"], ["other", "Other"], ["prefer_not_to_say", "Prefer not to say"]]} /><ChoiceField label="Do you have a savings bank or post-office account?" value={field("has_savings_bank_account")} onChange={(value) => update(section, "has_savings_bank_account", value)} options={[["yes", "Yes"], ["no", "No"], ["unknown", "I don’t know"]]} /></div>;
 }
 
-function TextField({ label, value, onChange, placeholder, help, type = "text" }: { label: string; value: string; onChange: (value: string) => void; placeholder?: string; help?: string; type?: string }) { return <div className="form-field"><label>{label}</label><input className="field" type={type} value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} />{help && <span className="form-help">{help}</span>}</div>; }
+function TextField({ label, value, onChange, placeholder, help, type = "text" }: { label: string; value: string; onChange: (value: string) => void; placeholder?: string; help?: string; type?: string }) { const id = useId(); return <div className="form-field"><label htmlFor={id}>{label}</label><input id={id} className="field" type={type} value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} />{help && <span className="form-help">{help}</span>}</div>; }
 function ChoiceField({ label, value, onChange, options }: { label: string; value: string; onChange: (value: string) => void; options: string[][] }) { const name = label.toLowerCase().replace(/[^a-z0-9]+/g, "-"); return <div className="form-field full"><span style={{ fontSize: 12, fontWeight: 700 }}>{label}</span><div className="radio-grid">{options.map(([option, text]) => <div className="choice" key={option}><input id={`${name}-${option}`} type="radio" name={name} checked={value === option} onChange={() => onChange(option)} /><label htmlFor={`${name}-${option}`}>{text}</label></div>)}</div></div>; }
 
 function Review({ profile, answers }: { profile: Profile; answers: number }) {

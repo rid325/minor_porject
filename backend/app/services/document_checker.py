@@ -3,6 +3,7 @@
 from datetime import date, timedelta
 from decimal import Decimal, InvalidOperation
 from difflib import SequenceMatcher
+import hashlib
 import os
 import re
 from unicodedata import category, normalize
@@ -17,8 +18,27 @@ from .eligibility_engine import evaluate_scheme
 # Checklist versions are independent of rule versions and tied to catalogue snapshots.
 CHECKLISTS = {
     ("pb_old_age_pension", "2026-09-22"): ("identity", "residence", "age", "bank"),
+    ("pb_post_matric_sc_scholarship", "2026-09-22"): ("income",),
+    ("central_depwd_post_matric_scholarship_disabilities", "2026-09-22"): ("identity", "disability"),
+    ("chd_post_matric_scholarship_students_disabilities", "2026-09-22"): ("identity", "disability"),
+    ("PB-DCP", "2026-09-22"): ("identity", "residence", "age", "bank"),
+    ("chd_old_age_pension", "2026-09-22"): ("identity", "residence", "age", "bank"),
+    ("HP-SAHARA-002", "2026-09-22"): ("residence", "income", "bank", "identity"),
+    ("HR-MSYBC", "2026-09-22"): ("identity", "family_id", "category"),
     ("HR-OASA-002", "2026-09-22"): ("family_id", "age", "bank"),
 }
+def preparation_items(scheme):
+    items = []
+    for section, text in (("listed", scheme.documents_required), ("conditional", scheme.conditional_documents)):
+        for clause in (text or "").split(";"):
+            label = clause.strip()
+            if label:
+                key = hashlib.sha256(f"{scheme.scheme_id}|{section}|{label}".encode()).hexdigest()[:16]
+                if all(item["id"] != key for item in items):
+                    items.append({"id": key, "section": section, "label": label})
+    return items
+
+
 PROFILE_PATHS = {
     "name": ("personal", "name"),
     "date_of_birth": ("personal", "date_of_birth"),
@@ -127,7 +147,7 @@ def evidence_at(index: int, field: str, evidence: EvidenceField):
 
 
 def check_documents(scheme, documents: list[DocumentEvidence], profile: dict, today: date, *, compare_unconfirmed: bool = False):
-    checklist = CHECKLISTS[(scheme.scheme_id, str(scheme.last_checked))] if scheme else ()
+    checklist = CHECKLISTS.get((scheme.scheme_id, str(scheme.last_checked)), ()) if scheme else ()
     findings = []
     comparisons = []
     usable_types = set()
@@ -252,6 +272,7 @@ def check_documents(scheme, documents: list[DocumentEvidence], profile: dict, to
                         [other_field.original_value or other_field.value, original], [other_kind, kind])
 
     rule_set = None
+    recheck = None
     if scheme is not None:
         # Evaluate only unambiguous, applicable evidence. Preserve the saved profile.
         rule_profile = {section: dict(profile.get(section) or {}) for section, _ in PROFILE_PATHS.values()}
@@ -270,7 +291,10 @@ def check_documents(scheme, documents: list[DocumentEvidence], profile: dict, to
         if dob is not None:
             rule_profile["age"] = age_on_date(dob, today)
 
-        _, _, rule_set, evaluation, _ = evaluate_scheme(scheme, rule_profile)
+        _, review, rule_set, evaluation, _ = evaluate_scheme(scheme, rule_profile)
+        recheck = {"conflicted_fields": sorted(conflicts), "review_state": review.value,
+                   "unresolved_rules": [item.description for item in evaluation.conditions if item.status == RuleStatus.UNKNOWN]}
+
         if scheme.scheme_id == "pb_old_age_pension":
             gender = str(rule_profile["personal"].get("gender", "")).casefold().strip()
             if gender not in {"male", "man", "female", "woman"} and "date_of_birth" in rule_evidence:
@@ -279,7 +303,7 @@ def check_documents(scheme, documents: list[DocumentEvidence], profile: dict, to
                       evidence=[rule_evidence.pop("date_of_birth")])
         for condition in evaluation.conditions:
             field = RULE_FIELDS.get(condition.field)
-            if evaluation.status == RuleStatus.FAIL and condition.status == RuleStatus.FAIL and field in rule_evidence:
+            if review.value == "REVIEWED" and evaluation.status == RuleStatus.FAIL and condition.status == RuleStatus.FAIL and field in rule_evidence:
                 issue("blocker", "scheme_rule", condition.description,
                       "Review this evidence and confirm the current scheme requirements before applying.",
                       evidence=[rule_evidence[field]], source_url=condition.source_url)
@@ -296,6 +320,7 @@ def check_documents(scheme, documents: list[DocumentEvidence], profile: dict, to
         "scheme_id": scheme.scheme_id if scheme else None,
         "checklist_version": f"{scheme.last_checked}.v1" if scheme else None,
         "rule_set_version": rule_set.version if rule_set else None,
+        "eligibility_recheck": recheck,
         "required_types": checklist,
         "document_count": len(documents),
         "fields_checked": checked_fields,

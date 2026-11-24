@@ -1,0 +1,27 @@
+name: Scheme source review
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 2 * * 1'
+permissions:
+  contents: read
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache@v4
+        with:
+          path: source-review/baseline.json
+          key: source-review-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: source-review-v1-
+      - run: pip install 'httpx>=0.27,<1'
+      - run: python backend/scripts/monitor_sources.py source-review
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scheme-source-review
+          path: source-review/review.json

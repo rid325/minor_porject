@@ -6,17 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint .",
+    "test:journey": "node tests/guest-journey.mjs"
   },
   "dependencies": {
-    "next": "^16.4.0",
+    "next": "^16.4.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^16.4.6",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
-    "typescript": "^5.8.0"
+    "eslint": "^9.39.5",
+    "playwright-core": "^1.65.1",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.74.0"
   }
 }

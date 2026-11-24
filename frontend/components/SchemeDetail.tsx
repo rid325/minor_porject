@@ -11,7 +11,12 @@ export default function SchemeDetail({ id }: { id: string }) {
   const router = useRouter();
   const [scheme, setScheme] = useState<Scheme>();
   const [loading, setLoading] = useState(true);
-  useEffect(() => { getScheme(id).then(setScheme).finally(() => setLoading(false)); }, [id]);
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    getScheme(id).then(value => { if (active) setScheme(value); }).finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [id]);
   const goBack = () => { if (window.history.length > 1) router.back(); else router.push("/schemes"); };
   if (loading) return <main className="page-wrap"><div className="loading" style={{ minHeight: 500 }}>Loading scheme details…</div></main>;
   if (!scheme) return <main className="page-wrap"><div className="page-intro"><span className="eyebrow">Scheme not found</span><h1>That record is not available.</h1><p>Try returning to the catalogue and choosing another scheme.</p><Link className="btn btn-primary" href="/schemes" style={{ marginTop: 22 }}>Back to catalogue</Link></div></main>;
@@ -40,7 +45,7 @@ export default function SchemeDetail({ id }: { id: string }) {
           {scheme.source_urls.length > 0 && <DetailCard title="Sources"><p style={{ marginTop: 0 }}>Use the official source to verify current rules before applying{scheme.source_authority ? ` · ${scheme.source_authority}` : ""}.</p><ul className="source-list">{scheme.source_urls.map((source) => <li key={source}><a href={source} target="_blank" rel="noreferrer">{source} <span aria-hidden="true">↗</span></a></li>)}</ul></DetailCard>}
         </div>
         <aside className="detail-side side-sticky">
-          <div className="detail-card apply-card"><h2>Application route</h2><p>Use the official route to confirm current eligibility, documents, deadlines and submission requirements.</p>{scheme.application_url ? <><a className="btn btn-primary apply-link" href={scheme.application_url} target="_blank" rel="noreferrer">Open official application route <span aria-hidden="true">↗</span></a>{scheme.application_mode && <p className="route-note">{scheme.application_mode}</p>}<p className="route-disclaimer">The link may require login, assisted service-centre support or departmental verification. Nagrik Path does not submit an application on your behalf.</p></> : <p style={{ marginBottom: 0 }}>No verified online route is currently recorded. Contact the administering department or a nearby service centre.</p>}</div>
+          <div className="detail-card apply-card"><h2>Application route</h2><p><strong>Route readiness · </strong>{{YES: "Reviewed", CONDITIONAL: "Confirm the listed conditions", NO: "Needs review", UNKNOWN: "Awaiting review"}[scheme.application_readiness]}</p><p>Use the official route to confirm current eligibility, documents, deadlines and submission requirements.</p>{scheme.application_url ? <><a className="btn btn-primary apply-link" href={scheme.application_url} target="_blank" rel="noreferrer">{scheme.application_readiness === "YES" ? "Open application route" : "View route information"} <span aria-hidden="true">↗</span></a>{scheme.application_mode && <p className="route-note">{scheme.application_mode}</p>}<p className="route-disclaimer">The link may require login, assisted service-centre support or departmental verification. Yojana Connect does not submit an application on your behalf.</p></> : <p style={{ marginBottom: 0 }}>No verified online route is currently recorded. Contact the administering department or a nearby service centre.</p>}</div>
           {scheme.important_caution && <div className="detail-card caution"><h3>One thing to confirm</h3><p>{scheme.important_caution}</p></div>}
         </aside>
       </div>
@@ -50,7 +55,9 @@ export default function SchemeDetail({ id }: { id: string }) {
 
 function SourceCard({ scheme }: { scheme: Scheme }) {
   const primaryUrl = scheme.source_urls[0];
-  return <section className="detail-card source-card" aria-label="Source and verification"><div className="source-card-head"><div><span className="eyebrow">Source and verification</span><h2>Official reference</h2></div><span className="source-badge">{scheme.source_authority || "Government source"}</span></div><p>This record is based on the official reference below. Confirm the latest notification, document requirements and application status before submitting.</p>{primaryUrl ? <a className="source-primary-link" href={primaryUrl} target="_blank" rel="noreferrer">Open official source <span aria-hidden="true">↗</span></a> : <p className="source-missing">Official source link is still being verified.</p>}{scheme.last_checked && <p className="source-checked">Last checked: {formatDate(scheme.last_checked)}</p>}</section>;
+  const host = primaryUrl ? new URL(primaryUrl).hostname : "";
+  const governmentHost = /(^|\.)(gov|nic)\.in$/i.test(host);
+  return <section className="detail-card source-card" aria-label="Source and verification"><div className="source-card-head"><div><span className="eyebrow">Source and verification</span><h2>{governmentHost ? "Government reference" : "Catalogue reference"}</h2></div><span className="source-badge">{scheme.source_authority || host || "Source under review"}</span></div><p>This record cites the reference below. Confirm the latest notification, document requirements and application status before submitting.</p>{primaryUrl ? <a className="source-primary-link" href={primaryUrl} target="_blank" rel="noreferrer">{governmentHost ? "Open official source" : "Open cited source"} <span aria-hidden="true">↗</span></a> : <p className="source-missing">Official source link is still being verified.</p>}{scheme.last_checked && <p className="source-checked">Last checked: {formatDate(scheme.last_checked)}</p>}</section>;
 }
 
 function DetailCard({ title, children }: { title: string; children: React.ReactNode }) { return <section className="detail-card"><h2>{title}</h2>{children}</section>; }

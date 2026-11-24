@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AuthUser, getAuthStatus } from "@/lib/auth";
-import { clearLocalProfileData } from "@/lib/profile";
+
 
 export default function AuthNav({ compact = false }: { compact?: boolean }) {
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -12,7 +12,7 @@ export default function AuthNav({ compact = false }: { compact?: boolean }) {
   useEffect(() => {
     let active = true;
     getAuthStatus()
-      .then((status) => { if (active) { setUser(status.authenticated ? status.user : null); if (!status.authenticated) clearLocalProfileData(); } })
+      .then((status) => { if (active) { setUser(status.authenticated ? status.user : null); } })
       .catch(() => { if (active) setUser(null); })
       .finally(() => { if (active) setReady(true); });
     return () => { active = false; };

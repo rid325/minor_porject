@@ -5,7 +5,7 @@ import { FormEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { checkEligibility } from "@/lib/api";
 import { AccountProfile, getAccountProfile, getAuthStatus, saveAccountProfile } from "@/lib/auth";
-import { clearLocalProfileData, mergeProfile, profileAnswerCount, PROFILE_OWNER_KEY, PROFILE_STORAGE_KEY, RESULTS_STORAGE_KEY } from "@/lib/profile";
+import { clearLocalProfileData, isInProfileRegion, mergeProfile, profileAnswerCount, PROFILE_OWNER_KEY, PROFILE_STORAGE_KEY, RESULTS_STORAGE_KEY } from "@/lib/profile";
 import { EligibilityResponse, EligibilityReason, EligibilityResult, Profile, ResultBucket } from "@/lib/types";
 import SchemeConditionsButton from "./SchemeConditionsButton";
 
@@ -46,24 +46,29 @@ export default function ResultsView() {
         const profileText = window.localStorage.getItem(PROFILE_STORAGE_KEY);
         if (profileText) savedProfile = mergeProfile(JSON.parse(profileText));
       } catch { /* Continue with the account copy or the empty state. */ }
-      if (cached && active) setResponse(cached);
+
 
       const auth = await getAuthStatus().catch(() => null);
       if (!active) return;
+      const owner = window.localStorage.getItem(PROFILE_OWNER_KEY);
+      if (!auth && owner) {
+        setSaveMessage("Could not verify the account that owns these results. Please retry.");
+        setLoading(false);
+        return;
+      }
+      if (owner && owner !== auth?.user?.email) {
+        clearLocalProfileData();
+        savedProfile = undefined;
+        cached = undefined;
+      }
+      if (cached && cached.rule_set_version !== "mock-v1") setResponse(cached);
       if (auth?.authenticated) {
         setSignedIn(true);
         setAccountEmail(auth.user?.email || "");
-        const localOwner = window.localStorage.getItem(PROFILE_OWNER_KEY);
-        if (localOwner && localOwner !== auth.user?.email) savedProfile = undefined;
         try {
           const account: AccountProfile = await getAccountProfile();
           if (account.profile) { savedProfile = mergeProfile(account.profile); if (auth.user?.email) window.localStorage.setItem(PROFILE_OWNER_KEY, auth.user.email); }
         } catch { /* Use the local copy while the account API is unavailable. */ }
-      } else {
-        clearLocalProfileData();
-        savedProfile = undefined;
-        cached = undefined;
-        setResponse(undefined);
       }
       if (!active) return;
       if (savedProfile) {
@@ -71,15 +76,12 @@ export default function ResultsView() {
         setApplicantState(savedProfile.location.state.trim());
         if (profileAnswerCount(savedProfile) > 0) {
           try {
-            if (auth?.authenticated) {
-              await saveAccountProfile(savedProfile).then(() => { if (auth.user?.email) window.localStorage.setItem(PROFILE_OWNER_KEY, auth.user.email); }).catch(() => undefined);
-            }
             const fresh = await checkEligibility(savedProfile);
             if (!active) return;
             setResponse(fresh);
             window.localStorage.setItem(RESULTS_STORAGE_KEY, JSON.stringify(fresh));
             window.localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(savedProfile));
-          } catch { /* Keep the last saved assessment if a fresh check cannot finish. */ }
+          } catch { if (active) setSaveMessage("Eligibility checking is unavailable. Retry when the API is available."); }
         }
       }
       if (active) setLoading(false);
@@ -105,7 +107,7 @@ export default function ResultsView() {
     const needle = search.trim().toLowerCase();
     return allResults.filter(({ scheme }) =>
       (!needle || `${scheme.name} ${scheme.summary} ${scheme.category} ${scheme.jurisdiction}`.toLowerCase().includes(needle))
-      && (!applicantState || showAll || scheme.jurisdiction.toLowerCase() === "india" || scheme.jurisdiction.toLowerCase().includes(applicantState.toLowerCase()))
+      && (showAll || isInProfileRegion(scheme.jurisdiction, applicantState))
       && (!jurisdiction || scheme.jurisdiction === jurisdiction)
       && (!category || scheme.category === category));
   }, [allResults, search, jurisdiction, category, applicantState, showAll]);
@@ -136,6 +138,7 @@ export default function ResultsView() {
   }
 
   if (loading) return <main className="page-wrap"><div className="loading" style={{ minHeight: 440 }}>Loading your saved personalised schemes…</div></main>;
+  if (!response && saveMessage) return <main className="page-wrap page-intro"><h1>Could not update matches</h1><p role="alert">{saveMessage}</p><button className="btn btn-primary" onClick={() => window.location.reload()}>Retry</button></main>;
   if (!response) return <main className="page-wrap page-intro"><span className="eyebrow">Personalised schemes</span><h1>Start with a few<br /><span style={{ color: "var(--brand)" }}>useful answers.</span></h1><p>Save a few common details once. We’ll use them to rank schemes and ask for extra details only when a particular scheme needs them.</p><Link className="btn btn-primary" href="/profile" style={{ marginTop: 22 }}>Add my common information <span aria-hidden="true">→</span></Link></main>;
 
   const total = response.results.length;
@@ -203,10 +206,10 @@ function AnswerInput({ field, value, onChange }: { field: string; value: string;
   if (field === "personal.age" || field === "age") return <p className="form-help">Age is calculated from your date of birth. Add or update it in your profile.</p>;
   if (field === "household.size") return choices([...Array.from({ length: 20 }, (_, i) => [String(i + 1), `${i + 1} ${i === 0 ? "person" : "people"}`] as [string, string]), ["unknown", "Not sure"]]);
   if (field.includes("percentage")) return choices([...Array.from({ length: 101 }, (_, n) => [String(n), `${n}%`] as [string, string]), ["unknown", "Not sure"]]);
-  if (field.includes("income")) return choices([...([0, 25000, 50000, 75000, 100000, 150000, 180000, 200000, 250000, 300000, 500000, 750000, 1000000, 1500000, 1800000, 2000000, 2500000, 3000000, 5000000, 7500000, 10000000].map((amount) => [String(amount), `₹${amount.toLocaleString("en-IN")}${field.includes("monthly_income") ? " / month" : " / year"}`] as [string, string])), ["unknown", "Not sure"]]);
+  if (field.includes("income")) return <input className="field" aria-label="Income in rupees" type="number" min="0" step="any" placeholder="Enter the amount in INR" value={value} onChange={event => onChange(event.target.value)} />;
   if (field.includes("acres") || field.includes("land_area")) return choices([...Array.from({ length: 101 }, (_, n) => [String(n / 2), `${(n / 2).toLocaleString("en-IN")} acres`] as [string, string]), ["unknown", "Not sure"]]);
   if (field.startsWith("custom.") || yesNoFields.includes(field)) return choices([["yes", "Yes"], ["no", "No"], ["unknown", "I don’t know"]]);
-  return choices([["yes", "Yes"], ["no", "No"], ["unknown", "I don’t know"]]);
+  return <input className="field" aria-label="Your answer" value={value} onChange={event => onChange(event.target.value)} />;
 }
 
 function Reason({ reason, onAddAnswer }: { reason: EligibilityReason; onAddAnswer: (reason: EligibilityReason) => void }) {

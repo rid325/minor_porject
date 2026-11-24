@@ -64,7 +64,8 @@ type Extraction = {
   ambiguous_fields: (Field | "expires_on")[];
 };
 type DocumentRow = { id: number; type: DocumentType; language: DocumentLanguage; pendingFile?: File; saved?: SavedDocument; manual?: boolean; upload?: Extraction; revision?: number };
-type Checklist = { version: string; required_types: DocumentType[] };
+type PreparationItem = { id: string; section: string; label: string };
+type Checklist = { items?: PreparationItem[]; instructions?: string; conditional?: string; source?: string; version: string; required_types: DocumentType[] };
 type Evidence = {
   document: number;
   field: Field;
@@ -97,6 +98,8 @@ const comparisonNotes: Record<string, string> = {
 };
 type Report = {
   checklist_version: string | null;
+  eligibility_recheck?: {conflicted_fields: string[]; unresolved_rules: string[]};
+  preparation?: (PreparationItem & {answer: string})[];
   rule_set_version: string | null;
   document_count: number;
   fields_checked: number;
@@ -129,6 +132,7 @@ const relevantFields: Record<DocumentType, Field[]> = {
 
 export default function DocumentChecker({ schemeId, savedOnly = false }: { schemeId?: string; savedOnly?: boolean }) {
   const endpoint = apiBase + "/api/v1" + (schemeId ? "/schemes/" + encodeURIComponent(schemeId) : "");
+  const [preparation, setPreparation] = useState<Record<string,string>>({});
   const [checklist, setChecklist] = useState<Checklist>();
   const [documents, setDocuments] = useState<DocumentRow[]>(() => Array.from(
     { length: savedOnly ? 2 : schemeId ? 0 : 1 },
@@ -287,7 +291,7 @@ export default function DocumentChecker({ schemeId, savedOnly = false }: { schem
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ consent: form.has("document-consent"), documents: payload, compare_unconfirmed: !schemeId }),
+        body: JSON.stringify({ consent: form.has("document-consent"), documents: payload, preparation, compare_unconfirmed: !schemeId }),
       });
       if (response.status === 401) {
         setSignInRequired(true);
@@ -370,6 +374,7 @@ export default function DocumentChecker({ schemeId, savedOnly = false }: { schem
       `- ${fields[item.evidence[0].field].label}, ${item.evidence.map((evidence) => "document " + evidence.document).join(" and ")}${item.comparison === "profile_comparison" ? " and saved profile" : ""}: ${comparisonLabels[classification(item)] ?? classification(item)}`,
     ));
     if (missing.length) sections.push("", "Missing values", ...missing);
+    if (report.preparation?.length) sections.push("", "Your document checklist", ...report.preparation.map(item => item.label + " · " + item.answer));
     if (report.findings.length) sections.push("", "Findings", ...report.findings.map((item) => item.message + " " + item.action));
     const priorityOrder: Record<string, number> = { High: 0, Medium: 1, Low: 2 };
     const orderedGuides = Object.entries(guides).sort(([, first], [, second]) =>
@@ -415,7 +420,16 @@ export default function DocumentChecker({ schemeId, savedOnly = false }: { schem
       </div>
       {checklist && (
         <div className="checker-checklist">
-          <h3>Required evidence</h3>
+          <h3>Scheme document checklist</h3>
+          {checklist.items?.length ? <details><summary>Review the listed and conditional documents</summary>{checklist.items.map(item =>
+            <label key={item.id} className="form-field"><span>{item.section === "conditional" ? "Conditional · " : ""}{item.label}</span>
+              <select className="select" value={preparation[item.id] || "unsure"} onChange={event => {
+                setPreparation(current => ({...current, [item.id]:event.target.value})); setReport(undefined);
+              }}><option value="unsure">To confirm</option><option value="ready">I have this ready</option><option value="missing">I am missing this</option><option value="inapplicable">Does not apply in my situation</option></select>
+            </label>)}</details> : <p>{checklist.instructions}</p>}
+          {!checklist.items?.length && checklist.conditional && <p>Conditional requirements · {checklist.conditional}</p>}
+          {checklist.source && <a href={checklist.source} target="_blank" rel="noreferrer">Read the scheme source</a>}
+          <p>{checklist.required_types.length ? "Evidence categories checked automatically" : "Review these requirements manually. Uploaded documents can be compared for inconsistencies."}</p>
           <ul>{checklist.required_types.map((type) => <li key={type}>{documentTypes[type]}</li>)}</ul>
         </div>
       )}
@@ -583,6 +597,8 @@ export default function DocumentChecker({ schemeId, savedOnly = false }: { schem
             <summary>See missing values</summary>
             <ul>{missing.map((item, index) => <li key={index}>{item}</li>)}</ul>
           </details>}
+          {Boolean(report.eligibility_recheck?.conflicted_fields.length) && <p role="status">Resolve these conflicting fields and rerun the check: {report.eligibility_recheck?.conflicted_fields.join(", ")}. Your saved profile has been preserved.</p>}
+          {Boolean(report.preparation?.length) && <p>From your checklist: {report.preparation?.filter(item => item.answer === "missing").length} marked missing, {report.preparation?.filter(item => item.answer === "unsure").length} to confirm.</p>}
           {report.rule_set_version && <p>Eligibility rules {report.rule_set_version}</p>}
           <p className="checker-result-summary">{differenceComparisons.length > 0 ? "Differences found. Review the fields below." : "No differing fields found."}</p>
           {submittedRows.some((row) => row.upload) && <p>Check the extracted values against the originals before requesting a correction.</p>}
